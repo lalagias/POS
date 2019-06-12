@@ -1,0 +1,13 @@
+.tablePanel {
+    height:175px;
+     border-radius: 50px;
+}
+.tablePanels {
+    border-radius: 50px;
+}
+.jumbotron {
+    border-radius: 50px;
+}
+.dinerTitle h1 {
+font-family: 'Joti One', cursive;
+}
