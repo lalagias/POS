@@ -52,7 +52,8 @@ class Checkout extends Component {
         paymentObject.amount = this.state.amountTendered;
         paymentObject.paymentType = this.state.paymentMethod;
         paymentObject.card = this.state.card;
-        paymentObject.bill = this.props.table.bill; 
+        paymentObject.bill = this.props.table.bill;
+        console.log('paymentObject.bill',paymentObject.bill);
         //send the object "down the chain"
         this.props.submitPayment(paymentObject)
         //reset the state

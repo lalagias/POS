@@ -6,12 +6,15 @@ export default {
     getMenu: () => {
         return axios.get("/menu")
     },
+
     getServers: ()=>{
         return axios.get("/servers")
     },
+
     getTables: ()=>{
         return axios.get("/check/unpaid")
     },
+
     seatGuests: (seating)=>{
         //seats new guests
         return axios.post("/check/seat",seating)
@@ -23,8 +26,9 @@ export default {
                 }
             })
     },
+
     // place new order
-    placeOrder: (order, dbresponse)=>{
+    placeOrder: (order, dbresponse) => {
         return axios.put("/order/"+ order.bill.id, order)
             .then(response => {
                 dbresponse(response)
@@ -34,9 +38,10 @@ export default {
                 return error;
             })
     },
+
     //change Table
-    changeTable:(order)=>{
-        return axios.put("/check/updateTable/"+order.bill.id,order)
+    changeTable: (table) => {
+        return axios.put("/check/updateTable/" + table.bill.id,table)
             .then(response =>{
                 return response
             }).catch(error => {
@@ -45,9 +50,10 @@ export default {
                 }
             })
     },
+
     //checkout process
     submitPayment: (payment) => {
-        let newPayment = {}
+        let newPayment = {};
         newPayment.paid = true;
         newPayment.card = payment.card
         newPayment.amountTendered = payment.amount;
@@ -63,6 +69,7 @@ export default {
                 })
         )
     },
+
     login:(code, setUser) => {
         return(
             axios.get(`/servers/login/${code}`)
@@ -75,6 +82,7 @@ export default {
                 })
         )
     },
+
     addServer: (server) => {
         if (server) {
         let newServer={};
@@ -92,6 +100,7 @@ export default {
             )
         }
     },
+
     addMenu: (item) => {
         if (item) {
             let newItem = {};

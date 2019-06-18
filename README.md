@@ -107,16 +107,16 @@ The main purpose of this repository is to continue to test React core, making it
 
 ### /checks
 #### GET Routes
- * /checks  returns JSON of all 'checks' entries
- * /checks/paid returns JSON of all paid checks
- * /checks/unpaid returns JSON of all unpaid checks
- * /checks/:id returns single check by ID
+ * /check  returns JSON of all 'checks' entries
+ * /check/paid returns JSON of all paid checks
+ * /check/unpaid returns JSON of all unpaid checks
+ * /check/:id returns single check by ID
 #### POST Routes
- * /checks/seat creates a new 'check' or a new gues seating, returns json with ID data
+ * /check/seat creates a new 'check' or a new gues seating, returns json with ID data
 #### PUT Routes
- * /checks/:id Updates check by ID
+ * /check/:id Updates check by ID
 #### DELETE Routes
- * /checks/delete/:id
+ * /check/delete/:id
 
 ### /menu
 #### GET Routes
@@ -139,6 +139,6 @@ The main purpose of this repository is to continue to test React core, making it
 ### /servers
 #### GET Routes
  * /servers returns JSON of all waitstaff entries
- * /servers/:code Validates the user access code
+ * /servers/login/:code Validates the user access code
 #### POST Routes
  * /servers/add Creates a new waitstaff/server entry, returns JSON with ID 

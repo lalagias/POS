@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row, Grid, Jumbotron, Panel } from 'react-bootstrap';
+import { Col, Row, Grid, Panel } from 'react-bootstrap';
 import Aux from '../Hoc/Hoc'
 import './Table.css';
 
@@ -19,8 +19,9 @@ const table = props => {
                         return (
                             <Col 
                             className="tablePanels"
-                            md={12}
-                            xs={6}
+                            lg={3}
+                            md={4}
+                            xs={12}
                             key={table.name}>
                                 <Panel 
                                 className="tablePanels" 

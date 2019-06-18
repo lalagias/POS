@@ -247,7 +247,7 @@ class App extends Component {
     activeTableIndex: null,
     // Is modal active
     modalActive: false,
-    // is orderodal active
+    // is order modal active
     orderModal: false,
     // Response from DB upon submitted the order from order component
     orderResponse: null,
@@ -259,26 +259,27 @@ class App extends Component {
 
   componentDidMount() {
     //populates the data from the DB
+      console.log('got DATA');
     this.populateData();
   }
+
   populateData = () => {
     this.getMenu();
     this.getServers();
     this.getUnpaidChecks();
   }
+
   activePageHandler = (event) => {
     //This is for the navbar to find the active page
     this.getUnpaidChecks();
     this.forceUpdate();
-    console.log('pagehandler update')
+    console.log('pagehandler update');
     this.setState({ activePage: event });
-
-
   }
 
   getMenu = () => {
     API.getMenu().then(results => {
-      let newMenu = results.data
+      let newMenu = results.data;
       this.setState({ menu: newMenu }, () => {
       })
     }).catch(error => {
@@ -288,27 +289,27 @@ class App extends Component {
 
   getServers = () => {
     API.getServers().then((results) => {
-      let newServers = results.data
+      let newServers = results.data;
       this.setState({ servers: newServers })
     }).catch(error => {
       if (error) throw (error)
     })
-    
   }
+
   getUnpaidChecks = () => {
     //this checks the database on load to see if there are unpaid checks
     API.getTables().then(results => {
-      let newTablesData = results.data
+      let newTablesData = results.data;
       // if the result has data, there are unpaid checks
       if (newTablesData) {
         // get the tables from state in a stretch
-        let updateChecks = [...this.state.tables]
+        let updateChecks = [...this.state.tables];
         //map through the data from the d/b
         newTablesData.map(item => {
           // match them against the tables in state
           updateChecks.map((table, index) => {
             if (table.name === item.table) {
-              let updateChecksIndex = null;
+              let updateChecksIndex;
               //update the table's object
               updateChecksIndex = index;
               updateChecks[updateChecksIndex].bill.id = item._id;
@@ -326,6 +327,7 @@ class App extends Component {
       }
     })
   }
+
   //clears the active table;
   cleanTable = () => {
     let misterClean = [...this.state.tables];
@@ -369,6 +371,7 @@ class App extends Component {
       },function() {this.props.alert.show('Successfully Logged In!',{ type: "success" })})
     }
   }
+
   // When user clicks logout button set user to null
   unsetUser = () => {
     this.setState({
@@ -382,7 +385,6 @@ class App extends Component {
       [this.state.tables[this.state.activeTableIndex].pendingOrder]: pendingOrder
     });
   }
-
 
   // Saves pendering orders into ordered list
   savePendingOrder = newOrderList => {
@@ -415,6 +417,7 @@ class App extends Component {
         newBillTotal += parseFloat(newItem.charge);
        }
     });
+
     // Store updated info into table object
     table.bill.items = currentOrderList;
     table.bill.total = (newBillTotal).toFixed(2);
@@ -475,6 +478,7 @@ class App extends Component {
       }
       ).catch(error => { throw error })
   }
+
   seatGuestsFromModalHandler = (server, guests) => {
     //click handler from the modal, seats new guests, updates state, creates a new receipt and then updates state with the new receipt
     // Push to the DB
@@ -500,6 +504,7 @@ class App extends Component {
       }
     });
   }
+
 //these are helper functions to open and close the modals
   modalOpen = () => {
     this.getUnpaidChecks();
@@ -507,17 +512,19 @@ class App extends Component {
     this.setState({ modalActive: true }, function () {
     })
   }
+
   modalClose = () => {
     this.setState({ modalActive: false }, function () {
     })
   }
+
   modalOrder = () => {
     // from inside the modal, this function lets the modal open an order page, it closes the modal too
     this.setState({ activePage: "Orders", modalActive: false })
   }
 
-  changeTable=(t)=>{
-    API.changeTable(t)
+  changeTable = (table) => {
+    API.changeTable(table)
         .then(results => {
           if (results.status === 200) {
             this.cleanTable();

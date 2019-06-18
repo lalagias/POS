@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Modal, ButtonGroup } from 'react-bootstrap';
 import Checkout from './Checkout/Checkout'
 import Print from './Print/Print'
-import  ChangeTable from './ChangeTable/ChangeTable'
+import ChangeTable from './ChangeTable/ChangeTable'
 
 const occupied = props => {
     let occupiedRenderPage = null;
@@ -30,21 +30,21 @@ const occupied = props => {
                     table={props.table}
                     changeTable={props.changeTable} />
             )
-            break;
+        break;
         default:
         occupiedRenderPage=  (
             <ButtonGroup 
             vertical 
             block>
                 <Button 
-                bsSize="large" 
-                bsStyle="success" 
-                onClick={props.order}> Place Order 
+                    bsSize="large"
+                    bsStyle="success"
+                    onClick={props.order}> Place Order
                 </Button>
                 <Button 
-                bsSize="large" 
-                bsStyle="info" 
-                onClick={() => props.click("receipt")}> Print Check
+                    bsSize="large"
+                    bsStyle="info"
+                    onClick={() => props.click("receipt")}> Print Check
                  </Button>
                 <Button
                     bsSize="large"
@@ -52,9 +52,9 @@ const occupied = props => {
                     onClick={() => props.click("changeTable")}> Change Table
                 </Button>
                 <Button 
-                bsSize="large" 
-                bsStyle="primary" 
-                onClick={() => props.click("checkout")}> Checkout
+                    bsSize="large"
+                    bsStyle="primary"
+                    onClick={() => props.click("checkout")}> Checkout
                  </Button>
             </ButtonGroup>
         )

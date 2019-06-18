@@ -4,7 +4,6 @@ import Occupied from './Occupied/Occupied';
 import NewSeating from './NewSeating/NewSeating'
 
 
-
 class SeatModal extends Component {
 
     state = {
@@ -12,9 +11,11 @@ class SeatModal extends Component {
         guestNumber: "Select Number",
         occupiedRender: null
     }
+
     occupiedRenderHandler = (page) => {
         this.setState({occupiedRender: page})
     }
+
     handleServerSelection = (server) => {
         this.setState({chosenServer: server});  
         this.props.setServer(server);     
