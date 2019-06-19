@@ -19,7 +19,7 @@ const initialState = {
 class ChangeTable extends Component {
     state = initialState;
 
-    handleTableChange=(event) => {
+    handleTableChange = (event) => {
         if (event.target.value !== '') {
             this.setState({
                 tableNo: event.target.value
@@ -27,13 +27,16 @@ class ChangeTable extends Component {
         }
     };
 
-    changeTable=()=>{
-        this.props.table.name = "Table "+ this.state.tableNo;
-        console.log('props heere:', this.props.table);
+    //todo: bug with the UI update, if u refresh change table functionality is fine
+    changeTable = () => {
+        console.log('props before name changed:', this.props.table);
+        this.props.table.name = "Table " + this.state.tableNo;
+        console.log('props after name changed:', this.props.table);
         // let tab = this.props.table
         // console.log(tab)
         this.props.changeTable(this.props.table);
-    }
+        console.log('after api call:', this.props.table);
+    };
 
     render() {
         return(

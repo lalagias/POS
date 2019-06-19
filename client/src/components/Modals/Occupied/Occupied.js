@@ -24,7 +24,7 @@ const occupied = props => {
             )
         break;
         case('changeTable'):
-            console.log('case entered changeTable')
+            console.log('case entered changeTable');
             occupiedRenderPage= (
                 <ChangeTable
                     table={props.table}

@@ -245,6 +245,8 @@ class App extends Component {
     activeTable: null,
     // Index position of table that has been selected
     activeTableIndex: null,
+    // Table name that changed
+    oldTableName: null,
     // Is modal active
     modalActive: false,
     // is order modal active
@@ -255,7 +257,7 @@ class App extends Component {
     messageModalActive: false,
     // Content of message modal
     messageModal: ""
-  }
+  };
 
   componentDidMount() {
     //populates the data from the DB
@@ -267,7 +269,7 @@ class App extends Component {
     this.getMenu();
     this.getServers();
     this.getUnpaidChecks();
-  }
+  };
 
   activePageHandler = (event) => {
     //This is for the navbar to find the active page
@@ -275,7 +277,7 @@ class App extends Component {
     this.forceUpdate();
     console.log('pagehandler update');
     this.setState({ activePage: event });
-  }
+  };
 
   getMenu = () => {
     API.getMenu().then(results => {
@@ -285,7 +287,7 @@ class App extends Component {
     }).catch(error => {
       if (error) throw (error)
     })
-  }
+  };
 
   getServers = () => {
     API.getServers().then((results) => {
@@ -294,9 +296,10 @@ class App extends Component {
     }).catch(error => {
       if (error) throw (error)
     })
-  }
+  };
 
   getUnpaidChecks = () => {
+    console.log('getUnpaidChecks');
     //this checks the database on load to see if there are unpaid checks
     API.getTables().then(results => {
       let newTablesData = results.data;
@@ -320,17 +323,21 @@ class App extends Component {
               updateChecks[updateChecksIndex].bill.total = item.total;
             }
           })
-        })
+        });
         //push the changed tables back to state
-        this.setState({tables: updateChecks})
-        console.log('updated the fucking tables ')
+        this.setState({tables: updateChecks});
+        console.log('updated the fucking tables')
       }
     })
-  }
+  };
 
   //clears the active table;
   cleanTable = () => {
+    console.log('clean Table');
     let misterClean = [...this.state.tables];
+    console.log('misterClean ',misterClean);
+    console.log('this.state.activeTableIndex ',this.state.activeTableIndex);
+    console.log('misterClean[this.state.activeTableIndex] ', misterClean[this.state.activeTableIndex]);
       misterClean[this.state.activeTableIndex].isOccupied= false;
       misterClean[this.state.activeTableIndex].guestNumber= null;
       misterClean[this.state.activeTableIndex].server= null;
@@ -345,7 +352,31 @@ class App extends Component {
         activeTableIndex: null,
         modalActive: false
       });
-    }
+    };
+
+  cleanOldTable = () => {
+      console.log('cleanOldTable');
+      console.log('this.state.tables ',this.state.tables);
+      this.setState({
+          tables: this.state.tables.map(table => (table.name === this.state.oldTableName ? Object.assign({}, table, {
+              isOccupied: false,
+              guestNumber: null,
+              server: null,
+              pendingOrder: [],
+              bill: {
+                  id: null,
+                  items: [],
+                  total: null
+              }
+          }) : table))
+      });
+
+      this.setState({
+          activeTable: null,
+          activeTableIndex: null,
+          modalActive: false
+      });
+  };
 
     // handles what happens when a table is clicked (sets an active table, active index, and opens the modal
   handleTableClick = (item) => {
@@ -359,7 +390,7 @@ class App extends Component {
         })
       }
     })
-  }
+  };
 
   // Callback function for DB query to verify login code
   setUser = (name) => {
@@ -370,28 +401,28 @@ class App extends Component {
         user: name
       },function() {this.props.alert.show('Successfully Logged In!',{ type: "success" })})
     }
-  }
+  };
 
   // When user clicks logout button set user to null
   unsetUser = () => {
     this.setState({
       user: null
     }, function () { this.props.alert.show('Successfully Logged Out!')})
-  }
+  };
 
   // Called from Order.js component, updates pending order list for active table
   updatePendingOrder = pendingOrder => {
     this.setState({
       [this.state.tables[this.state.activeTableIndex].pendingOrder]: pendingOrder
     });
-  }
+  };
 
   // Saves pendering orders into ordered list
   savePendingOrder = newOrderList => {
     // variables for asthetic purposes, shorten code length
     const activeTable = this.state.activeTableIndex;
     const pendingOrders = this.state.tables[activeTable].pendingOrder;
-    var currentOrderList = this.state.tables[activeTable].bill.items;
+    let currentOrderList = this.state.tables[activeTable].bill.items;
     let table = this.state.tables[activeTable];
     let newBillTotal = parseFloat(this.state.tables[activeTable].bill.total);
 
@@ -429,12 +460,12 @@ class App extends Component {
      },
        this.orderToDb()
      );
-  }
+  };
 
   // Call placeOrder API route to update database and wait for response
   orderToDb = () => {
     API.placeOrder(this.state.tables[this.state.activeTableIndex], this.dbresponse);
-  }
+  };
 
   // Process route response from updating order and set message to be forwarded to Order component
   dbresponse = (response)=> {
@@ -446,18 +477,18 @@ class App extends Component {
       orderResponse: orderMessage,
       orderModal: true
     });
-  }
+  };
 
   // Close Response modal
   orderClose = () => {
     this.setState({
       orderModal: false
     })
-  }
+  };
 
   setServer = (server) => {
     this.setState({ [this.state.tables[this.state.activeTableIndex].server]: server });
-  }
+  };
 
   addServer = (server,callback) => {
     API.addServer(server)
@@ -467,7 +498,7 @@ class App extends Component {
       }
     }
     ).catch(error =>  {throw error})
-  }
+  };
 
   addMenu = (menu) => {
     API.addMenu(menu)
@@ -477,7 +508,7 @@ class App extends Component {
         }
       }
       ).catch(error => { throw error })
-  }
+  };
 
   seatGuestsFromModalHandler = (server, guests) => {
     //click handler from the modal, seats new guests, updates state, creates a new receipt and then updates state with the new receipt
@@ -503,7 +534,7 @@ class App extends Component {
         });
       }
     });
-  }
+  };
 
 //these are helper functions to open and close the modals
   modalOpen = () => {
@@ -511,27 +542,35 @@ class App extends Component {
     console.log("modal opener ")
     this.setState({ modalActive: true }, function () {
     })
-  }
+  };
 
   modalClose = () => {
     this.setState({ modalActive: false }, function () {
     })
-  }
+  };
 
   modalOrder = () => {
     // from inside the modal, this function lets the modal open an order page, it closes the modal too
     this.setState({ activePage: "Orders", modalActive: false })
-  }
+  };
 
   changeTable = (table) => {
     API.changeTable(table)
         .then(results => {
           if (results.status === 200) {
-            this.cleanTable();
+            console.log('results.new',results.data.new);
+              this.setState({
+                  oldTableName: results.data.new
+              }, () => {
+                  // this.getUnpaidChecks();
+                  this.cleanOldTable();
+                  this.getUnpaidChecks();
+              });
+              console.log('this.state.tables',this.state.tables);
           }
         })
         .catch(error => {throw error })
-  }
+  };
 
   submitPayment = (payment) => {
     API.submitPayment(payment)
@@ -541,7 +580,7 @@ class App extends Component {
         }
       })
       .catch(error => {throw error })
-  }
+  };
 
   render() {
     let activeContent = null;
@@ -618,7 +657,8 @@ class App extends Component {
               close={this.modalClose} 
               order={this.modalOrder} 
               receipt={this.printReceipt}
-              submitPayment={this.submitPayment} 
+              submitPayment={this.submitPayment}
+              changeTable={this.changeTable}
               setServer={this.setServer} 
               seatGuests={this.seatGuestsFromModalHandler} />) 
               : (null)

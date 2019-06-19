@@ -43,9 +43,11 @@ export default {
     changeTable: (table) => {
         return axios.put("/check/updateTable/" + table.bill.id,table)
             .then(response =>{
+                console.log('kalispera',response);
                 return response
             }).catch(error => {
                 if (error) {
+                    console.log(error);
                     return error;
                 }
             })

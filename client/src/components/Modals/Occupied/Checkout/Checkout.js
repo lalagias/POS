@@ -16,7 +16,6 @@ const initialState = {
 
 class Checkout extends Component {
     state = initialState;
-    
 
     resetToInitialState = () => {
         this.setState(initialState)
@@ -24,10 +23,12 @@ class Checkout extends Component {
     payment = method => {
         this.setState({paymentMethod: method})
     }
+
     handleAmountChange=(event) => {
         //could use some validation if time allows
         this.setState({amountTendered: event.target.value})
     }
+
     handleCreditChange=(event) => {
         //could use some validation if time allows
         let card={...this.state.card}
@@ -40,6 +41,7 @@ class Checkout extends Component {
         card.cardExp = event.target.value
         this.setState({ card: card })
     }
+
     handleCvcChange=(event) => {
         //could use some validation if time allows
         let card = { ...this.state.card }
@@ -59,7 +61,6 @@ class Checkout extends Component {
         //reset the state
         this.resetToInitialState();
     }
-
 
     render() {
         //conditional rendering based on the pulldown menu

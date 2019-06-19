@@ -33,8 +33,8 @@ class Login extends Component {
     render(params){
         return (
         <Grid>
-            <Col xs={12}/>
-                <Col xs={12}>
+            <Col lg={4} md={6} xs={12}/>
+                <Col lg={4} md={6} xs={12}>
                     <Panel>
                         <Well>
                             <Form>
@@ -67,7 +67,7 @@ class Login extends Component {
                                 <Col md={3}><Button bsSize="large" bsStyle="info" onClick={(event) => this.enterId(event)} value="0">0</Button></Col>
                             </Row>
                             <Row>
-                                <Col md={3}><Button bsSize="medium" bsStyle="success" onClick={() => this.userCheck()}>Login</Button></Col>
+                                <Col md={3}><Button bsSize="large" bsStyle="success" onClick={() => this.userCheck()}>Login</Button></Col>
                             </Row>
                         </Well>
                     </Panel>
