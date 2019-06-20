@@ -357,8 +357,9 @@ class App extends Component {
   cleanOldTable = () => {
       console.log('cleanOldTable');
       console.log('this.state.tables ',this.state.tables);
+      console.log('this.state.oldTableName:', this.state.oldTableName);
       this.setState({
-          tables: this.state.tables.map(table => (table.name === this.state.oldTableName ? Object.assign({}, table, {
+          tables: this.state.tables.map(table => (table.name === this.state.oldTableName ? Object.assign(table, {
               isOccupied: false,
               guestNumber: null,
               server: null,
@@ -555,21 +556,21 @@ class App extends Component {
   };
 
   changeTable = (table) => {
-    API.changeTable(table)
-        .then(results => {
-          if (results.status === 200) {
+      console.log('APPJS JSJSJSJSJ this.state.tables before changes',this.state.tables);
+      API.changeTable(table)
+      .then(results => {
+        if (results.status === 200) {
+            console.log('results.data', results.data);
             console.log('results.new',results.data.new);
-              this.setState({
-                  oldTableName: results.data.new
-              }, () => {
-                  // this.getUnpaidChecks();
-                  this.cleanOldTable();
-                  this.getUnpaidChecks();
-              });
-              console.log('this.state.tables',this.state.tables);
-          }
-        })
-        .catch(error => {throw error })
+            console.log('APPJSJSJSJS this.state.tables after changes',this.state.tables);
+
+            // this.cleanOldTable();
+            this.cleanTable();
+            this.getUnpaidChecks();
+
+        }
+      })
+      .catch(error => {throw error })
   };
 
   submitPayment = (payment) => {

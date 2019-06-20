@@ -10,7 +10,7 @@ import Hoc from '../../../Hoc/Hoc';
 
 
 const initialState = {
-    tableNo: ""
+    tableNo: "",
 };
 
 // TODo herein put the form and the submit button to send the data and update the table :D
@@ -27,15 +27,27 @@ class ChangeTable extends Component {
         }
     };
 
-    //todo: bug with the UI update, if u refresh change table functionality is fine
+    //todo: need to add functionality to update table if it exists and if it is not occupied
     changeTable = () => {
         console.log('props before name changed:', this.props.table);
-        this.props.table.name = "Table " + this.state.tableNo;
-        console.log('props after name changed:', this.props.table);
-        // let tab = this.props.table
-        // console.log(tab)
-        this.props.changeTable(this.props.table);
+        console.log('this.state.tableNo:', this.state.tableNo);
+
+        let tableObj = {};
+        tableObj.bill = this.props.table.bill;
+        console.log('tableObj.bill.id', tableObj.bill.id);
+        console.log('this.props.table.bill.id', this.props.table.bill.id);
+        tableObj.guestNumber = this.props.table.guestNumber;
+        tableObj.isOccupied = this.props.table.isOccupied;
+        tableObj.name = "Table " + this.state.tableNo;
+        tableObj.pendingOrder = this.props.table.pendingOrder;
+        tableObj.server = this.props.table.server;
+
+        console.log('tableObj', tableObj);
+        // console.log('this.props.table',this.props.table);
+        // this.props.table.name = "Table " + this.state.tableNo;
+        this.props.changeTable(tableObj);
         console.log('after api call:', this.props.table);
+        console.log('after api call tableObj:', tableObj);
     };
 
     render() {

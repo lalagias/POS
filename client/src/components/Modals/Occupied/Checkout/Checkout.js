@@ -20,6 +20,7 @@ class Checkout extends Component {
     resetToInitialState = () => {
         this.setState(initialState)
     }
+
     payment = method => {
         this.setState({paymentMethod: method})
     }
@@ -35,6 +36,7 @@ class Checkout extends Component {
         card.cardNumber = event.target.value
         this.setState({card: card})
     }
+
     handleExpChange=(event) => {
         //could use some validation if time allows
         let card = { ...this.state.card }

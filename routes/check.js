@@ -147,15 +147,16 @@ router.delete('/delete/:id', (req, res, next) => {
         .catch(error => res.json(error));
 });
 
-
-router.put('/updateTable/:id', (req, res, next) => {
-
+// Update Table (changeTable function)
+router.put('/updateTable/:id', async (req, res, next) => {
+    console.log('req.body:', req.body);
+    console.log('req.params:', req.params);
     receipt.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params
             .id)
     }, {$set: {table: req.body.name}}, (err, updatedCheck) => {
         if (err) return handleError(err);
 
-        res.status(200).send({new:req.body.name,oldTable:updatedCheck})
+        res.status(200).send({new:req.body.name, oldTable:updatedCheck})
     })
 
 

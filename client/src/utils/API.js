@@ -41,9 +41,12 @@ export default {
 
     //change Table
     changeTable: (table) => {
-        return axios.put("/check/updateTable/" + table.bill.id,table)
+        console.log('API call table:', table);
+        console.log('table.bill.id:', table.bill.id);
+        return axios.put("/check/updateTable/" + table.bill.id, table)
             .then(response =>{
                 console.log('kalispera',response);
+                console.log('oldTable', response.data.oldTable.table);
                 return response
             }).catch(error => {
                 if (error) {
