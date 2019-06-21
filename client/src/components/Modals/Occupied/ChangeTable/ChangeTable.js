@@ -13,9 +13,6 @@ const initialState = {
     tableNo: "",
 };
 
-// TODo herein put the form and the submit button to send the data and update the table :D
-
-
 class ChangeTable extends Component {
     state = initialState;
 

@@ -68,7 +68,7 @@ const table = props => {
                 </Grid>
             </Grid> 
             )
-        }
+        };
 export default table;
 
         

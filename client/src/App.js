@@ -245,8 +245,6 @@ class App extends Component {
     activeTable: null,
     // Index position of table that has been selected
     activeTableIndex: null,
-    // Table name that changed
-    oldTableName: null,
     // Is modal active
     modalActive: false,
     // is order modal active
@@ -333,11 +331,7 @@ class App extends Component {
 
   //clears the active table;
   cleanTable = () => {
-    console.log('clean Table');
     let misterClean = [...this.state.tables];
-    console.log('misterClean ',misterClean);
-    console.log('this.state.activeTableIndex ',this.state.activeTableIndex);
-    console.log('misterClean[this.state.activeTableIndex] ', misterClean[this.state.activeTableIndex]);
       misterClean[this.state.activeTableIndex].isOccupied= false;
       misterClean[this.state.activeTableIndex].guestNumber= null;
       misterClean[this.state.activeTableIndex].server= null;
@@ -354,31 +348,6 @@ class App extends Component {
       });
     };
 
-  cleanOldTable = () => {
-      console.log('cleanOldTable');
-      console.log('this.state.tables ',this.state.tables);
-      console.log('this.state.oldTableName:', this.state.oldTableName);
-      this.setState({
-          tables: this.state.tables.map(table => (table.name === this.state.oldTableName ? Object.assign(table, {
-              isOccupied: false,
-              guestNumber: null,
-              server: null,
-              pendingOrder: [],
-              bill: {
-                  id: null,
-                  items: [],
-                  total: null
-              }
-          }) : table))
-      });
-
-      this.setState({
-          activeTable: null,
-          activeTableIndex: null,
-          modalActive: false
-      });
-  };
-
     // handles what happens when a table is clicked (sets an active table, active index, and opens the modal
   handleTableClick = (item) => {
 
@@ -387,7 +356,7 @@ class App extends Component {
       if (table.name === item) {
         newTableIndex = index;
         this.setState({ activeTable: item, activeTableIndex: newTableIndex },function(){
-          this.modalOpen()
+          this.modalOpen();
         })
       }
     })
@@ -418,14 +387,13 @@ class App extends Component {
     });
   };
 
-  // Saves pendering orders into ordered list
+  // Saves pending orders into ordered list
   savePendingOrder = newOrderList => {
-    // variables for asthetic purposes, shorten code length
+    // variables for aesthetic purposes, shorten code length
     const activeTable = this.state.activeTableIndex;
     const pendingOrders = this.state.tables[activeTable].pendingOrder;
     let currentOrderList = this.state.tables[activeTable].bill.items;
     let table = this.state.tables[activeTable];
-    let newBillTotal = parseFloat(this.state.tables[activeTable].bill.total);
 
     // Loop through list of pending orders
     pendingOrders.map(newItem => {
@@ -435,32 +403,30 @@ class App extends Component {
       const menuItemIndex = this.state.menu.findIndex(index => index.name === newItem.name);
       // variables for asthetic purposes, shorten code length
       const menuItem = this.state.menu[menuItemIndex];
-     
+
       //If item is found in the list add the ordered quantity to the pending quantity and calculate the new cost of the quantity
       // If not found calculate the total cost and push all items into the array
-      
-      if(currentItemIndex !== -1){ 
-        currentOrderList[currentItemIndex].quantity = parseInt(currentOrderList[currentItemIndex].quantity,10) + parseInt(newItem.quantity,10); 
-        currentOrderList[currentItemIndex].charge = (parseFloat(currentOrderList[currentItemIndex].quantity) * parseFloat(menuItem.cost)).toFixed(2);
-        newBillTotal = parseFloat(currentOrderList[currentItemIndex].charge);
-      }else{
+
+      if (currentItemIndex !== -1) {
+        currentOrderList[currentItemIndex].quantity = parseInt(currentOrderList[currentItemIndex].quantity,10) + parseInt(newItem.quantity,10);
+        currentOrderList[currentItemIndex].charge = (parseFloat(currentOrderList[currentItemIndex].quantity) * parseFloat(menuItem.cost));
+      } else {
         newItem.charge = parseInt(newItem.quantity,10) * parseFloat(menuItem.cost);
         currentOrderList.push(newItem);
-        newBillTotal += parseFloat(newItem.charge);
        }
     });
 
     // Store updated info into table object
     table.bill.items = currentOrderList;
-    table.bill.total = (newBillTotal).toFixed(2);
+    // Reduce function to sum up all the charges in the bill array
+    table.bill.total = this.state.tables[activeTable].bill.items.map(item => item.charge).reduce((sum, nextCharge) => sum + nextCharge);
     table.pendingOrder = [];
 
     //Set State using table object and use callback once state is updated
-     this.setState({
+    this.setState({
        [this.state.tables[activeTable]]: table,
-     },
-       this.orderToDb()
-     );
+        }, this.orderToDb()
+    );
   };
 
   // Call placeOrder API route to update database and wait for response
@@ -517,12 +483,12 @@ class App extends Component {
     const seating = {};
     seating.server = server;
     seating.guests = guests;
-    seating.table = this.state.activeTable
+    seating.table = this.state.activeTable;
 
     API.seatGuests(seating).then(results => {
       if (results.status === 200) {
 
-        let updateTables = [...this.state.tables]
+        let updateTables = [...this.state.tables];
         updateTables[this.state.activeTableIndex].guestNumber = guests;
         updateTables[this.state.activeTableIndex].server = server;
         updateTables[this.state.activeTableIndex].isOccupied = true;
@@ -540,7 +506,7 @@ class App extends Component {
 //these are helper functions to open and close the modals
   modalOpen = () => {
     this.getUnpaidChecks();
-    console.log("modal opener ")
+    console.log("modal opener ");
     this.setState({ modalActive: true }, function () {
     })
   };
@@ -556,18 +522,11 @@ class App extends Component {
   };
 
   changeTable = (table) => {
-      console.log('APPJS JSJSJSJSJ this.state.tables before changes',this.state.tables);
       API.changeTable(table)
       .then(results => {
         if (results.status === 200) {
-            console.log('results.data', results.data);
-            console.log('results.new',results.data.new);
-            console.log('APPJSJSJSJS this.state.tables after changes',this.state.tables);
-
-            // this.cleanOldTable();
             this.cleanTable();
             this.getUnpaidChecks();
-
         }
       })
       .catch(error => {throw error })
@@ -596,7 +555,7 @@ class App extends Component {
             tables={this.state.tables} 
             clicked={this.handleTableClick} />
             
-          )
+          );
           break;
         case ("Orders"):
           // Sets Order Page as rendered page and passes props to Order Component
@@ -608,7 +567,7 @@ class App extends Component {
             orderSubmit={this.savePendingOrder} 
             updatePendingOrder={this.updatePendingOrder} 
             orderModal={this.state.orderModal}/>
-          )
+          );
           break;
         case ("Admin"):
           activeContent = (
@@ -617,7 +576,7 @@ class App extends Component {
             addServer={this.addServer} 
             menu={this.state.menu} 
             addMenu={this.addMenu}/>
-          )
+          );
           break;
         default:
           activeContent = null

@@ -19,50 +19,50 @@ class Checkout extends Component {
 
     resetToInitialState = () => {
         this.setState(initialState)
-    }
+    };
 
     payment = method => {
         this.setState({paymentMethod: method})
-    }
+    };
 
     handleAmountChange=(event) => {
         //could use some validation if time allows
         this.setState({amountTendered: event.target.value})
-    }
+    };
 
     handleCreditChange=(event) => {
         //could use some validation if time allows
-        let card={...this.state.card}
-        card.cardNumber = event.target.value
+        let card={...this.state.card};
+        card.cardNumber = event.target.value;
         this.setState({card: card})
-    }
+    };
 
     handleExpChange=(event) => {
         //could use some validation if time allows
-        let card = { ...this.state.card }
-        card.cardExp = event.target.value
+        let card = { ...this.state.card };
+        card.cardExp = event.target.value;
         this.setState({ card: card })
-    }
+    };
 
     handleCvcChange=(event) => {
         //could use some validation if time allows
-        let card = { ...this.state.card }
-        card.cvc = event.target.value
+        let card = { ...this.state.card };
+        card.cvc = event.target.value;
         this.setState({ card: card })
-    }
+    };
 
     submitPayment=()=>{
-        let paymentObject = {}
+        let paymentObject = {};
         paymentObject.amount = this.state.amountTendered;
         paymentObject.paymentType = this.state.paymentMethod;
         paymentObject.card = this.state.card;
         paymentObject.bill = this.props.table.bill;
-        console.log('paymentObject.bill',paymentObject.bill);
+
         //send the object "down the chain"
-        this.props.submitPayment(paymentObject)
+        this.props.submitPayment(paymentObject);
         //reset the state
         this.resetToInitialState();
-    }
+    };
 
     render() {
         //conditional rendering based on the pulldown menu
@@ -82,7 +82,7 @@ class Checkout extends Component {
                     bsStyle="info" 
                     onClick={this.submitPayment}>Submit</Button>
                 </Hoc>
-            )
+            );
             break;
 
             case("Payment Method"):
@@ -91,7 +91,7 @@ class Checkout extends Component {
                 bsSize="large" 
                 bsStyle="info" 
                 disabled>Submit</Button>
-            )
+            );
             break;
 
             // all non cash (credit)

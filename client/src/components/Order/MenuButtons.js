@@ -7,21 +7,21 @@ class MenuButtons extends Component {
     addOrder = (event) => {
         const itemToAdd = {name: event.target.id, quantity: "1"};
         this.props.addToOrder(itemToAdd);
-    }
+    };
 
     // Loops through list of items to be displayed based on the category choosen
     // If category is blank don't display anything
     renderButtons(props){
         if(props.category !== ""){
             return (
-                props.menu.map((items,index) => {  
+                props.menu.map((items) => {
                     if (items.category === props.category){
                         return <Button key={items._id} id={items.name} onClick={(event) => this.addOrder(event)}>{items.name}</Button>
                     }
                 })
             );     
         }else{
-            return <p></p>
+            return <p/>
         }
     }
 
@@ -33,6 +33,6 @@ class MenuButtons extends Component {
             </div>
         )
     }
-};
+}
 
 export default MenuButtons;

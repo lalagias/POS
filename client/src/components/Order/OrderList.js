@@ -22,7 +22,7 @@ class OrderList extends Component {
                     </thead>
                     <tbody>
                         {/* Loops through orderList from app.js state and dispays the item name, quantity and delete button */}
-                        {props.newOrderList.map((item, index) => {
+                        {props.newOrderList.map((item) => {
                             return (
                                 <tr key={item._id}>
                                     <td>
@@ -48,9 +48,10 @@ class OrderList extends Component {
     getItemToRemove = (event) => {
         // Retrieves the id information and removes the word delete to retrieve the item name
         const itemToRemove = event.target.id.replace("delete","");
+        console.log('itemToRemove', itemToRemove);
         // passes the item to Order to be processed
         this.props.removeFromOrder(itemToRemove);
-    }
+    };
 
     // Renders the page by calling function
      render(){

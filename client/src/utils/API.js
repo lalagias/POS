@@ -31,7 +31,7 @@ export default {
     placeOrder: (order, dbresponse) => {
         return axios.put("/order/"+ order.bill.id, order)
             .then(response => {
-                dbresponse(response)
+                dbresponse(response);
                 return response;
             })
             .catch(error => {
@@ -60,10 +60,10 @@ export default {
     submitPayment: (payment) => {
         let newPayment = {};
         newPayment.paid = true;
-        newPayment.card = payment.card
+        newPayment.card = payment.card;
         newPayment.amountTendered = payment.amount;
         newPayment.paymentType = payment.paymentType;
-        let URL = encodeURI("/check/"+payment.bill.id)
+        let URL = encodeURI("/check/"+payment.bill.id);
         return (
             axios.put(URL,newPayment)
                 .then(response => {
@@ -91,8 +91,8 @@ export default {
     addServer: (server) => {
         if (server) {
         let newServer={};
-        newServer.name = server.name
-        newServer.code = server.code
+        newServer.name = server.name;
+        newServer.code = server.code;
 
             return (
                 axios.post('/servers/add', newServer)
@@ -109,7 +109,7 @@ export default {
     addMenu: (item) => {
         if (item) {
             let newItem = {};
-            newItem.name = item.name
+            newItem.name = item.name;
             newItem.description = item.description;
             newItem.cost = parseFloat(item.cost);
             newItem.category = item.category;
