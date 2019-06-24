@@ -10,23 +10,24 @@ class SeatModal extends Component {
         chosenServer: "Select Server",
         guestNumber: "Select Number",
         occupiedRender: null
-    }
+    };
 
     occupiedRenderHandler = (page) => {
         this.setState({occupiedRender: page})
-    }
+    };
 
     handleServerSelection = (server) => {
         this.setState({chosenServer: server});  
         this.props.setServer(server);     
-    }
+    };
 
     setGuests = (numOfGuests) => {
         this.setState({guestNumber: numOfGuests})
-    }
+    };
     
     render() {
-        let table = this.props.tables[this.props.activeTableIndex]
+        let table = this.props.tables[this.props.activeTableIndex];
+        let tables = this.props.tables;
 
         if (this.props.activeTable) {
             return (
@@ -34,7 +35,8 @@ class SeatModal extends Component {
                     {/* if the table is occupied, render the waitstaff functions, else render a new seating function */}
                     {table.isOccupied ? (
                         <Occupied 
-                        table={table} 
+                        table={table}
+                        tables={tables}
                         click={this.occupiedRenderHandler} 
                         order={this.props.order}
                         receipt={this.props.receipt}

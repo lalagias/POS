@@ -13,7 +13,7 @@ const occupied = props => {
             occupiedRenderPage=  (
                 <Print 
                 table={props.table} />
-            )
+            );
         break;
 
         case ('checkout'):
@@ -21,15 +21,16 @@ const occupied = props => {
                 <Checkout 
                 table={props.table} 
                 submitPayment={props.submitPayment} />
-            )
+            );
         break;
         case('changeTable'):
             console.log('case entered changeTable');
             occupiedRenderPage= (
                 <ChangeTable
                     table={props.table}
+                    tables={props.tables}
                     changeTable={props.changeTable} />
-            )
+            );
         break;
         default:
         occupiedRenderPage=  (
@@ -58,7 +59,6 @@ const occupied = props => {
                  </Button>
             </ButtonGroup>
         )
-
     }
     return (
         <div 
@@ -77,5 +77,6 @@ const occupied = props => {
             </Modal.Dialog>
         </div>
     )
-}
+};
+
 export default occupied;

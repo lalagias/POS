@@ -10,7 +10,8 @@ import Hoc from '../../../Hoc/Hoc';
 
 
 const initialState = {
-    tableNo: "",
+    tableName: "",
+    error: false,
 };
 
 class ChangeTable extends Component {
@@ -19,41 +20,67 @@ class ChangeTable extends Component {
     handleTableChange = (event) => {
         if (event.target.value !== '') {
             this.setState({
-                tableNo: event.target.value
+                tableName: event.target.value
             });
         }
     };
 
     //todo: need to add functionality to update table if it exists and if it is not occupied
+    //todo: need to find and squash bug
     changeTable = () => {
-        console.log('props before name changed:', this.props.table);
-        console.log('this.state.tableNo:', this.state.tableNo);
+        console.log(this.props.tables);
+        // if (s1 === s2 || s1 === s2.toLowerCase())
+        console.log('this.state.tableName', this.state.tableName);
+        let tableName = this.state.tableName;
+        this.props.tables.find((table) => {
+            // console.log('this.state:', this.state)
+            // console.log('this', this);
+            // console.log(state.tableName);
+            console.log('table.name', table.name);
+             if (tableName === table.name || tableName === table.name.toLowerCase()) {
+                console.log('found table');
+                if (!table.isOccupied) {
+                    console.log('table can change');
+                    return tableName = table.name;
 
-        let tableObj = {};
-        tableObj.bill = this.props.table.bill;
-        console.log('tableObj.bill.id', tableObj.bill.id);
-        console.log('this.props.table.bill.id', this.props.table.bill.id);
-        tableObj.guestNumber = this.props.table.guestNumber;
-        tableObj.isOccupied = this.props.table.isOccupied;
-        tableObj.name = "Table " + this.state.tableNo;
-        tableObj.pendingOrder = this.props.table.pendingOrder;
-        tableObj.server = this.props.table.server;
+                } else {
+                    console.log('table is occupied! Please choose another table.');
+                    return this.setState({error : true});
+                }
+             } else {
+                 console.log('no table with that name');
+                 return this.setState({error : true});
+             }
+        });
+        if (!this.state.error) {
+            let tableObj = {};
+            tableObj.bill = this.props.table.bill;
 
-        console.log('tableObj', tableObj);
-        // console.log('this.props.table',this.props.table);
-        // this.props.table.name = "Table " + this.state.tableNo;
-        this.props.changeTable(tableObj);
-        console.log('after api call:', this.props.table);
-        console.log('after api call tableObj:', tableObj);
+            tableObj.guestNumber = this.props.table.guestNumber;
+            tableObj.isOccupied = this.props.table.isOccupied;
+            tableObj.name = tableName;
+            tableObj.pendingOrder = this.props.table.pendingOrder;
+            tableObj.server = this.props.table.server;
+
+            console.log('tableObj', tableObj);
+            // console.log('this.props.table',this.props.table);
+            // this.props.table.name = "Table " + this.state.tableNo;
+            this.props.changeTable(tableObj);
+            console.log('after api call:', this.props.table);
+            console.log('after api call tableObj:', this.tableObj);
+        } else {
+
+        }
     };
 
     render() {
+        let error = this.state.error;
         return(
             <div>
                 <Hoc>
                     <FormControl
                         type="text"
-                        value={this.state.tableNo}
+                        value={this.state.tableName}
                         placeholder={this.props.table.name}
                         onChange={this.handleTableChange}/>
                     <Button
@@ -62,6 +89,7 @@ class ChangeTable extends Component {
                         onClick={this.changeTable}>
                     Change
                     </Button>
+                    {error ? <div>error</div> : <div></div>}
                 </Hoc>
             </div>
         )

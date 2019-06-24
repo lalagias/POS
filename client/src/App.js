@@ -435,7 +435,7 @@ class App extends Component {
   };
 
   // Process route response from updating order and set message to be forwarded to Order component
-  dbresponse = (response)=> {
+  dbresponse = (response) => {
     let orderMessage;
     
     response.status === 200 ? orderMessage = "Order Submitted" : orderMessage = "An error occured, order was saved and will be saved on next transaction";
@@ -521,8 +521,9 @@ class App extends Component {
     this.setState({ activePage: "Orders", modalActive: false })
   };
 
-  changeTable = (table) => {
-      API.changeTable(table)
+  changeTable = (table, tables) => {
+      console.log('table from App.js', table);
+      API.changeTable(table, tables)
       .then(results => {
         if (results.status === 200) {
             this.cleanTable();
@@ -610,7 +611,7 @@ class App extends Component {
           {
             this.state.modalActive ? 
             (<Modal 
-              tables={this.state.tables} 
+              tables={this.state.tables}
               activeTable={this.state.activeTable} 
               activeTableIndex={this.state.activeTableIndex} 
               servers={this.state.servers} 

@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const axios = require('axios')
+const axios = require('axios');
 const models = require('../models/all-models.js');
 const receipt = models.Receipts;
 const menu = models.Menu;
@@ -11,7 +11,7 @@ const printing = require('./print.js');
 
 // Get all receipts that have not been paid and return them
 router.get('/', (req, res, next) => {
-    console.log(req)
+    console.log(req);
     receipt.find()
         .where('paid')
         .equals(false)
@@ -68,7 +68,7 @@ router.put('/:id', (req, res, next) => {
             if (err) return handleError(err);
 
             receipt.find().where("_id").equals(req.params.id).then(results => {
-                console.log(results)
+                console.log(results);
                 let print = '\n\n' + results[0].table;
                 let total = 0;
                 for (let i = 0; i < results[0].items.length; i++) {
@@ -131,11 +131,11 @@ router.get('/:id', (req, res, next) => {
         }
     })
         .then(result => {
-            console.log(result)
+            console.log(result);
             res.json(result)
         })
         .catch(error => {
-            console.log(error)
+            console.log(error);
             res.json(error);
         })
 });
@@ -158,7 +158,6 @@ router.put('/updateTable/:id', async (req, res, next) => {
 
         res.status(200).send({new:req.body.name, oldTable:updatedCheck})
     })
-
 
 });
 

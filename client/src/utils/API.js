@@ -7,15 +7,15 @@ export default {
         return axios.get("/menu")
     },
 
-    getServers: ()=>{
+    getServers: () => {
         return axios.get("/servers")
     },
 
-    getTables: ()=>{
+    getTables: () => {
         return axios.get("/check/unpaid")
     },
 
-    seatGuests: (seating)=>{
+    seatGuests: (seating) => {
         //seats new guests
         return axios.post("/check/seat",seating)
             .then(response =>{
@@ -40,13 +40,10 @@ export default {
     },
 
     //change Table
-    changeTable: (table) => {
-        console.log('API call table:', table);
-        console.log('table.bill.id:', table.bill.id);
+    changeTable: (table, tablesList) => {
+        console.log('tablesList from API.js', tablesList);
         return axios.put("/check/updateTable/" + table.bill.id, table)
             .then(response =>{
-                console.log('kalispera',response);
-                console.log('oldTable', response.data.oldTable.table);
                 return response
             }).catch(error => {
                 if (error) {
