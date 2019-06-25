@@ -12,6 +12,7 @@ import Hoc from '../../../Hoc/Hoc';
 const initialState = {
     tableName: "",
     error: false,
+    errorMessage: "",
 };
 
 class ChangeTable extends Component {
@@ -25,56 +26,51 @@ class ChangeTable extends Component {
         }
     };
 
-    //todo: need to add functionality to update table if it exists and if it is not occupied
-    //todo: need to find and squash bug
     changeTable = () => {
-        console.log(this.props.tables);
-        // if (s1 === s2 || s1 === s2.toLowerCase())
-        console.log('this.state.tableName', this.state.tableName);
         let tableName = this.state.tableName;
-        this.props.tables.find((table) => {
-            // console.log('this.state:', this.state)
-            // console.log('this', this);
-            // console.log(state.tableName);
+
+        for (let table of this.props.tables) {
+            // console.log('table', table);
+            // return ;
             console.log('table.name', table.name);
-             if (tableName === table.name || tableName === table.name.toLowerCase()) {
-                console.log('found table');
+            if (tableName === table.name || tableName === table.name.toLowerCase()) {
+                console.log('tableName',tableName);
                 if (!table.isOccupied) {
-                    console.log('table can change');
-                    return tableName = table.name;
+                    tableName = table.name;
 
+                    let tableObj = {};
+                    tableObj.bill = this.props.table.bill;
+
+                    tableObj.guestNumber = this.props.table.guestNumber;
+                    tableObj.isOccupied = this.props.table.isOccupied;
+                    tableObj.name = tableName;
+                    tableObj.pendingOrder = this.props.table.pendingOrder;
+                    tableObj.server = this.props.table.server;
+
+                    this.props.changeTable(tableObj);
+                    this.setState({
+                        errorMessage: "",
+                        error: false
+                    });
                 } else {
-                    console.log('table is occupied! Please choose another table.');
-                    return this.setState({error : true});
+                    console.log('table occupied');
+                    this.setState({
+                        errorMessage: "Table is occupied! Please choose another table.",
+                        error: true
+                    });
                 }
-             } else {
-                 console.log('no table with that name');
-                 return this.setState({error : true});
-             }
-        });
-        if (!this.state.error) {
-            let tableObj = {};
-            tableObj.bill = this.props.table.bill;
-
-            tableObj.guestNumber = this.props.table.guestNumber;
-            tableObj.isOccupied = this.props.table.isOccupied;
-            tableObj.name = tableName;
-            tableObj.pendingOrder = this.props.table.pendingOrder;
-            tableObj.server = this.props.table.server;
-
-            console.log('tableObj', tableObj);
-            // console.log('this.props.table',this.props.table);
-            // this.props.table.name = "Table " + this.state.tableNo;
-            this.props.changeTable(tableObj);
-            console.log('after api call:', this.props.table);
-            console.log('after api call tableObj:', this.tableObj);
-        } else {
-
+            } else {
+                console.log("No table with that name! Please enter a new table.");
+                this.setState({
+                    errorMessage: "No table with that name! Please enter a new table.",
+                    error: true
+                });
+            }
         }
     };
 
     render() {
-        let error = this.state.error;
+
         return(
             <div>
                 <Hoc>
@@ -89,17 +85,11 @@ class ChangeTable extends Component {
                         onClick={this.changeTable}>
                     Change
                     </Button>
-                    {error ? <div>error</div> : <div></div>}
+                    {this.state.error ? <h3 className="text-center text-danger">{this.state.errorMessage}</h3> : null}
                 </Hoc>
             </div>
         )
     }
 }
-// Loops through the reciept items to display them individually and put them in Row Col form
-/*
-const ChangeT = props => {
-    console.log(props.table)
-    }
-*/
 
 export default ChangeTable;

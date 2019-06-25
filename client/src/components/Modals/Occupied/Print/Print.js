@@ -2,14 +2,14 @@
 
 // Uses react-bootstrap for CSS styling
 import React from 'react'
-import { Row,Col } from 'react-bootstrap';
+import {Row, Col, Button} from 'react-bootstrap';
 
 const align = {
     textAlign: "left"
 };
 
 
-// Loops through the reciept items to display them individually and put them in Row Col form 
+// Loops through the receipt items to display them individually and put them in Row Col form
 const createReceipt = (items) => {
     return(
         items.map(item => {
@@ -17,7 +17,7 @@ const createReceipt = (items) => {
             return(
                 <Row key={item._id}>
 
-                    <Col xs={5}style={align}>
+                    <Col xs={5} style={align}>
                         {item.name}
                     </Col>
 
@@ -33,12 +33,17 @@ const createReceipt = (items) => {
             );
         })
     )
-}
+};
 
 // Renders headers and costs.
 const print = props => {
     return (
         <div style={{height :'40vh', overflow: 'auto'}} >
+            <Button
+                bsSize="large"
+                bsStyle="info">
+                Edit
+            </Button>
             <Row>
 
                 <Col 
@@ -76,6 +81,6 @@ const print = props => {
 
         </div>
     )
-}
+};
 
 export default print;

@@ -43,9 +43,9 @@ const table = props => {
                                                 <p 
                                                 className="text-center"> Server: {table.server} 
                                                 </p>
-                                                <p 
-                                                className="text-center"> Receipt ID: {table.bill.id} 
-                                                </p>
+                                                {/*<p */}
+                                                {/*className="text-center"> Receipt ID: {table.bill.id} */}
+                                                {/*</p>*/}
                                                 {/* conditional render for the total */}
                                                 { table.bill.total ? (<p 
                                                 className="text-center"> Current Total: {table.bill.total} 

@@ -10,7 +10,7 @@ const occupied = props => {
     switch(props.render){
 
         case ('receipt'):
-            occupiedRenderPage=  (
+            occupiedRenderPage=(
                 <Print 
                 table={props.table} />
             );
