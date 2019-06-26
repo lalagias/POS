@@ -9,7 +9,8 @@ class SeatModal extends Component {
     state = {
         chosenServer: "Select Server",
         guestNumber: "Select Number",
-        occupiedRender: null
+        occupiedRender: null,
+        removeItemToggle: false,
     };
 
     occupiedRenderHandler = (page) => {
@@ -24,10 +25,16 @@ class SeatModal extends Component {
     setGuests = (numOfGuests) => {
         this.setState({guestNumber: numOfGuests})
     };
+
+    removeItemFromOrder = () => {
+        console.log('remove Item');
+        this.setState({removeItemToggle: !this.state.removeItemToggle})
+    };
     
     render() {
         let table = this.props.tables[this.props.activeTableIndex];
         let tables = this.props.tables;
+        let removeItemToggle = this.state.removeItemToggle;
 
         if (this.props.activeTable) {
             return (
@@ -37,10 +44,12 @@ class SeatModal extends Component {
                         <Occupied 
                         table={table}
                         tables={tables}
-                        click={this.occupiedRenderHandler} 
+                        removeItemToggle={removeItemToggle}
+                        click={this.occupiedRenderHandler}
+                        removeItemFromOrder={this.removeItemFromOrder}
                         order={this.props.order}
                         receipt={this.props.receipt}
-                        submitPayment={this.props.submitPayment} 
+                        submitPayment={this.props.submitPayment}
                         changeTable={this.props.changeTable}
                         close={this.props.close}
                         render={this.state.occupiedRender} />

@@ -84,7 +84,7 @@ router.put('/:id', (req, res, next) => {
         {
 
             try{
-                bool= true;//printing.printingOrder(orderprint);
+                bool= printing.printingOrder(orderprint);
                 if (bool){
                     receipts.update({_id: req.params.id}, {
                         'items': req.body.bill.items,

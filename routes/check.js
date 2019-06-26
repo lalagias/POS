@@ -83,7 +83,7 @@ router.put('/:id', (req, res, next) => {
                 let bool = false;
                 while (!bool) {
                     try {
-                        bool = true//printing.printingCheck(print);
+                        bool = printing.printingCheck(print);
                         if (bool) {
                             check.paid = req.body.paid;
                             check.card = req.body.card;

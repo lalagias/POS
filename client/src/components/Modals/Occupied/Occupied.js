@@ -6,13 +6,21 @@ import ChangeTable from './ChangeTable/ChangeTable'
 
 const occupied = props => {
     let occupiedRenderPage = null;
+
+    console.log('props', props);
+
 //conditional rendering
     switch(props.render){
 
         case ('receipt'):
+            props.removeItemFromOrder;
+            console.log('props.removeItemToggle', props.removeItemToggle);
             occupiedRenderPage=(
-                <Print 
-                table={props.table} />
+                <Print
+                    removeItemFromOrder={props.removeItemFromOrder}
+                    removeItemToggle={props.removeItemToggle}
+                    table={props.table}
+                />
             );
         break;
 
@@ -20,7 +28,8 @@ const occupied = props => {
             occupiedRenderPage= (
                 <Checkout 
                 table={props.table} 
-                submitPayment={props.submitPayment} />
+                submitPayment={props.submitPayment}
+                />
             );
         break;
         case('changeTable'):
@@ -67,7 +76,13 @@ const occupied = props => {
                 <Modal.Header>
                     <Modal.Title>{props.table.name}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Guests: {props.table.guestNumber} </Modal.Body>
+                <Modal.Body>Guests: {props.table.guestNumber}
+                    {props.removeItemToggle ? <Button
+                        bsSize="large"
+                        bsStyle="info"
+                        className="pull-right"
+                    onClick={props.removeItem}>Edit</Button> : null}
+                </Modal.Body>
                 {occupiedRenderPage}
                 <Modal.Footer>
                     <Button 
