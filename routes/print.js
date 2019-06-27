@@ -21,8 +21,6 @@ function printingCheck (printText){
 }
 
 function printingOrder(printText){
-    console.log('======================');
-    console.log('THIS IS FANTASTIC')
     const device  = new escpos.USB();///todo when no printer available then comment this line
     const options = { encoding: "ISO 8859-7"  };
     const printer = new escpos.Printer(device, options);///todo when no printer available then comment this line

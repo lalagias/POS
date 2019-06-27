@@ -162,8 +162,9 @@ router.get('/shiftTotal', async (req, res, next) => {
         result.forEach(a => {
             sum += a.total;
         });
-        //console.log(result.length)
-        //console.log(sum)
+        if (result.length>=0 ){
+            printing.printingOrder(newday.toISOString().split('T')[0] +"\nToday's total is :\n TOTAL : "+ sum)
+        }
         res.status(200).send({Day: today, totalSales: sum})
 
     })
