@@ -3,7 +3,6 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const axios = require('axios');
 const models = require('../models/all-models.js');
 const receipt = models.Receipts;
 const menu = models.Menu;
@@ -147,6 +146,30 @@ router.delete('/delete/:id', (req, res, next) => {
         .catch(error => res.json(error));
 });
 
+//get all paid checks for a shift
+router.get('/shiftTotal', async (req, res, next) => {
+    let today = new Date();
+    let newday = new Date();
+    newday.setDate(today.getDate() - 1);
+    newday.setTime(12)
+    //console.log(newday.toISOString())
+    receipt.find({
+        $and: [{"paidTime": {$gt: newday.toISOString()}},
+            {"paidTime": {$lt: today.toISOString()}}]
+    }, (err, result) => {
+        if (err) return handleError(err);
+        let sum = 0;
+        result.forEach(a => {
+            sum += a.total;
+        });
+        //console.log(result.length)
+        //console.log(sum)
+        res.status(200).send({Day: today, totalSales: sum})
+
+    })
+});
+
+
 // Update Table (changeTable function)
 router.put('/updateTable/:id', async (req, res, next) => {
     console.log('req.body:', req.body);
@@ -160,5 +183,9 @@ router.put('/updateTable/:id', async (req, res, next) => {
     })
 
 });
+
+
+
+
 
 module.exports = router;

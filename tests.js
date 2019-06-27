@@ -1,20 +1,21 @@
-const escpos = require('escpos');
-let usb = require('usb');
-
-const device  = new escpos.USB();///todo when no printer available then comment this line
-const options = { encoding: "ISO 8859-7" };
-const printer = new escpos.Printer(device, options);///todo when no printer available then comment this line
+const models = require('./models/all-models.js');
+const receipt = models.Receipts;
 
 
-
-if (device.device==null){
-    console.log('d null ')
-}
-try {
-    console.log(usb.getDeviceList().length)
-}
-catch (e) {
-
-}
-
-console.log(escpos.USB.findPrinter());
+let today = new Date();
+let newday= new Date();
+newday.setDate(today.getDate()-1);
+newday.setHours(12)
+console.log(newday.toISOString())
+console.log(today.toISOString())
+receipt.find({ $and:[ {"paidTime":{ $gt: newday.toISOString()}},
+        {"paidTime":{$lt: today.toISOString()}}] }, (err,result)=>{
+    if (err) return handleError(err);
+    let sum =0;
+    result.forEach(a=>{
+        sum +=a.total;
+    });
+    console.log(result.length)
+    console.log(sum)
+    //res.status(200).send({Day:today, totalSales:sum})
+})
