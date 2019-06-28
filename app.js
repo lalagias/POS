@@ -50,5 +50,5 @@ app.use((err, req, res, next) => {
 });
 
 // TODO: go and check every single endpoint and express model to check functions and urls if they match.
-console.log('server running @ port 4444');
+console.log('server running @ port 4444'  );
 module.exports = app;

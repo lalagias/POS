@@ -100,22 +100,6 @@ router.put('/:id', (req, res, next) => {
                         res.send('Error! check printer');
                     }
                 }
-
-                /*if (bool){
-                    check.paid= req.body.paid;
-                    check.card = req.body.card;
-                    check.amountTendered = req.body.amountTendered;
-                    check.paymentType = req.body.paymentType;
-                    check.paidTime = Date.now();
-                    check.save((err,updatedCheck)=>{
-                        if (err) return handleError(err);
-                        res.send(updatedCheck)
-                    });
-                }
-                else{
-                    res.send('Error! check printer');
-                }*/
-
             })
         });
     })
@@ -147,12 +131,12 @@ router.delete('/delete/:id', (req, res, next) => {
 });
 
 //get all paid checks for a shift
-router.get('/shiftTotal', async (req, res, next) => {
+router.get('/shift/total', async (req, res, next) => {
     let today = new Date();
     let newday = new Date();
     newday.setDate(today.getDate() - 1);
-    newday.setTime(12)
-    //console.log(newday.toISOString())
+    newday.setHours(12)
+    console.log(newday.toISOString())
     receipt.find({
         $and: [{"paidTime": {$gt: newday.toISOString()}},
             {"paidTime": {$lt: today.toISOString()}}]
@@ -172,9 +156,10 @@ router.get('/shiftTotal', async (req, res, next) => {
 
 
 // Update Table (changeTable function)
+
 router.put('/updateTable/:id', async (req, res, next) => {
-    console.log('req.body:', req.body);
-    console.log('req.params:', req.params);
+    //console.log('req.body:', req.body);
+    //console.log('req.params:', req.params);
     receipt.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params
             .id)
     }, {$set: {table: req.body.name}}, (err, updatedCheck) => {
@@ -184,9 +169,5 @@ router.put('/updateTable/:id', async (req, res, next) => {
     })
 
 });
-
-
-
-
 
 module.exports = router;

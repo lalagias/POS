@@ -533,6 +533,16 @@ class App extends Component {
       .catch(error => {throw error })
   };
 
+  shiftTotal= ()=>{
+    API.shiftTotal().then(result=>{
+      if(result.status === 200){
+        //todo get response and visualize in a modal
+      }
+    }).catch(error=>{
+      throw error;
+    })
+  }
+
   submitPayment = (payment) => {
     API.submitPayment(payment)
       .then(results => {

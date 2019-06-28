@@ -53,6 +53,19 @@ export default {
             })
     },
 
+    //close register for a shift
+    shiftTotal: ()=>{
+        return axios.get("/check/shift/total" )
+            .then(response =>{
+                return response
+            }).catch(error => {
+                if (error) {
+                    console.log(error);
+                    return error;
+                }
+            })
+    },
+
     //checkout process
     submitPayment: (payment) => {
         let newPayment = {};
