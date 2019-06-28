@@ -564,7 +564,7 @@ class App extends Component {
           }
         })
         .catch(error => {throw error })
-  }
+  };
 
   render() {
     let activeContent = null;
@@ -596,6 +596,7 @@ class App extends Component {
         case ("Admin"):
           activeContent = (
             <Admin
+            menuDelete={this.menuDelete}
             todaysTotal={this.state.todaysTotal}
             shiftTotal={this.shiftTotal}
             servers={this.state.servers} 

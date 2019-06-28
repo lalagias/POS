@@ -36,14 +36,16 @@ class Menu extends Component {
         })
     };
 
-    // TODO: we need API endpoint to delete the menuItem
     // called when delete ("X") button is clicked
-    getItemToRemove = (event) => {
+    deleteMenuItem = (event) => {
         // Retrieves the id information and removes the word delete to retrieve the item name
-        const itemToRemove = event.target.id.replace("delete","");
-        console.log('itemToRemove', itemToRemove);
-        // passes the item to Order to be processed
-        this.props.removeFromOrder(itemToRemove);
+        console.log('deleteMenuItem', event.target);
+        console.log('deleteMenuItem', event.target.parentElement);
+        console.log('deleteMenuItem', event.target.parentElement.parentElement);
+        let menuItem = {};
+        menuItem.id = event.target.parentElement.parentElement.dataset.menuid;
+        console.log('menuItem.id', menuItem.id);
+        this.props.menuDelete(menuItem);
     };
 
     render() {
@@ -67,12 +69,13 @@ class Menu extends Component {
                                     <tbody>
                                     {this.props.menu.map(menu => {
                                             return (
-                                                <tr key={menu._id}>
+                                                <tr data-menuid={menu._id} key={menu._id}>
                                                     <td> {menu.name} </td>
-                                                    <td> {menu.description}</td>
+                                                    <td> {menu.description} </td>
                                                     <td> {menu.cost} </td>
                                                     <td> {menu.category} </td>
-                                                    <Button id={menu.name + "delete"} onClick={(event) => this.getItemToRemove(event)}>X</Button>
+                                                    <td><Button id={menu.name + "delete"}
+                                                                onClick={(event) => this.deleteMenuItem(event)}>X</Button></td>
                                                 </tr>)
                                         }
                                     )}

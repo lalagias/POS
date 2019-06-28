@@ -53,7 +53,8 @@ export default {
             })
     },
     //Delete menu item
-    menuDelete: (menuitem)=>{
+    menuDelete: (menuitem) => {
+        console.log(menuitem);
         return axios.delete("menu/delete/"+menuitem.id).then(response=>{
             return response
         }).catch(error => {

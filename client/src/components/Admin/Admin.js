@@ -14,11 +14,12 @@ const admin = props => (
                     shiftTotal={props.shiftTotal}/>
                 </Jumbotron>
                 <Servers
-                 servers={props.servers}
-                 addServer={props.addServer}/>
+                    servers={props.servers}
+                    addServer={props.addServer}/>
                 <Menu
-                 menu={props.menu} 
-                 addMenu={props.addMenu}/>
+                    menuDelete={props.menuDelete}
+                    menu={props.menu}
+                    addMenu={props.addMenu}/>
             </Row>  
         </Grid>
 );
