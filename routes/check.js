@@ -131,12 +131,13 @@ router.delete('/delete/:id', (req, res, next) => {
 });
 
 //get all paid checks for a shift
-router.get('/shift/total', async (req, res, next) => {
+router.get('/shift/total/:print', async (req, res, next) => {
     let today = new Date();
     let newday = new Date();
+    console.log(req.params);
     newday.setDate(today.getDate() - 1);
-    newday.setHours(12)
-    console.log(newday.toISOString())
+    newday.setHours(12);
+    console.log(newday.toISOString());
     receipt.find({
         $and: [{"paidTime": {$gt: newday.toISOString()}},
             {"paidTime": {$lt: today.toISOString()}}]
@@ -147,7 +148,7 @@ router.get('/shift/total', async (req, res, next) => {
             sum += a.total;
         });
         if (result.length>=0 ){
-            if (req.body.print) printing.printingOrder(newday.toISOString().split('T')[0] +"\nToday's total is :\n TOTAL : "+ sum)
+            if (req.params.print === "true") printing.printingOrder(newday.toISOString().split('T')[0] +"\nToday's total is :\n TOTAL : "+ sum)
         }
         res.status(200).send({Day: today, totalSales: sum})
 

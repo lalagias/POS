@@ -54,16 +54,22 @@ export default {
     },
 
     //close register for a shift
-    shiftTotal: ()=>{
-        return axios.get("/check/shift/total" )
-            .then(response =>{
-                return response
-            }).catch(error => {
-                if (error) {
-                    console.log(error);
-                    return error;
-                }
-            })
+    shiftTotal: (print) => {
+        let body = {};
+        body.print = print;
+        console.log('print from API:', print);
+
+            return axios.get("/check/shift/total/"+ body.print)
+                .then(response =>{
+                    return response
+                }).catch(error => {
+                    if (error) {
+                        console.log(error);
+                        return error;
+                    }
+                })
+
+
     },
 
     //checkout process

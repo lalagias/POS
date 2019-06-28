@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, NavItem, Button} from 'react-bootstrap';
+import {Nav, NavItem, Button} from 'react-bootstrap';
 import HOC from "../Hoc/Hoc";
 
 const navbar = (props) => {
@@ -59,6 +59,6 @@ const navbar = (props) => {
         </Nav>
     );
 
-}
+};
 
 export default navbar;

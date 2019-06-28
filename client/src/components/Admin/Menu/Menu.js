@@ -144,7 +144,6 @@ class Menu extends Component {
             </Grid>
         )
     }
-
-
 }
+
 export default withAlert(Menu);

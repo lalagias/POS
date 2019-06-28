@@ -1,4 +1,4 @@
-// Reciept Modal to display the tables orders broke down by item, quantity and cost followed by sub-total, tax and total
+// Receipt Modal to display the tables orders broke down by item, quantity and cost followed by sub-total, tax and total
 
 // Uses react-bootstrap for CSS styling
 import React,{Component }from 'react'
@@ -39,8 +39,8 @@ class ChangeTable extends Component {
                     tableName = table.name;
 
                     let tableObj = {};
-                    tableObj.bill = this.props.table.bill;
 
+                    tableObj.bill = this.props.table.bill;
                     tableObj.guestNumber = this.props.table.guestNumber;
                     tableObj.isOccupied = this.props.table.isOccupied;
                     tableObj.name = tableName;

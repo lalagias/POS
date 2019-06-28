@@ -53,8 +53,7 @@ class SeatModal extends Component {
                         changeTable={this.props.changeTable}
                         close={this.props.close}
                         render={this.state.occupiedRender} />
-                    )
-                        : (
+                    ) : (
                         <NewSeating 
                         table={table} 
                         chosenServer={this.state.chosenServer} 

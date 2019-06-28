@@ -232,7 +232,8 @@ class App extends Component {
 
 
     ],
-
+    // Today's total
+    todaysTotal: null,
     // List of servers
     servers: [],
     // Holds all menu information found in DB: id, name, description, cost
@@ -533,15 +534,17 @@ class App extends Component {
       .catch(error => {throw error })
   };
 
-  shiftTotal= ()=>{
-    API.shiftTotal().then(result=>{
-      if(result.status === 200){
+  shiftTotal = (print) => {
+    API.shiftTotal(print).then(result => {
+      if (result.status === 200) {
         //todo get response and visualize in a modal
+          console.log('shift total result data:', result);
+          this.setState({todaysTotal: result.data.totalSales});
       }
-    }).catch(error=>{
+    }).catch(error => {
       throw error;
     })
-  }
+  };
 
   submitPayment = (payment) => {
     API.submitPayment(payment)
@@ -582,7 +585,9 @@ class App extends Component {
           break;
         case ("Admin"):
           activeContent = (
-            <Admin 
+            <Admin
+            todaysTotal={this.state.todaysTotal}
+            shiftTotal={this.shiftTotal}
             servers={this.state.servers} 
             addServer={this.addServer} 
             menu={this.state.menu} 

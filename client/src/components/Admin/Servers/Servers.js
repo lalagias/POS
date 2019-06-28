@@ -13,16 +13,16 @@ class Servers extends Component {
     state = initialState;
     //updates states immediately on change
     newServerNameChangeHandler = event => {
-        let server = { ...this.state.newServer }
-        server.name = event.target.value
+        let server = { ...this.state.newServer };
+        server.name = event.target.value;
         this.setState({ newServer: server })
-    }
+    };
     //updates states immediately on change
     newServerCodeChangeHandler = event => {
-        let server = { ...this.state.newServer }
-        server.code = event.target.value
+        let server = { ...this.state.newServer };
+        server.code = event.target.value;
         this.setState({ newServer: server })
-    }
+    };
       //Submits a new server
     newServerSubmitHandler = () => {
         //validation
@@ -37,12 +37,12 @@ class Servers extends Component {
         // } else {
         //     this.props.alert.show("Validation failed",{type: "warning"})
         // }
-    }
+    };
     resetToInitialState = () => {
         this.setState(initialState, function () {
             this.props.alert.show('Server Added', { type: "success" })
         })
-    }
+    };
     
     render() {
 
