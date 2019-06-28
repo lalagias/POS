@@ -556,6 +556,16 @@ class App extends Component {
       .catch(error => {throw error })
   };
 
+  menuDelete = (menuItem)=>{
+    API.menuDelete(menuItem)
+        .then(results => {
+          if (results.status === 200) {
+            this.getMenu()
+          }
+        })
+        .catch(error => {throw error })
+  }
+
   render() {
     let activeContent = null;
     if(this.state.user === null){

@@ -52,6 +52,17 @@ export default {
                 }
             })
     },
+    //Delete menu item
+    menuDelete: (menuitem)=>{
+        return axios.delete("menu/delete/"+menuitem.id).then(response=>{
+            return response
+        }).catch(error => {
+            if (error) {
+                console.log(error);
+                return error;
+            }
+        })
+    },
 
     //close register for a shift
     shiftTotal: (print) => {
