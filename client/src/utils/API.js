@@ -107,10 +107,12 @@ export default {
         return(
             axios.get(`/servers/login/${code}`)
                 .then(response => {
+                    console.log('login data', response.data);
                     setUser(response.data);
                     return response.data;
                 })
                 .catch(error => {
+                    console.log('error login');
                     return error;
                 })
         )

@@ -7,15 +7,15 @@ export class Servers extends React.Component {
 
     state = {
         chosenServer: "Select Server"
-    }
+    };
 
     static defaultProps = {
         servers: ['Server 1', 'Server 2', 'Server 3', 'Server 4', 'Server 5', 'Server 6']
-    }
+    };
 
     handleServerSelection = (server) => {
         this.setState({chosenServer: server});       
-    }
+    };
 
         render() {
         const serverDisplay = this.props.servers.map((server, i) => {

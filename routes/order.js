@@ -3,8 +3,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const models = require('../models/all-models.js');
 const receipts = models.Receipts;
-const escpos = require('escpos');
-const usb = require('usb');
+// const escpos = require('escpos');
+// const usb = require('usb');
 const printing = require('./print');
 /*const device  = new escpos.USB();///todo when no printer available then comment this line
 const options = { encoding: "ISO 8859-7"  };
@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
         .catch(error => {
             res.json(error)
         })
-})
+});
 
 router.get('/paid', (req, res, next) => {
     console.log('in paid ')
@@ -31,7 +31,7 @@ router.get('/paid', (req, res, next) => {
         .catch(error => {
             res.json(error)
         })
-})
+});
 
 router.get('/unpaid', (req, res, next) => {
     receipts.find().where("paid").equals(false)
@@ -42,7 +42,7 @@ router.get('/unpaid', (req, res, next) => {
             res.json(error)
         })
 
-})
+});
 
 //add order to receipt
 router.put('/:id', (req, res, next) => {
@@ -51,7 +51,7 @@ router.put('/:id', (req, res, next) => {
     receipts.find().where("_id").equals(req.params.id).then(results=> {
         //console.log(results);
         if (results[0].items.length===0){
-            console.log('1')
+            console.log('1');
             for (let i=0 ; i<req.body.bill.items.length; i++){
                 orderprint += '\n' + req.body.bill.items[i].name+' '+req.body.bill.items[i].quantity;
             }
@@ -79,32 +79,32 @@ router.put('/:id', (req, res, next) => {
 
         }
         ///TODO uncomment this for printing
-        let bool=false;
-        while(!bool)
-        {
-
-            try{
-                bool= printing.printingOrder(orderprint);
-                if (bool){
-                    receipts.update({_id: req.params.id}, {
-                        'items': req.body.bill.items,
-                        'total': req.body.bill.total,
-                        'paid': req.body.paid,
-                        'total': req.body.bill.total
-                    })
-                        .then(result => {
-                            res.json(result)
-
-                        })
-                        .catch(error => res.json("error" + error));
-                }
-
-            }
-            catch (e) {
-                console.log(e);
-                res.send('Error! check printer');
-            }
-        }
+        // let bool=false;
+        // while(!bool)
+        // {
+        //
+        //     try{
+        //         bool= printing.printingOrder(orderprint);
+        //         if (bool){
+        //             receipts.update({_id: req.params.id}, {
+        //                 'items': req.body.bill.items,
+        //                 'total': req.body.bill.total,
+        //                 'paid': req.body.paid,
+        //                 'total': req.body.bill.total
+        //             })
+        //                 .then(result => {
+        //                     res.json(result)
+        //
+        //                 })
+        //                 .catch(error => res.json("error" + error));
+        //         }
+        //
+        //     }
+        //     catch (e) {
+        //         console.log(e);
+        //         res.send('Error! check printer');
+        //     }
+        // }
        /* device.open(function(){
             printer.font('a').align('ct').style('bu').size(2, 2).
             text(orderprint).
@@ -113,9 +113,6 @@ router.put('/:id', (req, res, next) => {
 
 
     });
-
-
-
 });
 
 module.exports = router;

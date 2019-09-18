@@ -19,7 +19,7 @@ router.post('/add', (req,res,next)=>{
         .catch(error => {
             res.json(error);
         });
-})
+});
 
 // Delete menu item
 router.delete('/delete/:id', (req,res,next)=>{
@@ -29,7 +29,7 @@ router.delete('/delete/:id', (req,res,next)=>{
             .then(result => res.json(result))
             .catch(error => res.json(error));
     }
-})
+});
 
 //get menu list from selected menu section
 router.get('/:section', (req, res, next) => {

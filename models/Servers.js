@@ -1,12 +1,11 @@
 // MongoDB model that handles the servers and login codes
 
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
 if (mongoose.connection.readyState === 0) {
   mongoose.connect(require('./connection-string'));
 }
-
 
 var newSchema = new Schema({
   'name': { type: String, require: true },
@@ -27,7 +26,5 @@ newSchema.pre('update', function() {
 newSchema.pre('findOneAndUpdate', function() {
   this.update({}, { $set: { updatedAt: Date.now() } });
 });
-
-
 
 module.exports = mongoose.model('Servers', newSchema);

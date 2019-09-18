@@ -23,14 +23,16 @@ router.post('/add', (req, res, next) => {
 });
 
 // Checks if login code is valid and returns name of server
-router.get('/login/:code', (req,res,next) => {
+router.get('/login/:code', (req, res, next) => {
+    console.log(req.params.code);
     servers.findOne({}).where("code").equals(req.params.code)
         .then(result => {
-                res.json(result.name)
+            res.json(result.name);
+            console.log(res.json(result.name));
         })
         .catch(error =>{
             res.json(error);
         })
-})
+});
 
 module.exports = router;

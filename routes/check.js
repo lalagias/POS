@@ -155,7 +155,6 @@ router.get('/shift/total/:print', async (req, res, next) => {
     })
 });
 
-
 // Update Table (changeTable function)
 
 router.put('/updateTable/:id', async (req, res, next) => {

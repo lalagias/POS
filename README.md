@@ -1,6 +1,5 @@
 
 # Restaurant-PoS <hr>
-By [Richard Bates](https://github.com/Richwb), [Jim Reinknecht](https://github.com/CaptainJimmy) and [Richard Debrah](https://github.com/GM456742), 
 
 Restaurant PoS is a simple React application for managing restaurant seating. It's features include handling orders for multiple guests and receipt printing. Restaurant PoS is lightweight making it easy to run on very low memory systems.
 
