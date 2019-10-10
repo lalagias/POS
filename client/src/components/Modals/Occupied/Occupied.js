@@ -7,7 +7,7 @@ import ChangeTable from './ChangeTable/ChangeTable'
 const occupied = props => {
     let occupiedRenderPage = null;
 
-    console.log('props', props);
+    // console.log('props', props);
 
 //conditional rendering
     switch(props.render){

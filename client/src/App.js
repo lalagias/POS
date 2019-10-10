@@ -325,7 +325,7 @@ class App extends Component {
         });
         //push the changed tables back to state
         this.setState({tables: updateChecks});
-        console.log('updated the fucking tables')
+        console.log('updated the fucking tables');
       }
     })
   };
