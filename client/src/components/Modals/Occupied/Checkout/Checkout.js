@@ -34,13 +34,20 @@ class Checkout extends Component {
         this.setState(initialState)
     };
 
-    tablePropsToState = () => {
-        console.log(this.props.table.bill.items);
-        this.setState({partialPaymentItems: [...this.props.table.bill.items]}, () => {
-            console.log(this.state.partialPaymentItems);
-        });
-
-    };
+    // tablePropsToState = () => {
+    //     console.log(this.props.table.bill.items);
+    //     let items = [...this.props.table.bill.items];
+    //
+    //     items.map(item => {
+    //        // item.quantity = 0;
+    //        return item.name;
+    //     });
+    //
+    //     this.setState({partialPaymentItems: [...items]}, () => {
+    //         console.log(this.state.partialPaymentItems);
+    //     });
+    //
+    // };
 
     getUnpaidChecks = () => {
         console.log('getUnpaidChecks');
@@ -95,32 +102,55 @@ class Checkout extends Component {
 
     // called when Choose ("+") button is clicked
     getItemToPayPartial = (event) => {
-        this.tablePropsToState();
-
         // Retrieves the id information and removes the word delete to retrieve the item name
         const itemToPay = event.target;
         let itemToPayQuantity = itemToPay.parentElement.previousSibling;
         let itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
+
         if (itemToPayQuantityInt > 0) {
-            const itemToPayName = itemToPay.id.replace("choose","");
+            const itemToPayName = itemToPay.id.replace(" choose","");
             console.log('itemToPay', itemToPay);
             console.log('itemToPayName', itemToPayName);
             console.log('itemToPayQuantityInt', itemToPayQuantityInt);
 
             const itemObject = {
                 name: itemToPayName,
-                quantity: null,
+                quantity: 1,
             };
 
             console.log('itemObject', itemObject);
-            //
-            // this.setState({ partialPaymentItems: [...this.state.partialPaymentItems, itemObject] });
-            // this.setState({partialPaymentItems: {...this.state.partialPaymentItems, quantity: }});
-            console.log(this.state.partialPaymentItems);
+            console.log('itemToPayName', itemToPayName);
+            let indexPartialPaymentItem = this.state.partialPaymentItems.findIndex(item => item.name === itemToPayName);
+            console.log(indexPartialPaymentItem);
+            console.log(this.props.table.bill.items);
+            let propItemIndex = this.props.table.bill.items.findIndex(item => item.name === itemToPayName);
+            console.log(propItemIndex);
+            console.log(this.props.table.bill.items[propItemIndex]);
+            this.props.table.bill.items[propItemIndex].quantity -= 1;
+
+            if (indexPartialPaymentItem === -1) {
+                this.setState({partialPaymentItems: [...this.state.partialPaymentItems, itemObject]}, ()=>console.log(this.state.partialPaymentItems, this.props.table.bill.items));
+            } else {
+                let itemsCopy = this.state.partialPaymentItems;
+                console.log(itemsCopy);
+                console.log(itemsCopy[indexPartialPaymentItem]);
+                itemsCopy[indexPartialPaymentItem].quantity += 1;
+                this.setState({
+                    partialPaymentItems: [...itemsCopy]
+                }, () =>
+                    console.log(this.state.partialPaymentItems, this.props.table.bill.items)
+                );
+            }
+
             itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt - 1);
             itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
             itemToPayQuantity.innerText = itemToPayQuantityInt;
         }
+    };
+
+    // called when Remove ("X") button is clicked
+    removeItemFromPartialPaymentBill = (event) => {
+
     };
 
     render() {
@@ -210,7 +240,7 @@ class Checkout extends Component {
                                                     {item.quantity}
                                                 </td>
                                                 <td>
-                                                    <Button id={item.name + "delete"} onClick={(event) => this.getItemToRemove(event)}>X</Button>
+                                                    <Button id={item.name + "delete"} onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>X</Button>
                                                 </td>
                                             </tr>
                                         );
