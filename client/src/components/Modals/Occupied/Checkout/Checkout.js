@@ -10,7 +10,8 @@ import {
     FormControl,
     ControlLabel,
     Table,
-    Grid
+    Grid,
+    Panel
 } from 'react-bootstrap';
 import Hoc from '../../../Hoc/Hoc';
 import API from "../../../../utils/API";
@@ -24,7 +25,8 @@ const initialState = {
         cardExp: "",
         cvc: ""
     },
-    partialPaymentItems: []
+    partialPaymentItems: [],
+    partialTotal: 0
 };
 
 class Checkout extends Component {
@@ -102,10 +104,15 @@ class Checkout extends Component {
 
     // called when Choose ("+") button is clicked
     getItemToPayPartial = (event) => {
+        console.log(this.props);
         // Retrieves the id information and removes the word delete to retrieve the item name
         const itemToPay = event.target;
         let itemToPayQuantity = itemToPay.parentElement.previousSibling;
         let itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
+        let itemToPayChargeInt = parseInt(itemToPayQuantity.getAttribute('data-charge'));
+        console.log('itemToPayChargeInt', itemToPayChargeInt);
+        let itemToPayCost = itemToPayChargeInt / itemToPayQuantityInt;
+        console.log('itemToPayCost', itemToPayCost);
 
         if (itemToPayQuantityInt > 0) {
             const itemToPayName = itemToPay.id.replace(" choose","");
@@ -116,7 +123,11 @@ class Checkout extends Component {
             const itemObject = {
                 name: itemToPayName,
                 quantity: 1,
+                charge: null,
+                cost: itemToPayCost
             };
+
+            itemObject.charge = itemObject.cost * itemObject.quantity;
 
             console.log('itemObject', itemObject);
             console.log('itemToPayName', itemToPayName);
@@ -127,6 +138,9 @@ class Checkout extends Component {
             console.log(propItemIndex);
             console.log(this.props.table.bill.items[propItemIndex]);
             this.props.table.bill.items[propItemIndex].quantity -= 1;
+            let partialTotal = this.state.partialTotal;
+            partialTotal += itemObject.charge;
+            this.setState({ partialTotal: partialTotal});
 
             if (indexPartialPaymentItem === -1) {
                 this.setState({partialPaymentItems: [...this.state.partialPaymentItems, itemObject]}, ()=>console.log(this.state.partialPaymentItems, this.props.table.bill.items));
@@ -135,6 +149,12 @@ class Checkout extends Component {
                 console.log(itemsCopy);
                 console.log(itemsCopy[indexPartialPaymentItem]);
                 itemsCopy[indexPartialPaymentItem].quantity += 1;
+                itemsCopy[indexPartialPaymentItem].charge = itemsCopy[indexPartialPaymentItem].cost * itemsCopy[indexPartialPaymentItem].quantity;
+
+                partialTotal = itemsCopy.reduce((a, b) => a + b.charge, 0);
+                console.log(partialTotal);
+                this.setState({ partialTotal: partialTotal});
+
                 this.setState({
                     partialPaymentItems: [...itemsCopy]
                 }, () =>
@@ -150,7 +170,49 @@ class Checkout extends Component {
 
     // called when Remove ("X") button is clicked
     removeItemFromPartialPaymentBill = (event) => {
+        const itemToPay = event.target;
+        console.log(itemToPay );
+        let itemToPayQuantity = itemToPay.parentElement.previousSibling;
+        console.log(itemToPayQuantity);
+        let itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
+        let itemToPayChargeInt = parseInt(itemToPayQuantity.getAttribute('data-charge'), 16);
+        console.log(itemToPayQuantityInt);
+        console.log(itemToPayChargeInt);
 
+        if (itemToPayQuantityInt > 0) {
+            const itemToPayName = itemToPay.id.replace(" delete", "");
+            console.log('itemToPay', itemToPay);
+            console.log('itemToPayName', itemToPayName);
+            console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+
+            let indexPartialPaymentItem = this.state.partialPaymentItems.findIndex(item => item.name === itemToPayName);
+            console.log(indexPartialPaymentItem);
+            console.log(this.props.table.bill.items);
+
+            let propItemIndex = this.props.table.bill.items.findIndex(item => item.name === itemToPayName);
+            console.log(propItemIndex);
+            console.log(this.props.table.bill.items[propItemIndex]);
+
+            this.props.table.bill.items[propItemIndex].quantity += 1;
+
+            let itemsCopy = this.state.partialPaymentItems;
+            console.log(itemsCopy);
+            console.log(itemsCopy[indexPartialPaymentItem]);
+            itemsCopy[indexPartialPaymentItem].quantity -= 1;
+            itemsCopy[indexPartialPaymentItem].charge = itemsCopy[indexPartialPaymentItem].cost * itemsCopy[indexPartialPaymentItem].quantity;
+            let partialTotal = itemsCopy.reduce((a, b) => a + b.charge, 0);
+            console.log(partialTotal);
+            this.setState({ partialTotal: partialTotal});
+            this.setState({
+                    partialPaymentItems: [...itemsCopy]
+                }, () =>
+                    console.log(this.state.partialPaymentItems, this.props.table.bill.items)
+            );
+
+            itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt + 1);
+            itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
+            itemToPayQuantity.innerText = itemToPayQuantityInt;
+        }
     };
 
     render() {
@@ -211,7 +273,7 @@ class Checkout extends Component {
                                             <td>
                                                 {item.name}
                                             </td>
-                                            <td data-quantity={item.quantity}>
+                                            <td data-quantity={item.quantity} data-charge={item.charge}>
                                                 {item.quantity}
                                             </td>
                                             <td>
@@ -229,18 +291,18 @@ class Checkout extends Component {
                                     <tr>Partial Payment Bill</tr>
                                 </thead>
                                 <tbody>
-                                    {/* Loops through partialPaymentItems and dispays the item name, quantity and delete button */}
+                                    {/* Loops through partialPaymentItems and displays the item name, quantity and delete button */}
                                     {this.state.partialPaymentItems.map((item) => {
                                         return (
-                                            <tr key={item._id} data-quantity={item.quantity}>
+                                            <tr key={item._id}>
                                                 <td>
                                                     {item.name}
                                                 </td>
-                                                <td>
+                                                <td data-quantity={item.quantity}>
                                                     {item.quantity}
                                                 </td>
                                                 <td>
-                                                    <Button id={item.name + "delete"} onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>X</Button>
+                                                    <Button id={item.name + " delete"} onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>X</Button>
                                                 </td>
                                             </tr>
                                         );
@@ -248,6 +310,9 @@ class Checkout extends Component {
                                 </tbody>
                             </Table>
                         </Grid>
+                        <Panel className="totalPanel text-center">
+                            <h3>Partial Total: { this.state.partialTotal } &euro;</h3>
+                        </Panel>
                         <Button
                             bsSize="large"
                             bsStyle="info"
