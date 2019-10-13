@@ -383,6 +383,7 @@ class App extends Component {
 
   // Called from Order.js component, updates pending order list for active table
   updatePendingOrder = pendingOrder => {
+    console.log(pendingOrder);
     this.setState({
       [this.state.tables[this.state.activeTableIndex].pendingOrder]: pendingOrder
     });
@@ -402,10 +403,10 @@ class App extends Component {
       const currentItemIndex = currentOrderList.findIndex(index => index.name === newItem.name);
       // Gets index position of item from menu
       const menuItemIndex = this.state.menu.findIndex(index => index.name === newItem.name);
-      // variables for asthetic purposes, shorten code length
+      // variables for aesthetic purposes, shorten code length
       const menuItem = this.state.menu[menuItemIndex];
 
-      //If item is found in the list add the ordered quantity to the pending quantity and calculate the new cost of the quantity
+      // If item is found in the list add the ordered quantity to the pending quantity and calculate the new cost of the quantity
       // If not found calculate the total cost and push all items into the array
 
       if (currentItemIndex !== -1) {
@@ -426,7 +427,7 @@ class App extends Component {
     //Set State using table object and use callback once state is updated
     this.setState({
        [this.state.tables[activeTable]]: table,
-        }, this.orderToDb()
+        }, () => this.orderToDb()
     );
   };
 

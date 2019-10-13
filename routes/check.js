@@ -67,7 +67,7 @@ router.put('/:id', (req, res, next) => {
             if (err) return handleError(err);
 
             receipt.find().where("_id").equals(req.params.id).then(results => {
-                console.log(results);
+                console.log('results', results);
                 let print = '\n\n' + results[0].table;
                 let total = 0;
                 for (let i = 0; i < results[0].items.length; i++) {
@@ -79,10 +79,11 @@ router.put('/:id', (req, res, next) => {
                     }
                 }
                 print += '\n\n Total: ' + parseFloat(total).toFixed(2) + '\n\n\n';//results[0].total;
-                let bool = false;
-                while (!bool) {
+                // let bool = false;
+                let bool = true
+                // while (!bool) {
                     try {
-                        bool = printing.printingCheck(print);
+                        // bool = printing.printingCheck(print);
                         if (bool) {
                             check.paid = req.body.paid;
                             check.card = req.body.card;
@@ -96,10 +97,10 @@ router.put('/:id', (req, res, next) => {
                         }
                     }
                     catch (e) {
-                        console.log(e);
+                        console.log('execpetion', e);
                         res.send('Error! check printer');
                     }
-                }
+                // }
             })
         });
     })

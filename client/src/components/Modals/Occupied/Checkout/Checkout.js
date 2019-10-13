@@ -170,6 +170,8 @@ class Checkout extends Component {
 
     // called when Remove ("X") button is clicked
     removeItemFromPartialPaymentBill = (event) => {
+        console.log('THIS PROPS:', this.props);
+
         const itemToPay = event.target;
         console.log(itemToPay );
         let itemToPayQuantity = itemToPay.parentElement.previousSibling;
@@ -213,6 +215,19 @@ class Checkout extends Component {
             itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
             itemToPayQuantity.innerText = itemToPayQuantityInt;
         }
+    };
+
+    submitPartialPayment = () => {
+        let paymentObject = {};
+        paymentObject.amount = this.state.amountTendered;
+        paymentObject.paymentType = this.state.paymentMethod;
+        paymentObject.card = this.state.card;
+        paymentObject.bill = this.props.table.bill;
+
+        //send the object "down the chain"
+        this.props.submitPayment(paymentObject);
+        //reset the state
+        this.resetToInitialState();
     };
 
     render() {
@@ -316,7 +331,7 @@ class Checkout extends Component {
                         <Button
                             bsSize="large"
                             bsStyle="info"
-                            disabled>Submit</Button>
+                            onClick={this.submitPartialPayment}>Submit</Button>
                     </Hoc>
                 );
             break;
