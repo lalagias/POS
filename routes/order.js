@@ -78,6 +78,19 @@ router.put('/:id', (req, res, next) => {
             }
 
         }
+
+        //TODO this was the error
+        receipts.update({_id: req.params.id}, {
+                            'items': req.body.bill.items,
+                            'total': req.body.bill.total,
+                            'paid': req.body.paid,
+                            'total': req.body.bill.total
+                        })
+                            .then(result => {
+                                res.json(result)
+
+                            })
+                            .catch(error => res.json("error" + error));
         ///TODO uncomment this for printing
         // let bool=false;
         // while(!bool)
