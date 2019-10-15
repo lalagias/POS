@@ -79,19 +79,19 @@ router.put('/:id', (req, res, next) => {
 
         }
         //TODO this needs to be commented  removed and use the bellow commented code to put an order and print it @DIMITRITS kountanis edw itan h malakia
-
-
         receipts.update({_id: req.params.id}, {
-                            'items': req.body.bill.items,
-                            'total': req.body.bill.total,
-                            'paid': req.body.paid,
-                            'total': req.body.bill.total
-                        })
-                            .then(result => {
-                                res.json(result)
+            'items': req.body.bill.items,
+            'total': req.body.bill.total,
+            'paid': req.body.paid,
+            'total': req.body.bill.total
+        })
+            .then(result => {
+                res.json(result)
 
-                            })
-                            .catch(error => res.json("error" + error));
+            })
+            .catch(error => res.json("error" + error));
+
+
 
 
 
