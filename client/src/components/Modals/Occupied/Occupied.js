@@ -29,6 +29,7 @@ const occupied = props => {
                 <Checkout 
                 table={props.table} 
                 submitPayment={props.submitPayment}
+                submitPartialPayment={props.submitPartialPayment}
                 />
             );
         break;

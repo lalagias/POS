@@ -20,6 +20,6 @@ const OrderModal = props => {
             </Modal.Dialog>
         </div>
     )
-}
+};
 
 export default OrderModal;

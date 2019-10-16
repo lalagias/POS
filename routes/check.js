@@ -63,8 +63,8 @@ router.post('/seat', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
     //console.log(req);
     menu.find().then(m => {
-        receipt.findById(req.params.id, (err, check) => {
-            if (err) return handleError(err);
+        receipt.findByIdAndUpdate(req.params.id, (err, check) => {
+            if (err) return console.log(err);
 
             receipt.find().where("_id").equals(req.params.id).then(results => {
                 console.log('results', results);

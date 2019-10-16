@@ -260,7 +260,7 @@ class App extends Component {
 
   componentDidMount() {
     //populates the data from the DB
-      console.log('got DATA');
+    console.log('got DATA');
     this.populateData();
   }
 
@@ -356,9 +356,8 @@ class App extends Component {
     this.state.tables.map((table, index) => {
       if (table.name === item) {
         newTableIndex = index;
-        this.setState({ activeTable: item, activeTableIndex: newTableIndex },function(){
-          this.modalOpen();
-        })
+        this.setState({ activeTable: item, activeTableIndex: newTableIndex },
+            () => {this.modalOpen()})
       }
     })
   };
@@ -383,17 +382,21 @@ class App extends Component {
 
   // Called from Order.js component, updates pending order list for active table
   updatePendingOrder = pendingOrder => {
-    console.log(pendingOrder);
+    console.log("pendingOrder:", pendingOrder);
+    console.log('state BEFORE update pending order', this.state.tables[this.state.activeTableIndex].pendingOrder)
     this.setState({
       [this.state.tables[this.state.activeTableIndex].pendingOrder]: pendingOrder
-    });
+    }, () => console.log('state after update pending order', this.state.tables[this.state.activeTableIndex].pendingOrder));
   };
 
   // Saves pending orders into ordered list
-  savePendingOrder = newOrderList => {
+  // savePendingOrder = (newOrderList) => {
+  savePendingOrder = () => {
+    // console.log('newOrderList', newOrderList);
     // variables for aesthetic purposes, shorten code length
     const activeTable = this.state.activeTableIndex;
     const pendingOrders = this.state.tables[activeTable].pendingOrder;
+    console.log('savePendingOrder pendingOrders', pendingOrders);
     let currentOrderList = this.state.tables[activeTable].bill.items;
     let table = this.state.tables[activeTable];
 
@@ -424,6 +427,8 @@ class App extends Component {
     table.bill.total = this.state.tables[activeTable].bill.items.map(item => item.charge).reduce((sum, nextCharge) => sum + nextCharge);
     table.pendingOrder = [];
 
+    console.log('table', table);
+    console.log('activeTable', this.state.tables[activeTable]);
     //Set State using table object and use callback once state is updated
     this.setState({
        [this.state.tables[activeTable]]: table,
@@ -433,6 +438,7 @@ class App extends Component {
 
   // Call placeOrder API route to update database and wait for response
   orderToDb = () => {
+    console.log('orderTODB', this.state.tables[this.state.activeTableIndex]);
     API.placeOrder(this.state.tables[this.state.activeTableIndex], this.dbresponse);
   };
 
@@ -459,7 +465,7 @@ class App extends Component {
     this.setState({ [this.state.tables[this.state.activeTableIndex].server]: server });
   };
 
-  addServer = (server,callback) => {
+  addServer = (server, callback) => {
     API.addServer(server)
     .then(results => {
       if (results.status === 200) {
@@ -548,6 +554,7 @@ class App extends Component {
   };
 
   submitPayment = (payment) => {
+    console.log('payment obg:', payment);
     API.submitPayment(payment)
       .then(results => {
         if (results.status === 200) {
@@ -555,6 +562,18 @@ class App extends Component {
         }
       })
       .catch(error => {throw error })
+  };
+
+  submitPartialPayment = (payment) => {
+      console.log('app js ', payment);
+      API.submitPartialPayment(payment)
+          .then(results => {
+              if (results.status === 200) {
+                  console.log('app js payment obj', payment);
+                  this.cleanTable();
+              }
+          })
+          .catch(error => {throw error })
   };
 
   menuDelete = (menuItem)=>{
@@ -646,6 +665,7 @@ class App extends Component {
               order={this.modalOrder} 
               receipt={this.printReceipt}
               submitPayment={this.submitPayment}
+              submitPartialPayment={this.submitPartialPayment}
               changeTable={this.changeTable}
               setServer={this.setServer} 
               seatGuests={this.seatGuestsFromModalHandler} />) 

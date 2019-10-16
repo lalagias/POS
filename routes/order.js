@@ -12,7 +12,7 @@ const printer = new escpos.Printer(device, options);///todo when no printer avai
 //let orderprint='\n\n Τραπεζι ';
 //
 router.get('/', (req, res, next) => {
-    console.log('in simple')
+    console.log('in simple');
     receipts.find()
         .then(results => {
             res.json(results)
@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/paid', (req, res, next) => {
-    console.log('in paid ')
+    console.log('in paid ');
     receipts.find().where('paid').equals(true)
         .then(results => {
             res.json(results)

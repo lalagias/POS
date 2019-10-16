@@ -15,7 +15,7 @@ class Order extends Component {
     // State category holds the selected food category to be displayed ex:entree
     state = {
         category: "",
-        // newOrderList: []
+        newOrderList: []
     };
 
     // Passed as prop to Menu buttons and processes the clicking of an item to be added to the pending order
@@ -61,13 +61,13 @@ class Order extends Component {
     // Calls the following functions residing in app.js to move the orders from pending to ordered
     orderSubmit = () => {
         let orderList = this.props.table.pendingOrder;
-        console.log(this.state.newOrderList);
-        console.log(this.props);
+        // console.log(this.state.newOrderList);
+        console.log('orderList', orderList);
+        // Empties app.js pendingOrder State for active table
+        this.props.updatePendingOrder(orderList);
         // Passes the information to app.js for processing
         this.props.orderSubmit(orderList);
-        // Empties app.js pendingOrder State for active table
-        this.props.updatePendingOrder();
-        console.log(this.state.newOrderList);
+        // console.log(this.state.newOrderList);
     };
 
     updatePending = () => {

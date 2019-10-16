@@ -91,10 +91,15 @@ class Checkout extends Component {
 
     submitPayment=()=>{
         let paymentObject = {};
-        paymentObject.amount = this.state.amountTendered;
+        paymentObject.amount = this.props.table.bill.total;
         paymentObject.paymentType = this.state.paymentMethod;
         paymentObject.card = this.state.card;
         paymentObject.bill = this.props.table.bill;
+
+        console.log('this.state.amountTendered', this.state.amountTendered);
+        console.log('this.state.paymentMethod', this.state.paymentMethod);
+        console.log('this.props.table.bill', this.props.table.bill);
+        console.log('this.state.partialTotal', this.state.partialTotal);
 
         //send the object "down the chain"
         this.props.submitPayment(paymentObject);
@@ -104,22 +109,21 @@ class Checkout extends Component {
 
     // called when Choose ("+") button is clicked
     getItemToPayPartial = (event) => {
-        console.log(this.props);
-        // Retrieves the id information and removes the word delete to retrieve the item name
+        console.log('this.props', this.props);
+        // Retrieves the id information
         const itemToPay = event.target;
+
         let itemToPayQuantity = itemToPay.parentElement.previousSibling;
         let itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
         let itemToPayChargeInt = parseInt(itemToPayQuantity.getAttribute('data-charge'));
-        console.log('itemToPayChargeInt', itemToPayChargeInt);
+
         let itemToPayCost = itemToPayChargeInt / itemToPayQuantityInt;
-        console.log('itemToPayCost', itemToPayCost);
 
+        // Condition that you can't add any more items if quantity is zero
         if (itemToPayQuantityInt > 0) {
+            // removes the word choose to retrieve the item name
             const itemToPayName = itemToPay.id.replace(" choose","");
-            console.log('itemToPay', itemToPay);
-            console.log('itemToPayName', itemToPayName);
-            console.log('itemToPayQuantityInt', itemToPayQuantityInt);
-
+            // create new item Object
             const itemObject = {
                 name: itemToPayName,
                 quantity: 1,
@@ -127,39 +131,34 @@ class Checkout extends Component {
                 cost: itemToPayCost
             };
 
+            // calculate charge (formula: cost * quantity)
             itemObject.charge = itemObject.cost * itemObject.quantity;
 
-            console.log('itemObject', itemObject);
-            console.log('itemToPayName', itemToPayName);
+            // find index of item in the state
             let indexPartialPaymentItem = this.state.partialPaymentItems.findIndex(item => item.name === itemToPayName);
-            console.log(indexPartialPaymentItem);
-            console.log(this.props.table.bill.items);
             let propItemIndex = this.props.table.bill.items.findIndex(item => item.name === itemToPayName);
-            console.log(propItemIndex);
-            console.log(this.props.table.bill.items[propItemIndex]);
             this.props.table.bill.items[propItemIndex].quantity -= 1;
+            this.props.table.bill.items[propItemIndex].charge = this.props.table.bill.items[propItemIndex].quantity * itemToPayCost;
+
             let partialTotal = this.state.partialTotal;
             partialTotal += itemObject.charge;
             this.setState({ partialTotal: partialTotal});
 
+            // Condition to check if item exists in state
             if (indexPartialPaymentItem === -1) {
-                this.setState({partialPaymentItems: [...this.state.partialPaymentItems, itemObject]}, ()=>console.log(this.state.partialPaymentItems, this.props.table.bill.items));
+                //if not then update state just to entry it
+                this.setState({partialPaymentItems: [...this.state.partialPaymentItems, itemObject]});
             } else {
+                // else create new item with the new data to update the state
                 let itemsCopy = this.state.partialPaymentItems;
-                console.log(itemsCopy);
-                console.log(itemsCopy[indexPartialPaymentItem]);
+
                 itemsCopy[indexPartialPaymentItem].quantity += 1;
                 itemsCopy[indexPartialPaymentItem].charge = itemsCopy[indexPartialPaymentItem].cost * itemsCopy[indexPartialPaymentItem].quantity;
 
                 partialTotal = itemsCopy.reduce((a, b) => a + b.charge, 0);
-                console.log(partialTotal);
-                this.setState({ partialTotal: partialTotal});
 
-                this.setState({
-                    partialPaymentItems: [...itemsCopy]
-                }, () =>
-                    console.log(this.state.partialPaymentItems, this.props.table.bill.items)
-                );
+                this.setState({ partialTotal: partialTotal});
+                this.setState({ partialPaymentItems: [...itemsCopy] });
             }
 
             itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt - 1);
@@ -173,43 +172,29 @@ class Checkout extends Component {
         console.log('THIS PROPS:', this.props);
 
         const itemToPay = event.target;
-        console.log(itemToPay );
-        let itemToPayQuantity = itemToPay.parentElement.previousSibling;
-        console.log(itemToPayQuantity);
-        let itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
-        let itemToPayChargeInt = parseInt(itemToPayQuantity.getAttribute('data-charge'), 16);
-        console.log(itemToPayQuantityInt);
-        console.log(itemToPayChargeInt);
 
+        let itemToPayQuantity = itemToPay.parentElement.previousSibling;
+        let itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
+        let itemToPayChargeInt = parseInt(itemToPayQuantity.getAttribute('data-charge'));
+
+        let itemToPayCost = itemToPayChargeInt / itemToPayQuantityInt;
         if (itemToPayQuantityInt > 0) {
             const itemToPayName = itemToPay.id.replace(" delete", "");
-            console.log('itemToPay', itemToPay);
-            console.log('itemToPayName', itemToPayName);
-            console.log('itemToPayQuantityInt', itemToPayQuantityInt);
 
             let indexPartialPaymentItem = this.state.partialPaymentItems.findIndex(item => item.name === itemToPayName);
-            console.log(indexPartialPaymentItem);
-            console.log(this.props.table.bill.items);
 
             let propItemIndex = this.props.table.bill.items.findIndex(item => item.name === itemToPayName);
-            console.log(propItemIndex);
-            console.log(this.props.table.bill.items[propItemIndex]);
 
             this.props.table.bill.items[propItemIndex].quantity += 1;
+            this.props.table.bill.items[propItemIndex].charge = this.props.table.bill.items[propItemIndex].quantity * itemToPayCost;
 
             let itemsCopy = this.state.partialPaymentItems;
-            console.log(itemsCopy);
-            console.log(itemsCopy[indexPartialPaymentItem]);
             itemsCopy[indexPartialPaymentItem].quantity -= 1;
             itemsCopy[indexPartialPaymentItem].charge = itemsCopy[indexPartialPaymentItem].cost * itemsCopy[indexPartialPaymentItem].quantity;
+
             let partialTotal = itemsCopy.reduce((a, b) => a + b.charge, 0);
-            console.log(partialTotal);
-            this.setState({ partialTotal: partialTotal});
-            this.setState({
-                    partialPaymentItems: [...itemsCopy]
-                }, () =>
-                    console.log(this.state.partialPaymentItems, this.props.table.bill.items)
-            );
+            this.setState({ partialTotal: partialTotal });
+            this.setState({ partialPaymentItems: [...itemsCopy] },);
 
             itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt + 1);
             itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
@@ -218,16 +203,26 @@ class Checkout extends Component {
     };
 
     submitPartialPayment = () => {
+        console.log('this.state.partialTotal', this.state.partialTotal);
+        console.log('this.state.partialPaymentItems', this.state.partialPaymentItems);
+
+        this.props.table.bill.total -= this.state.partialTotal;
+
         let paymentObject = {};
         paymentObject.amount = this.state.amountTendered;
         paymentObject.paymentType = this.state.paymentMethod;
         paymentObject.card = this.state.card;
         paymentObject.bill = this.props.table.bill;
 
+        this.handleTableProps();
         //send the object "down the chain"
-        this.props.submitPayment(paymentObject);
+        this.props.submitPartialPayment(paymentObject);
         //reset the state
         this.resetToInitialState();
+    };
+
+    handleTableProps = () => {
+        console.log('this.props.table', this.props.table);
     };
 
     render() {
@@ -313,7 +308,7 @@ class Checkout extends Component {
                                                 <td>
                                                     {item.name}
                                                 </td>
-                                                <td data-quantity={item.quantity}>
+                                                <td data-quantity={item.quantity} data-charge={item.charge}>
                                                     {item.quantity}
                                                 </td>
                                                 <td>
