@@ -49,3 +49,7 @@
 #modalDiv {
   z-index: 1;
 }
+
+textarea {
+  resize: none;
+}

@@ -22,13 +22,13 @@ class Order extends Component {
     addToOrder = (newItem) => {
         //props.table is passed in from app.js and is information for that table from state.
         let orderList = this.props.table.pendingOrder;
-        console.log('orderList', orderList);
+
         let itemIndex;
 
         //Looks to see if the item already exists in orderList if found increase its quantity count by 1 if not found push the information into the list.
         itemIndex = orderList.findIndex(index => index.name === newItem.name);
         itemIndex !== -1 ? orderList[itemIndex].quantity = parseInt(orderList[itemIndex].quantity,10) + 1 : orderList.push(newItem);
-        
+        console.log('this.props.table.pendingOrder FROM ADD-TO-ORDER', orderList);
        //function passed in from app.js and adds the item to app.js' pendingOrder state
         this.props.updatePendingOrder(orderList);
     };
@@ -61,12 +61,13 @@ class Order extends Component {
     // Calls the following functions residing in app.js to move the orders from pending to ordered
     orderSubmit = () => {
         let orderList = this.props.table.pendingOrder;
+        console.log('this.props.table.pendingOrder', this.props.table.pendingOrder);
         // console.log(this.state.newOrderList);
         console.log('orderList', orderList);
         // Empties app.js pendingOrder State for active table
         this.props.updatePendingOrder(orderList);
         // Passes the information to app.js for processing
-        this.props.orderSubmit(orderList);
+        this.props.orderSubmit();
         // console.log(this.state.newOrderList);
     };
 
@@ -84,11 +85,21 @@ class Order extends Component {
                         <Col id="section" md={2}>
                             <Panel>
                                 <Well>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Drinks"}>      Drinks     </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Salads"}>  Salads </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Starters"}>     Starters     </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Main"}>    Main    </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Special"}>    Special   </h2>
+                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Drinks"}>
+                                        Drinks
+                                    </h2>
+                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Salads"}>
+                                        Salads
+                                    </h2>
+                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Starters"}>
+                                        Starters
+                                    </h2>
+                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Main"}>
+                                        Main
+                                    </h2>
+                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Special"}>
+                                        Special
+                                    </h2>
                                 </Well>
                             </Panel>
                         </Col>
@@ -103,6 +114,15 @@ class Order extends Component {
                             <Panel>
                                 <Well>
                                     <OrderList removeFromOrder={this.removeFromOrder.bind(this)} newOrderList={this.props.table.pendingOrder} />
+                                </Well>
+                            </Panel>
+                        </Col>
+                        <Col id="comments" md={4}>
+                            <Panel>
+                                <Well>
+                                    <textarea cols="42" rows="8">
+
+                                    </textarea>
                                 </Well>
                             </Panel>
                         </Col>

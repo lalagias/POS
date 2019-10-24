@@ -228,9 +228,7 @@ class App extends Component {
           items: [],
           total: 0.00
         }
-      },
-
-
+      }
     ],
     // Today's total
     todaysTotal: null,
@@ -391,49 +389,62 @@ class App extends Component {
 
   // Saves pending orders into ordered list
   // savePendingOrder = (newOrderList) => {
-  savePendingOrder = () => {
-    // console.log('newOrderList', newOrderList);
-    // variables for aesthetic purposes, shorten code length
-    const activeTable = this.state.activeTableIndex;
-    const pendingOrders = this.state.tables[activeTable].pendingOrder;
-    console.log('savePendingOrder pendingOrders', pendingOrders);
-    let currentOrderList = this.state.tables[activeTable].bill.items;
-    let table = this.state.tables[activeTable];
-
-    // Loop through list of pending orders
-    pendingOrders.map(newItem => {
-      // Gets index position of newItem from table
-      const currentItemIndex = currentOrderList.findIndex(index => index.name === newItem.name);
-      // Gets index position of item from menu
-      const menuItemIndex = this.state.menu.findIndex(index => index.name === newItem.name);
+  savePendingOrder = (newPartialOrder) => {
+    if (newPartialOrder) {
+      console.log('newPartialOrder MPIKE', newPartialOrder);
+      const pendingOrders = newPartialOrder.pendingOrder;
+      // Loop through list of pending orders
+      pendingOrders.map(newItem => {
+        // Gets index position of item from menu
+        const menuItemIndex = this.state.menu.findIndex(index => index.name === newItem.name);
+        // variables for aesthetic purposes, shorten code length
+        const menuItem = this.state.menu[menuItemIndex];
+        console.log('newItem', newItem);
+      });
+    } else {
+      console.log('newPartialOrder DEN IPARXEI', newPartialOrder);
       // variables for aesthetic purposes, shorten code length
-      const menuItem = this.state.menu[menuItemIndex];
+      const activeTable = this.state.activeTableIndex;
+      const pendingOrders = this.state.tables[activeTable].pendingOrder;
+      console.log('savePendingOrder pendingOrders', pendingOrders);
+      let currentOrderList = this.state.tables[activeTable].bill.items;
+      let table = this.state.tables[activeTable];
 
-      // If item is found in the list add the ordered quantity to the pending quantity and calculate the new cost of the quantity
-      // If not found calculate the total cost and push all items into the array
+      // Loop through list of pending orders
+      pendingOrders.map(newItem => {
+        // Gets index position of newItem from table
+        const currentItemIndex = currentOrderList.findIndex(index => index.name === newItem.name);
+        // Gets index position of item from menu
+        const menuItemIndex = this.state.menu.findIndex(index => index.name === newItem.name);
+        // variables for aesthetic purposes, shorten code length
+        const menuItem = this.state.menu[menuItemIndex];
 
-      if (currentItemIndex !== -1) {
-        currentOrderList[currentItemIndex].quantity = parseInt(currentOrderList[currentItemIndex].quantity,10) + parseInt(newItem.quantity,10);
-        currentOrderList[currentItemIndex].charge = (parseFloat(currentOrderList[currentItemIndex].quantity) * parseFloat(menuItem.cost));
-      } else {
-        newItem.charge = parseInt(newItem.quantity,10) * parseFloat(menuItem.cost);
-        currentOrderList.push(newItem);
-       }
-    });
+        // If item is found in the list add the ordered quantity to the pending quantity and calculate the new cost of the quantity
+        // If not found calculate the total cost and push all items into the array
 
-    // Store updated info into table object
-    table.bill.items = currentOrderList;
-    // Reduce function to sum up all the charges in the bill array
-    table.bill.total = this.state.tables[activeTable].bill.items.map(item => item.charge).reduce((sum, nextCharge) => sum + nextCharge);
-    table.pendingOrder = [];
+        if (currentItemIndex !== -1) {
+            currentOrderList[currentItemIndex].quantity = parseInt(currentOrderList[currentItemIndex].quantity,10) + parseInt(newItem.quantity,10);
+            currentOrderList[currentItemIndex].charge = (parseFloat(currentOrderList[currentItemIndex].quantity) * parseFloat(menuItem.cost));
+        } else {
+            newItem.charge = parseInt(newItem.quantity,10) * parseFloat(menuItem.cost);
+            currentOrderList.push(newItem);
+        }
+      });
 
-    console.log('table', table);
-    console.log('activeTable', this.state.tables[activeTable]);
-    //Set State using table object and use callback once state is updated
-    this.setState({
-       [this.state.tables[activeTable]]: table,
-        }, () => this.orderToDb()
-    );
+      // Store updated info into table object
+      table.bill.items = currentOrderList;
+      // Reduce function to sum up all the charges in the bill array
+      table.bill.total = this.state.tables[activeTable].bill.items.map(item => item.charge).reduce((sum, nextCharge) => sum + nextCharge);
+      table.pendingOrder = [];
+
+      console.log('table', table);
+      console.log('activeTable', this.state.tables[activeTable]);
+      //Set State using table object and use callback once state is updated
+      this.setState({
+              [this.state.tables[activeTable]]: table,
+          }, () => this.orderToDb()
+      );
+    }
   };
 
   // Call placeOrder API route to update database and wait for response
@@ -666,6 +677,7 @@ class App extends Component {
               receipt={this.printReceipt}
               submitPayment={this.submitPayment}
               submitPartialPayment={this.submitPartialPayment}
+              orderSubmit={this.savePendingOrder}
               changeTable={this.changeTable}
               setServer={this.setServer} 
               seatGuests={this.seatGuestsFromModalHandler} />) 

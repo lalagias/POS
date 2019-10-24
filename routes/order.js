@@ -46,14 +46,15 @@ router.get('/unpaid', (req, res, next) => {
 
 //add order to receipt
 router.put('/:id', (req, res, next) => {
-    //console.log(req.body)
+    // console.log(req.body);
     let orderprint = req.body.name+'\n\n';
     receipts.find().where("_id").equals(req.params.id).then(results=> {
-        //console.log(results);
+        console.log('RESULTS');
+        console.log('RESULTS', results);
         if (results[0].items.length===0){
             console.log('1');
             for (let i=0 ; i<req.body.bill.items.length; i++){
-                orderprint += '\n' + req.body.bill.items[i].name+' '+req.body.bill.items[i].quantity;
+                // orderprint += '\n' + req.body.bill.items[i].name+' '+req.body.bill.items[i].quantity;
             }
         }
         else {
@@ -67,11 +68,11 @@ router.put('/:id', (req, res, next) => {
                 for (let j=0; j<beta.length; j++){
                     if ((alfa[i].name=== beta[j].name )&& (alfa[i].quantity !== beta[j].quantity) ){
                         found=true;
-                        orderprint += '\n' +alfa[i].name+' '+ (alfa[i].quantity - beta[i].quantity)
+                        // orderprint += '\n' +alfa[i].name+' '+ (alfa[i].quantity - beta[i].quantity)
                     }
                 }
                 if (!found && (i >= beta.length) ){
-                    orderprint += '\n' + alfa[i].name+' '+alfa[i].quantity
+                    // orderprint += '\n' + alfa[i].name+' '+alfa[i].quantity
                 }
                 found = false
 

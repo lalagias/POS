@@ -30,7 +30,6 @@ export default {
     // place new order
     placeOrder: (order, dbresponse) => {
         console.log("place new order", order);
-        console.log("dbresponse", dbresponse);
         return axios.put("/order/"+ order.bill.id, order)
             .then(response => {
                 console.log('response', response);
@@ -117,6 +116,7 @@ export default {
         newPartialPayment.card = payment.card;
         newPartialPayment.amountTendered = payment.amount;
         newPartialPayment.paymentType = payment.paymentType;
+        newPartialPayment.paid = false;
         console.log('API JS newPartialPayment', newPartialPayment);
         let URL = encodeURI("/check/"+payment.bill.id);
         return (

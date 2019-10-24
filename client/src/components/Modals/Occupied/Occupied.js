@@ -3,6 +3,7 @@ import { Button, Modal, ButtonGroup } from 'react-bootstrap';
 import Checkout from './Checkout/Checkout'
 import Print from './Print/Print'
 import ChangeTable from './ChangeTable/ChangeTable'
+import Order from "../../Order/Order";
 
 const occupied = props => {
     let occupiedRenderPage = null;
@@ -30,6 +31,7 @@ const occupied = props => {
                 table={props.table} 
                 submitPayment={props.submitPayment}
                 submitPartialPayment={props.submitPartialPayment}
+                orderSubmit={props.orderSubmit}
                 />
             );
         break;

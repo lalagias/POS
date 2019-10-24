@@ -28,8 +28,8 @@ router.get('/login/:code', (req, res, next) => {
     servers.findOne({}).where("code").equals(req.params.code)
         .then(result => {
             console.log('perase');
-            res.json(result.name);
             console.log(res.json(result.name));
+            res.json(result.name);
         })
         .catch(error =>{
             console.log('DEN perase', error);
