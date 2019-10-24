@@ -12,6 +12,8 @@ const order = require('./routes/order');
 const check = require('./routes/check');
 const servers = require('./routes/servers');
 const printing = require('./routes/print');
+const shift = require('./routes/shift');
+const register = require('./routes/register');
 const app = express();
 const cors = require('cors');
 
@@ -29,6 +31,8 @@ app.use('/menu', menu);
 app.use('/order', order);
 app.use('/check', check);
 app.use('/servers', servers);
+app.use('/shift',shift);
+app.use('/register',register);
 
 
 // catch 404 and forward to error handler
