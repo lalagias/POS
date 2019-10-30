@@ -253,7 +253,11 @@ class App extends Component {
     // Is message modal active
     messageModalActive: false,
     // Content of message modal
-    messageModal: ""
+    messageModal: "",
+    // Partial Table
+    partialTable: {
+      print: false
+    },
   };
 
   componentDidMount() {
@@ -380,8 +384,8 @@ class App extends Component {
 
   // Called from Order.js component, updates pending order list for active table
   updatePendingOrder = pendingOrder => {
-    console.log("pendingOrder:", pendingOrder);
-    console.log('state BEFORE update pending order', this.state.tables[this.state.activeTableIndex].pendingOrder)
+    console.log("HERE---------------------pendingOrder:", pendingOrder);
+    console.log('state BEFORE update pending order', this.state.tables[this.state.activeTableIndex].pendingOrder);
     this.setState({
       [this.state.tables[this.state.activeTableIndex].pendingOrder]: pendingOrder
     }, () => console.log('state after update pending order', this.state.tables[this.state.activeTableIndex].pendingOrder));
@@ -390,6 +394,7 @@ class App extends Component {
   // Saves pending orders into ordered list
   // savePendingOrder = (newOrderList) => {
   savePendingOrder = (newPartialOrder) => {
+    console.log('HERE ---------------- savePendingOrder');
     if (newPartialOrder) {
       console.log('newPartialOrder MPIKE', newPartialOrder);
       const pendingOrders = newPartialOrder.pendingOrder;
@@ -448,9 +453,13 @@ class App extends Component {
   };
 
   // Call placeOrder API route to update database and wait for response
-  orderToDb = () => {
-    console.log('orderTODB', this.state.tables[this.state.activeTableIndex]);
-    API.placeOrder(this.state.tables[this.state.activeTableIndex], this.dbresponse);
+  orderToDb = (partialNewOrder = false) => {
+    if (partialNewOrder) {
+
+    } else {
+      console.log('orderTODB', this.state.tables[this.state.activeTableIndex]);
+      API.placeOrder(this.state.tables[this.state.activeTableIndex], this.dbresponse);
+    }
   };
 
   // Process route response from updating order and set message to be forwarded to Order component
@@ -496,6 +505,36 @@ class App extends Component {
       ).catch(error => { throw error })
   };
 
+  seatGuestsHelperFromPartialPayment = (server, guests, tableName) => {
+    // Push to the DB
+    const seating = {};
+    seating.server = server;
+    seating.guests = guests;
+    seating.table = tableName;
+    console.log('seatGuestsHelperFromPartialPayment seating', seating);
+    API.seatGuests(seating).then(results => {
+      if (results.status === 200) {
+         console.log('new order successful for partial', results);
+         let partialTable = {
+           guests: results.data.guests,
+           paid: results.data.paid,
+           server: results.data.server,
+           sub_total: results.data.sub_total,
+           table: results.data.table,
+           tax: results.data.tax,
+           total: results.data.total,
+           items: results.data.items,
+         };
+
+         this.setState({ partialTable: {...partialTable}}, () => {
+           console.log('this.state.newPartialOrder AFTER SEATING',this.state.partialTable)
+         });
+      } else {
+        console.log( results.status);
+      }
+    });
+  };
+
   seatGuestsFromModalHandler = (server, guests) => {
     //click handler from the modal, seats new guests, updates state, creates a new receipt and then updates state with the new receipt
     // Push to the DB
@@ -522,7 +561,7 @@ class App extends Component {
     });
   };
 
-//these are helper functions to open and close the modals
+  //these are helper functions to open and close the modals
   modalOpen = () => {
     this.getUnpaidChecks();
     console.log("modal opener ");
@@ -618,7 +657,7 @@ class App extends Component {
             <Order 
             menu={this.state.menu} 
             activeTable={this.state.activeTable} 
-            table={this.state.tables[this.state.activeTableIndex]} 
+            table={this.state.tables[this.state.activeTableIndex]}
             orderSubmit={this.savePendingOrder} 
             updatePendingOrder={this.updatePendingOrder} 
             orderModal={this.state.orderModal}/>
@@ -670,7 +709,8 @@ class App extends Component {
             (<Modal 
               tables={this.state.tables}
               activeTable={this.state.activeTable} 
-              activeTableIndex={this.state.activeTableIndex} 
+              activeTableIndex={this.state.activeTableIndex}
+              partialTable={this.state.partialTable}
               servers={this.state.servers} 
               close={this.modalClose} 
               order={this.modalOrder} 
@@ -678,9 +718,11 @@ class App extends Component {
               submitPayment={this.submitPayment}
               submitPartialPayment={this.submitPartialPayment}
               orderSubmit={this.savePendingOrder}
+              updatePendingOrder={this.updatePendingOrder}
               changeTable={this.changeTable}
               setServer={this.setServer} 
-              seatGuests={this.seatGuestsFromModalHandler} />) 
+              seatGuests={this.seatGuestsFromModalHandler}
+              seatGuestsPartialPayment={this.seatGuestsHelperFromPartialPayment}/>)
               : (null)
               }
         </Grid>

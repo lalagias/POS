@@ -24,16 +24,16 @@ router.post('/add', (req, res, next) => {
 
 // Checks if login code is valid and returns name of server
 router.get('/login/:code', (req, res, next) => {
-    console.log(req.params.code);
-    servers.findOne({}).where("code").equals(req.params.code)
+    //console.log(req.params.code);
+    servers.findOne({code:req.params.code})
         .then(result => {
-            console.log('perase');
-            console.log(res.json(result.name));
+            //console.log('perase', result);
             res.json(result.name);
+            //console.log(res.json(result.name));
         })
         .catch(error =>{
-            console.log('DEN perase', error);
-            // res.json(error);
+             //console.log('DEN perase', error);
+             res.json(error);
         })
 });
 

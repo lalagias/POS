@@ -28,10 +28,13 @@ const occupied = props => {
         case ('checkout'):
             occupiedRenderPage= (
                 <Checkout 
-                table={props.table} 
+                table={props.table}
+                partialTable={props.partialTable}
                 submitPayment={props.submitPayment}
                 submitPartialPayment={props.submitPartialPayment}
                 orderSubmit={props.orderSubmit}
+                updatePendingOrder={props.updatePendingOrder}
+                seatGuestsPartialPayment={props.seatGuestsPartialPayment}
                 />
             );
         break;

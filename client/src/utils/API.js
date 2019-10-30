@@ -16,6 +16,7 @@ export default {
     },
 
     seatGuests: (seating) => {
+        console.log('seating', seating);
         //seats new guests
         return axios.post("/check/seat",seating)
             .then(response =>{

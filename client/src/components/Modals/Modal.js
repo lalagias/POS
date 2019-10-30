@@ -52,7 +52,10 @@ class SeatModal extends Component {
                         receipt={this.props.receipt}
                         submitPayment={this.props.submitPayment}
                         submitPartialPayment={this.props.submitPartialPayment}
+                        partialTable={this.props.partialTable}
                         orderSubmit={this.props.orderSubmit}
+                        updatePendingOrder={this.props.updatePendingOrder}
+                        seatGuestsPartialPayment={this.props.seatGuestsPartialPayment}
                         changeTable={this.props.changeTable}
                         close={this.props.close}
                         render={this.state.occupiedRender} />

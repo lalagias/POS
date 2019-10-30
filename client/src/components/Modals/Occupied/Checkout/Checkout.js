@@ -205,32 +205,38 @@ class Checkout extends Component {
   submitPartialPayment = () => {
     console.log('submit Partial Payment props.table', this.props.table.bill);
 
-
     let newPartialTable = {...this.props.table};
-    this.handleNewPartialTable(newPartialTable);
-    console.log('newPartialTable AFTER HANDLER', newPartialTable);
 
-    this.props.orderSubmit(newPartialTable);
-  };
-
-  handleNewPartialTable = (newPartialTable) => {
-    console.log('newPartialTable before', newPartialTable.name);
+    console.log('newPartialTable BEFORE HANDLER', newPartialTable);
     newPartialTable.name = newPartialTable.name + " partial";
-    console.log('newPartialTable after', newPartialTable.name);
-    console.log('submit Partial Payment props.table', this.props.table.bill);
-    const partialPaymentItems = [...this.state.partialPaymentItems];
-    const partialTotal = this.state.partialTotal;
-    newPartialTable.bill.items = [...partialPaymentItems];
-    newPartialTable.bill.total = partialTotal;
-    console.log('newPartialTable', newPartialTable.bill);
-    console.log('submit Partial Payment props.table', this.props.table);
+    let orderList = [...this.state.partialPaymentItems];
+    newPartialTable.pendingOrder = [...orderList];
+    console.log('newPartialTable AFTER HANDLER', newPartialTable);
+    // this.props.orderSubmit(newPartialTable);
+    this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name);
+    // this.props.orderSubmit(newPartialTable);
   };
+
+  // handleNewPartialTable = (newPartialTable) => {
+  //   console.log('newPartialTable before', newPartialTable.name);
+  //   newPartialTable.name = newPartialTable.name + " partial";
+  //   console.log('newPartialTable after', newPartialTable.name);
+  //   console.log('submit Partial Payment props.table', this.props.table.bill);
+  //   let partialPaymentItems = [...this.props.table.bill.items];
+  //   let partialTotal = this.props.table.bill.total;
+  //   partialPaymentItems = [...this.state.partialPaymentItems];
+  //   partialTotal = this.state.partialTotal;
+  //   newPartialTable.bill.items = [...partialPaymentItems];
+  //   newPartialTable.bill.total = partialTotal;
+  //   console.log('newPartialTable', newPartialTable.bill);
+  //   console.log('submit Partial Payment props.table', this.props.table);
+  // };
 
   render() {
 
     //conditional rendering based on the pulldown menu
     let paymentMethodRender = null;
-    switch(this.state.paymentMethod){
+    switch(this.state.paymentMethod) {
 
       case("Cash"):
         paymentMethodRender = (
