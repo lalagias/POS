@@ -207,13 +207,45 @@ class Checkout extends Component {
 
     let newPartialTable = {...this.props.table};
 
-    console.log('newPartialTable BEFORE HANDLER', newPartialTable);
+    console.log('newPartialTable BEFORE HANDLING', newPartialTable);
+    console.log('this.state.partialPaymentItems', this.state.partialPaymentItems);
     newPartialTable.name = newPartialTable.name + " partial";
     let orderList = [...this.state.partialPaymentItems];
     newPartialTable.pendingOrder = [...orderList];
     console.log('newPartialTable AFTER HANDLER', newPartialTable);
     // this.props.orderSubmit(newPartialTable);
-    this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name);
+    let submitPromise = new Promise (
+        (resolve, reject) => {
+          resolve(this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name))
+        }
+    );
+
+    let submitCall = function () {
+      submitPromise
+          .then(() => {
+            this.props.orderSubmit(newPartialTable)
+          })
+          .catch(() => {
+            console.log('PROBLEM')
+          });
+    };
+
+    submitCall();
+
+    async function firstAsync() {
+      let promise = new Promise((res, rej) => {
+        res(this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name));
+      });
+
+      // wait until the promise returns us a value
+      let result = await promise;
+
+      // "Now it's done!"
+      alert(result);
+    }
+
+    firstAsync.then(this.props.orderSubmit(newPartialTable));
+
     // this.props.orderSubmit(newPartialTable);
   };
 
