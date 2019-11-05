@@ -202,7 +202,7 @@ class Checkout extends Component {
     }
   };
 
-  submitPartialPayment = () => {
+  submitPartialPayment = async () => {
     console.log('submit Partial Payment props.table', this.props.table.bill);
 
     let newPartialTable = {...this.props.table};
@@ -211,42 +211,16 @@ class Checkout extends Component {
     console.log('this.state.partialPaymentItems', this.state.partialPaymentItems);
     newPartialTable.name = newPartialTable.name + " partial";
     let orderList = [...this.state.partialPaymentItems];
-    newPartialTable.pendingOrder = [...orderList];
+    newPartialTable.pendingOrder = [...orderList];0
+    newPartialTable.bill.total -= this.state.partialTotal;
+    newPartialTable.amountTendered = this.state.partialTotal;
+    newPartialTable.card = this.state.card;
+    newPartialTable.paymentType = this.state.paymentMethod;
+    newPartialTable.paid = false;
     console.log('newPartialTable AFTER HANDLER', newPartialTable);
     // this.props.orderSubmit(newPartialTable);
-    let submitPromise = new Promise (
-        (resolve, reject) => {
-          resolve(this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name))
-        }
-    );
-
-    let submitCall = function () {
-      submitPromise
-          .then(() => {
-            this.props.orderSubmit(newPartialTable)
-          })
-          .catch(() => {
-            console.log('PROBLEM')
-          });
-    };
-
-    submitCall();
-
-    async function firstAsync() {
-      let promise = new Promise((res, rej) => {
-        res(this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name));
-      });
-
-      // wait until the promise returns us a value
-      let result = await promise;
-
-      // "Now it's done!"
-      alert(result);
-    }
-
-    firstAsync.then(this.props.orderSubmit(newPartialTable));
-
-    // this.props.orderSubmit(newPartialTable);
+    let seatGuestsPartialPayment = await this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name);
+    let orderSubmit = await this.props.orderSubmit(newPartialTable);
   };
 
   // handleNewPartialTable = (newPartialTable) => {

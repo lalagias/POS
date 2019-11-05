@@ -115,11 +115,11 @@ export default {
     submitPartialPayment: (payment) => {
         let newPartialPayment = {};
         newPartialPayment.card = payment.card;
-        newPartialPayment.amountTendered = payment.amount;
+        newPartialPayment.amountTendered = payment.amountTendered;
         newPartialPayment.paymentType = payment.paymentType;
-        newPartialPayment.paid = false;
+        newPartialPayment.paid = true;
         console.log('API JS newPartialPayment', newPartialPayment);
-        let URL = encodeURI("/check/"+payment.bill.id);
+        let URL = encodeURI("/check/"+ payment.bill.id);
         return (
             axios.put(URL, newPartialPayment)
                 .then(response => {

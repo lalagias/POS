@@ -250,6 +250,8 @@ class App extends Component {
         orderModal: false,
         // Response from DB upon submitted the order from order component
         orderResponse: null,
+        // Response from DB upon submitted the partial payment from checkout component
+        partialPaymentResponse: null,
         // Is message modal active
         messageModalActive: false,
         // Content of message modal
@@ -410,30 +412,48 @@ class App extends Component {
     // Saves pending orders into ordered list
     // savePendingOrder = (newOrderList) => {
     savePendingOrder = (newPartialOrder) => {
+
         console.log('HERE ---------------- savePendingOrder');
         if (newPartialOrder) {
-            console.log('newPartialOrder MPIKE', newPartialOrder);
-            let pendingOrders = newPartialOrder.pendingOrder;
-            // Loop through list of pending orders
-            let items = pendingOrders.map(item => {
-                let newItem = {};
-                newItem.charge = item.charge;
-                newItem.quantity = item.quantity;
-                newItem.name = item.name;
-                return newItem;
-            });
+            return new Promise((resolve,reject)=>{
+                console.log('newPartialOrder MPIKE', newPartialOrder);
+                let pendingOrders = newPartialOrder.pendingOrder;
+                let total = 0;
+                // Loop through list of pending orders
+                let items = pendingOrders.map(item => {
+                    let newItem = {};
+                    total += item.charge;
+                    newItem.charge = item.charge;
+                    newItem.quantity = item.quantity;
+                    newItem.name = item.name;
+                    return newItem;
+                });
 
-            let tableTemp = {...this.state.partialTable};
-            console.log('TABLE TEMP ------------', tableTemp);
-            tableTemp.items = [...items];
-            console.log('TABLE TEMP ------------ AFTER NEW ITEMS', tableTemp);
+                let tableTemp = {...this.state.partialTable};
+                console.log('TABLE TEMP ------------', tableTemp);
+                tableTemp.bill.items = [...items];
+                tableTemp.bill.total = total;
+                tableTemp.paymentType = newPartialOrder.paymentType;
+                tableTemp.card = newPartialOrder.card;
+                tableTemp.amountTendered = newPartialOrder.amountTendered;
+                console.log('TABLE TEMP ------------ AFTER NEW ITEMS', tableTemp);
 
-            // console.log('items pending ITEMS HANDLER', items);
+                // console.log('items pending ITEMS HANDLER', items);
 
-            // // this.setState({ newPartialOrder: })
-            // console.log('pendingOrders', pendingOrders);
-            // console.log('newPartialOrder', newPartialOrder);
-            console.log('partial TABLE DATA', this.state.partialTable);
+                this.setState({ partialTable: tableTemp}, () => {
+                    resolve(this.state.partialTable)
+                });
+                // // this.setState({ newPartialOrder: })
+                // console.log('pendingOrders', pendingOrders);
+                // console.log('newPartialOrder', newPartialOrder);
+                console.log('partial TABLE DATA', this.state.partialTable);
+                console.log('TABLE DATA', this.state.tables[this.state.activeTableIndex]);
+            }).then(async (result)=>{
+                let orderToDb = await this.orderToDb(this.state.partialTable);
+                this.orderToDb();
+                return result
+            })
+
         } else {
             console.log('newPartialOrder DEN IPARXEI', newPartialOrder);
             // variables for aesthetic purposes, shorten code length
@@ -483,7 +503,14 @@ class App extends Component {
     // Call placeOrder API route to update database and wait for response
     orderToDb = (partialNewOrder = false) => {
         if (partialNewOrder) {
-
+            return new Promise((resolve,reject)=> {
+                console.log('PLACEORDER MPIKE');
+                API.placeOrder(this.state.partialTable, this.dbresponse);
+                resolve(this.state.partialTable);
+                }).then((result)=>{
+                    this.submitPartialPayment(this.state.partialTable);
+                    return result
+                })
         } else {
             console.log('orderTODB', this.state.tables[this.state.activeTableIndex]);
             API.placeOrder(this.state.tables[this.state.activeTableIndex], this.dbresponse);
@@ -500,6 +527,17 @@ class App extends Component {
             orderResponse: orderMessage,
             orderModal: true
         });
+    };
+
+    dbPartialPaymentResponse = (response) => {
+        let partialPaymentMessage;
+
+        response.status === 200 ? partialPaymentMessage = "Partial Payment Submitted!" : partialPaymentMessage = "An error occured";
+
+        this.setState({
+            partialPaymentResponse: partialPaymentMessage,
+            orderModal: true
+        })
     };
 
     // Close Response modal
@@ -538,36 +576,43 @@ class App extends Component {
     };
 
     seatGuestsHelperFromPartialPayment = (server, guests, tableName) => {
-        // Push to the DB
-        const seating = {};
-        seating.server = server;
-        seating.guests = guests;
-        seating.table = tableName;
-        console.log('seatGuestsHelperFromPartialPayment seating', seating);
-        API.seatGuests(seating).then(results => {
-            if (results.status === 200) {
-                console.log('new order successful for partial', results);
-                let partialTable = {
-                    bill: {
-                        id: results.data._id,
-                        items: results.data.items,
-                        total: results.data.total,
-                    },
-                    isOccupied: true,
-                    pendingOrder: [],
-                    guestNumber: results.data.guests,
-                    name: results.data.table,
-                    server: results.data.server,
-                    print: false,
-                };
+        console.log('SEAT');
+        return new Promise((resolve,reject)=>{
+            // Push to the DB
+            const seating = {};
+            seating.server = server;
+            seating.guests = guests;
+            seating.table = tableName;
+            console.log('seatGuestsHelperFromPartialPayment seating', seating);
+            API.seatGuests(seating).then(results => {
+                if (results.status === 200) {
+                    console.log('new order successful for partial', results);
+                    let partialTable = {
+                        bill: {
+                            id: results.data._id,
+                            items: results.data.items,
+                            total: results.data.total,
+                        },
+                        isOccupied: true,
+                        pendingOrder: [],
+                        guestNumber: results.data.guests,
+                        name: results.data.table,
+                        server: results.data.server,
+                        print: false,
+                    };
 
-                this.setState({partialTable: {...partialTable}}, () => {
-                    console.log('this.state.newPartialOrder AFTER SEATING', this.state.partialTable)
-                });
-            } else {
-                console.log(results.status);
-            }
-        });
+                    this.setState({partialTable: {...partialTable}}, () => {
+                        console.log('this.state.newPartialOrder AFTER SEATING', this.state.partialTable);
+                        resolve(this.state.partialTable);
+                    });
+                } else {
+                    console.log(results.status);
+                }
+            });
+        }).then((result)=>{
+            return result
+        })
+
     };
 
     seatGuestsFromModalHandler = (server, guests) => {
@@ -658,8 +703,12 @@ class App extends Component {
         API.submitPartialPayment(payment)
             .then(results => {
                 if (results.status === 200) {
-                    console.log('app js payment obj', payment);
-                    this.cleanTable();
+                    console.log('app js payment obj PARTIAL', payment);
+                    this.setState({
+                        activeTable: null,
+                        activeTableIndex: null,
+                        modalActive: false
+                    });
                 }
             })
             .catch(error => {
