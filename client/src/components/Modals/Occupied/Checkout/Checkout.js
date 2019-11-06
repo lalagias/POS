@@ -63,33 +63,33 @@ class Checkout extends Component {
     this.setState({paymentMethod: method});
   };
 
-  handleAmountChange=(event) => {
+  handleAmountChange = (event) => {
     //could use some validation if time allows
     this.setState({amountTendered: event.target.value})
   };
 
-  handleCreditChange=(event) => {
+  handleCreditChange = (event) => {
     //could use some validation if time allows
-    let card={...this.state.card};
+    let card = {...this.state.card};
     card.cardNumber = event.target.value;
     this.setState({card: card})
   };
 
-  handleExpChange=(event) => {
+  handleExpChange = (event) => {
     //could use some validation if time allows
-    let card = { ...this.state.card };
+    let card = {...this.state.card};
     card.cardExp = event.target.value;
-    this.setState({ card: card })
+    this.setState({card: card})
   };
 
-  handleCvcChange=(event) => {
+  handleCvcChange = (event) => {
     //could use some validation if time allows
-    let card = { ...this.state.card };
+    let card = {...this.state.card};
     card.cvc = event.target.value;
-    this.setState({ card: card })
+    this.setState({card: card})
   };
 
-  submitPayment=()=>{
+  submitPayment = () => {
     let paymentObject = {};
     paymentObject.amount = this.props.table.bill.total;
     paymentObject.paymentType = this.state.paymentMethod;
@@ -122,7 +122,7 @@ class Checkout extends Component {
     // Condition that you can't add any more items if quantity is zero
     if (itemToPayQuantityInt > 0) {
       // removes the word choose to retrieve the item name
-      const itemToPayName = itemToPay.id.replace(" choose","");
+      const itemToPayName = itemToPay.id.replace(" choose", "");
       // create new item Object
       const itemObject = {
         name: itemToPayName,
@@ -142,7 +142,7 @@ class Checkout extends Component {
 
       let partialTotal = this.state.partialTotal;
       partialTotal += itemObject.charge;
-      this.setState({ partialTotal: partialTotal});
+      this.setState({partialTotal: partialTotal});
 
       // Condition to check if item exists in state
       if (indexPartialPaymentItem === -1) {
@@ -157,8 +157,8 @@ class Checkout extends Component {
 
         partialTotal = itemsCopy.reduce((a, b) => a + b.charge, 0);
 
-        this.setState({ partialTotal: partialTotal});
-        this.setState({ partialPaymentItems: [...itemsCopy] });
+        this.setState({partialTotal: partialTotal});
+        this.setState({partialPaymentItems: [...itemsCopy]});
       }
 
       itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt - 1);
@@ -193,8 +193,8 @@ class Checkout extends Component {
       itemsCopy[indexPartialPaymentItem].charge = itemsCopy[indexPartialPaymentItem].cost * itemsCopy[indexPartialPaymentItem].quantity;
 
       let partialTotal = itemsCopy.reduce((a, b) => a + b.charge, 0);
-      this.setState({ partialTotal: partialTotal });
-      this.setState({ partialPaymentItems: [...itemsCopy] },);
+      this.setState({partialTotal: partialTotal});
+      this.setState({partialPaymentItems: [...itemsCopy]},);
 
       itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt + 1);
       itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
@@ -211,7 +211,8 @@ class Checkout extends Component {
     console.log('this.state.partialPaymentItems', this.state.partialPaymentItems);
     newPartialTable.name = newPartialTable.name + " partial";
     let orderList = [...this.state.partialPaymentItems];
-    newPartialTable.pendingOrder = [...orderList];0
+    newPartialTable.pendingOrder = [...orderList];
+    0
     newPartialTable.bill.total -= this.state.partialTotal;
     newPartialTable.amountTendered = this.state.partialTotal;
     newPartialTable.card = this.state.card;
@@ -242,7 +243,7 @@ class Checkout extends Component {
 
     //conditional rendering based on the pulldown menu
     let paymentMethodRender = null;
-    switch(this.state.paymentMethod) {
+    switch (this.state.paymentMethod) {
 
       case("Cash"):
         paymentMethodRender = (
@@ -274,7 +275,7 @@ class Checkout extends Component {
         paymentMethodRender = (
           <Hoc>
             <Grid fluid>
-              <Table striped bordered condensed hover>
+              <Table striped bordered condensed hover className="mt-5">
                 <thead>
                 <tr>
                   <th>
@@ -300,7 +301,8 @@ class Checkout extends Component {
                         {item.quantity}
                       </td>
                       <td>
-                        <Button bsStyle="info" id={item.name + " choose"} onClick={(event) => this.getItemToPayPartial(event)}>+</Button>
+                        <Button bsStyle="info" id={item.name + " choose"}
+                                onClick={(event) => this.getItemToPayPartial(event)}>+</Button>
                       </td>
                     </tr>
                   );
@@ -311,7 +313,17 @@ class Checkout extends Component {
             <Grid fluid>
               <Table striped bordered condensed hover>
                 <thead>
-                <tr>Partial Payment Bill</tr>
+                <tr>
+                  <th>
+                    Partial Payment Bill
+                  </th>
+                  <th>
+                    Quantity
+                  </th>
+                  <th>
+                    Delete
+                  </th>
+                </tr>
                 </thead>
                 <tbody>
                 {/* Loops through partialPaymentItems and displays the item name, quantity and delete button */}
@@ -325,7 +337,8 @@ class Checkout extends Component {
                         {item.quantity}
                       </td>
                       <td>
-                        <Button id={item.name + " delete"} onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>X</Button>
+                        <Button bsStyle="danger" id={item.name + " delete"}
+                                onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>X</Button>
                       </td>
                     </tr>
                   );
@@ -334,7 +347,7 @@ class Checkout extends Component {
               </Table>
             </Grid>
             <Panel className="totalPanel text-center">
-              <h3>Partial Total: { this.state.partialTotal } &euro;</h3>
+              <h3>Partial Total: {this.state.partialTotal} &euro;</h3>
             </Panel>
             <Button
               bsSize="large"
@@ -354,7 +367,7 @@ class Checkout extends Component {
                 type="text"
                 value={this.state.amountTendered}
                 placeholder="Credit Tendered"
-                onChange={this.handleAmountChange} />
+                onChange={this.handleAmountChange}/>
             </div>
             <div>
               <ControlLabel>Card Number</ControlLabel>
@@ -362,7 +375,7 @@ class Checkout extends Component {
                 type="text"
                 value={this.state.card.cardNumber}
                 placeholder="Card Number"
-                onChange={this.handleCreditChange} />
+                onChange={this.handleCreditChange}/>
             </div>
             <div>
               <ControlLabel>Card Expiration</ControlLabel>
@@ -371,7 +384,7 @@ class Checkout extends Component {
                 bsSize="small"
                 value={this.state.card.cardExp}
                 placeholder="Card Expiration"
-                onChange={this.handleExpChange} />
+                onChange={this.handleExpChange}/>
             </div>
             <div>
               <ControlLabel>Card CVC</ControlLabel>
@@ -380,11 +393,16 @@ class Checkout extends Component {
                 bsSize="small"
                 value={this.state.card.cvc}
                 placeholder="CVC"
-                onChange={this.handleCvcChange} />
+                onChange={this.handleCvcChange}/>
             </div>
-            <Button bsSize="large"
-                    bsStyle="info"
-                    onClick={this.submitPayment}>Submit</Button>
+            <div className="text-center">
+              <Button
+                bsSize="large"
+                bsStyle="info"
+                onClick={this.submitPayment}>
+                Submit
+              </Button>
+            </div>
           </Hoc>
         )
     }
@@ -437,4 +455,5 @@ class Checkout extends Component {
     )
   }
 }
+
 export default Checkout;

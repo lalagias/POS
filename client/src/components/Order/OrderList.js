@@ -36,7 +36,6 @@ class OrderList extends Component {
                                     </td>
                                 </tr>
                             );
-                        
                         })}
                     </tbody>
                 </Table>

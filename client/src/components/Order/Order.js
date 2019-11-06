@@ -79,45 +79,47 @@ class Order extends Component {
     // Renders a list of categories, the items the ordered list and a submit button
     render() {
         return (
-            <Grid fluid>  
+            <Grid fluid className="mt-5">
                 <Hoc>    
                     <Row>
-                        <Col id="section" md={2}>
+                        <Col id="section" md={2} sm={6}>
                             <Panel>
                                 <Well>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Drinks"}>
+                                    <h2 className="category" onClick={(event) => this.onItemClick(event)} id={"Drinks"}>
                                         Drinks
                                     </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Salads"}>
+                                    <h2 className="category" onClick={(event) => this.onItemClick(event)} id={"Salads"}>
                                         Salads
                                     </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Starters"}>
+                                    <h2 className="category" onClick={(event) => this.onItemClick(event)} id={"Starters"}>
                                         Starters
                                     </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Main"}>
+                                    <h2 className="category" onClick={(event) => this.onItemClick(event)} id={"Main"}>
                                         Main
                                     </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Special"}>
+                                    <h2 className="category" onClick={(event) => this.onItemClick(event)} id={"Special"}>
                                         Special
                                     </h2>
                                 </Well>
                             </Panel>
                         </Col>
-                        <Col id="items" md={4}>
+                        <Col id="items" md={4} sm={6}>
                             <Panel>
                                 <Well>
                                     <Menubuttons addToOrder={this.addToOrder.bind(this)} menu={this.props.menu} category={this.state.category} />
                                 </Well>
                             </Panel>
                         </Col>
-                        <Col id="order-list" md={6}>
+                        <Col id="order-list" md={6} sm={12}>
                             <Panel>
                                 <Well>
                                     <OrderList removeFromOrder={this.removeFromOrder.bind(this)} newOrderList={this.props.table.pendingOrder} />
                                 </Well>
                             </Panel>
                         </Col>
-                        <Col id="comments" md={4}>
+                        <Col id="comments"
+                             md={4}
+                             sm={12}>
                             <Panel>
                                 <Well>
                                     <textarea cols="42" rows="8">
@@ -127,8 +129,8 @@ class Order extends Component {
                             </Panel>
                         </Col>
                     </Row>
-                    <div>
-                        <Button onClick={() => this.orderSubmit()}>Submit</Button>
+                    <div className="text-center">
+                        <Button bsSize="large" variant="info" onClick={() => this.orderSubmit()}>Submit</Button>
                     </div>
                 </Hoc>
             </Grid>

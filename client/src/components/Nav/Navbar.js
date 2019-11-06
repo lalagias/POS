@@ -13,12 +13,14 @@ const navbar = (props) => {
         onSelect={k => props.handleSelect(k)}>
             <NavItem 
             eventKey="Tables" 
-            title="Tables">
+            title="Tables"
+            className="tables-nav">
                 Tables
 			</NavItem>
             {props.activeTable ? (<NavItem 
             eventKey="Orders" 
-            title="Orders"> Orders
+            title="Orders"
+            className="orders-nav"> Orders
             </NavItem>) 
             : 
             (<NavItem 
@@ -28,7 +30,8 @@ const navbar = (props) => {
 			</NavItem>)}
             <NavItem 
             eventKey="Admin" 
-            title="Admin"> 
+            title="Admin"
+            className="admin-nav">
                 Admin
 			</NavItem>
             {props.activeTable ? 
