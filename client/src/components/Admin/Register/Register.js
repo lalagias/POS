@@ -24,7 +24,7 @@ class Register extends Component {
         <Button
           bsSize="large"
           bsStyle="info"
-          onClick={this.handleShift}>
+          onClick={this.handleRegister}>
           {this.state.isToggleRegister ? 'Open Register' : 'Close Register'}
         </Button>
       </div>

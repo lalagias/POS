@@ -5,10 +5,10 @@ import HOC from "../Hoc/Hoc";
 const navbar = (props) => {
 
   return (
-    <React.Fragment>
-      <Nav
+    <Nav
       navbar
       bsStyle="pills"
+      className="navigation-bar"
       activeKey={props.activePage}
       onSelect={k => props.handleSelect(k)}>
       <NavItem
@@ -58,19 +58,8 @@ const navbar = (props) => {
             </HOC>
           )
           : null}
-
     </Nav>
-    <Nav pullRight={true} bsStyle="pills" >
-      <NavItem title="Free">
-        Free
-      </NavItem>
-      <NavItem title="Busy">
-        Busy
-      </NavItem>
-    </Nav>
-  </React.Fragment>
   );
-
 };
 
 export default navbar;

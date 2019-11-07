@@ -7,7 +7,7 @@ import Shifts from './Shifts/Shifts';
 import Register from './Register/Register';
 
 const admin = props => (
-  <Grid>
+  <Grid className="mt-5">
     <Row>
       <Jumbotron>
         <h1> Admin Console </h1>
