@@ -16,6 +16,7 @@ export default {
     },
 
     seatGuests: (seating) => {
+        console.log('seating', seating);
         //seats new guests
         return axios.post("/check/seat",seating)
             .then(response =>{
@@ -29,12 +30,15 @@ export default {
 
     // place new order
     placeOrder: (order, dbresponse) => {
+        console.log("place new order", order);
         return axios.put("/order/"+ order.bill.id, order)
             .then(response => {
+                console.log('response', response);
                 dbresponse(response);
                 return response;
             })
             .catch(error => {
+                console.log('error', error);
                 return error;
             })
     },
@@ -92,8 +96,32 @@ export default {
         newPayment.amountTendered = payment.amount;
         newPayment.paymentType = payment.paymentType;
         let URL = encodeURI("/check/"+payment.bill.id);
+        console.log('URL', URL);
         return (
-            axios.put(URL,newPayment)
+            axios.put(URL, newPayment)
+                .then(response => {
+                    console.log('MPIKE');
+                    return response;
+
+                })
+                .catch(error => {
+                    console.log('ERROR');
+                    return error;
+                })
+        )
+    },
+
+    //checkout partial payment process
+    submitPartialPayment: (payment) => {
+        let newPartialPayment = {};
+        newPartialPayment.card = payment.card;
+        newPartialPayment.amountTendered = payment.amountTendered;
+        newPartialPayment.paymentType = payment.paymentType;
+        newPartialPayment.paid = true;
+        console.log('API JS newPartialPayment', newPartialPayment);
+        let URL = encodeURI("/check/"+ payment.bill.id);
+        return (
+            axios.put(URL, newPartialPayment)
                 .then(response => {
                     return response;
                 })

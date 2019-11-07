@@ -21,7 +21,7 @@ class OrderList extends Component {
                             </tr>
                     </thead>
                     <tbody>
-                        {/* Loops through orderList from app.js state and dispays the item name, quantity and delete button */}
+                        {/* Loops through orderList from app.js state and displays the item name, quantity and delete button */}
                         {props.newOrderList.map((item) => {
                             return (
                                 <tr key={item._id}>
@@ -36,7 +36,6 @@ class OrderList extends Component {
                                     </td>
                                 </tr>
                             );
-                        
                         })}
                     </tbody>
                 </Table>

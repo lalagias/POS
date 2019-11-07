@@ -15,20 +15,20 @@ class Order extends Component {
     // State category holds the selected food category to be displayed ex:entree
     state = {
         category: "",
-        // newOrderList: []
+        newOrderList: []
     };
 
     // Passed as prop to Menu buttons and processes the clicking of an item to be added to the pending order
     addToOrder = (newItem) => {
         //props.table is passed in from app.js and is information for that table from state.
         let orderList = this.props.table.pendingOrder;
-        console.log('orderList', orderList);
+
         let itemIndex;
 
         //Looks to see if the item already exists in orderList if found increase its quantity count by 1 if not found push the information into the list.
         itemIndex = orderList.findIndex(index => index.name === newItem.name);
         itemIndex !== -1 ? orderList[itemIndex].quantity = parseInt(orderList[itemIndex].quantity,10) + 1 : orderList.push(newItem);
-        
+        console.log('this.props.table.pendingOrder FROM ADD-TO-ORDER', orderList);
        //function passed in from app.js and adds the item to app.js' pendingOrder state
         this.props.updatePendingOrder(orderList);
     };
@@ -61,13 +61,14 @@ class Order extends Component {
     // Calls the following functions residing in app.js to move the orders from pending to ordered
     orderSubmit = () => {
         let orderList = this.props.table.pendingOrder;
-        console.log(this.state.newOrderList);
-        console.log(this.props);
-        // Passes the information to app.js for processing
-        this.props.orderSubmit(orderList);
+        console.log('this.props.table.pendingOrder', this.props.table.pendingOrder);
+        // console.log(this.state.newOrderList);
+        console.log('orderList', orderList);
         // Empties app.js pendingOrder State for active table
-        this.props.updatePendingOrder();
-        console.log(this.state.newOrderList);
+        this.props.updatePendingOrder(orderList);
+        // Passes the information to app.js for processing
+        this.props.orderSubmit();
+        // console.log(this.state.newOrderList);
     };
 
     updatePending = () => {
@@ -78,37 +79,58 @@ class Order extends Component {
     // Renders a list of categories, the items the ordered list and a submit button
     render() {
         return (
-            <Grid fluid>  
+            <Grid fluid className="mt-5">
                 <Hoc>    
                     <Row>
-                        <Col id="section" md={2}>
+                        <Col id="section" md={2} sm={6}>
                             <Panel>
                                 <Well>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Drinks"}>      Drinks     </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Salads"}>  Salads </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Starters"}>     Starters     </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Main"}>    Main    </h2>
-                                    <h2 onClick={(event) => this.onItemClick(event)} id={"Special"}>    Special   </h2>
+                                    <h2 className="category" onClick={(event) => this.onItemClick(event)} id={"Drinks"}>
+                                        Drinks
+                                    </h2>
+                                    <h2 className="category" onClick={(event) => this.onItemClick(event)} id={"Salads"}>
+                                        Salads
+                                    </h2>
+                                    <h2 className="category" onClick={(event) => this.onItemClick(event)} id={"Starters"}>
+                                        Starters
+                                    </h2>
+                                    <h2 className="category" onClick={(event) => this.onItemClick(event)} id={"Main"}>
+                                        Main
+                                    </h2>
+                                    <h2 className="category" onClick={(event) => this.onItemClick(event)} id={"Special"}>
+                                        Special
+                                    </h2>
                                 </Well>
                             </Panel>
                         </Col>
-                        <Col id="items" md={4}>
+                        <Col id="items" md={4} sm={6}>
                             <Panel>
                                 <Well>
                                     <Menubuttons addToOrder={this.addToOrder.bind(this)} menu={this.props.menu} category={this.state.category} />
                                 </Well>
                             </Panel>
                         </Col>
-                        <Col id="order-list" md={6}>
+                        <Col id="order-list" md={6} sm={12}>
                             <Panel>
                                 <Well>
                                     <OrderList removeFromOrder={this.removeFromOrder.bind(this)} newOrderList={this.props.table.pendingOrder} />
                                 </Well>
                             </Panel>
                         </Col>
+                        <Col id="comments"
+                             md={4}
+                             sm={12}>
+                            <Panel>
+                                <Well>
+                                    <textarea cols="42" rows="8">
+
+                                    </textarea>
+                                </Well>
+                            </Panel>
+                        </Col>
                     </Row>
-                    <div>
-                        <Button onClick={() => this.orderSubmit()}>Submit</Button>
+                    <div className="text-center">
+                        <Button bsSize="large" variant="info" onClick={() => this.orderSubmit()}>Submit</Button>
                     </div>
                 </Hoc>
             </Grid>

@@ -61,10 +61,11 @@ router.post('/seat', (req, res, next) => {
 
 // Update check information
 router.put('/:id', (req, res, next) => {
-    //console.log(req);
+    console.log('req.params.id]', req.params.id);
     menu.find().then(m => {
-        receipt.findById(req.params.id, (err, check) => {
-            if (err) return handleError(err);
+        receipt.findByIdAndUpdate(req.params.id, {new: true},(err, check) => {
+
+            if (err) return console.log(err);
 
             receipt.find().where("_id").equals(req.params.id).then(results => {
                 console.log('results', results);
@@ -109,11 +110,7 @@ router.put('/:id', (req, res, next) => {
 // Query for check based on ID field
 router.get('/:id', (req, res, next) => {
     console.log('req.params.id', req.params.id);
-    receipt.findOneAndUpdate({
-        where: {
-            _id: req.params.id
-        }
-    })
+    receipt.findByIdAndUpdate(req.params.id, {new: true})
         .then(result => {
             console.log(result);
             res.json(result)
