@@ -2,15 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa5b3b93-7063-4712-8978-ec0df28bd92b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/components/Admin/Register/Register.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Admin/Shifts/Shifts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/asset-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/service-worker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Servers/Servers.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Servers/Servers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/utils/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/utils/API.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/shift.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/shift.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">

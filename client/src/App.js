@@ -365,7 +365,6 @@ class App extends Component {
 
     // handles what happens when a table is clicked (sets an active table, active index, and opens the modal
     handleTableClick = (item) => {
-
         let newTableIndex = null;
         this.state.tables.map((table, index) => {
             if (table.name === item) {
@@ -402,23 +401,18 @@ class App extends Component {
 
     // Called from Order.js component, updates pending order list for active table
     updatePendingOrder = pendingOrder => {
-        console.log("HERE---------------------pendingOrder:", pendingOrder);
-        console.log('state BEFORE update pending order', this.state.tables[this.state.activeTableIndex].pendingOrder);
         this.setState({
             [this.state.tables[this.state.activeTableIndex].pendingOrder]: pendingOrder
         }, () => console.log('state after update pending order', this.state.tables[this.state.activeTableIndex].pendingOrder));
     };
 
     // Saves pending orders into ordered list
-    // savePendingOrder = (newOrderList) => {
     savePendingOrder = (newPartialOrder) => {
-
-        console.log('HERE ---------------- savePendingOrder');
         if (newPartialOrder) {
             return new Promise((resolve,reject)=>{
-                console.log('newPartialOrder MPIKE', newPartialOrder);
                 let pendingOrders = newPartialOrder.pendingOrder;
                 let total = 0;
+
                 // Loop through list of pending orders
                 let items = pendingOrders.map(item => {
                     let newItem = {};
@@ -430,24 +424,15 @@ class App extends Component {
                 });
 
                 let tableTemp = {...this.state.partialTable};
-                console.log('TABLE TEMP ------------', tableTemp);
                 tableTemp.bill.items = [...items];
                 tableTemp.bill.total = total;
                 tableTemp.paymentType = newPartialOrder.paymentType;
                 tableTemp.card = newPartialOrder.card;
                 tableTemp.amountTendered = newPartialOrder.amountTendered;
-                console.log('TABLE TEMP ------------ AFTER NEW ITEMS', tableTemp);
-
-                // console.log('items pending ITEMS HANDLER', items);
 
                 this.setState({ partialTable: tableTemp}, () => {
                     resolve(this.state.partialTable)
                 });
-                // // this.setState({ newPartialOrder: })
-                // console.log('pendingOrders', pendingOrders);
-                // console.log('newPartialOrder', newPartialOrder);
-                console.log('partial TABLE DATA', this.state.partialTable);
-                console.log('TABLE DATA', this.state.tables[this.state.activeTableIndex]);
             }).then(async (result)=>{
                 let orderToDb = await this.orderToDb(this.state.partialTable);
                 this.orderToDb();
@@ -455,11 +440,10 @@ class App extends Component {
             })
 
         } else {
-            console.log('newPartialOrder DEN IPARXEI', newPartialOrder);
             // variables for aesthetic purposes, shorten code length
             const activeTable = this.state.activeTableIndex;
             const pendingOrders = this.state.tables[activeTable].pendingOrder;
-            console.log('savePendingOrder pendingOrders', pendingOrders);
+
             let currentOrderList = this.state.tables[activeTable].bill.items;
             let table = this.state.tables[activeTable];
 
@@ -490,8 +474,6 @@ class App extends Component {
             table.bill.total = this.state.tables[activeTable].bill.items.map(item => item.charge).reduce((sum, nextCharge) => sum + nextCharge);
             table.pendingOrder = [];
 
-            console.log('table', table);
-            console.log('activeTable', this.state.tables[activeTable]);
             //Set State using table object and use callback once state is updated
             this.setState({
                     [this.state.tables[activeTable]]: table,
@@ -504,7 +486,6 @@ class App extends Component {
     orderToDb = (partialNewOrder = false) => {
         if (partialNewOrder) {
             return new Promise((resolve,reject)=> {
-                console.log('PLACEORDER MPIKE');
                 API.placeOrder(this.state.partialTable, this.dbresponse);
                 resolve(this.state.partialTable);
                 }).then((result)=>{
@@ -512,7 +493,6 @@ class App extends Component {
                     return result
                 })
         } else {
-            console.log('orderTODB', this.state.tables[this.state.activeTableIndex]);
             API.placeOrder(this.state.tables[this.state.activeTableIndex], this.dbresponse);
         }
     };
@@ -727,6 +707,20 @@ class App extends Component {
                 throw error
             })
     };
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * *
+   * * * * * * SHIFT FUNCTIONALITY  * * * * * *
+   * * * * * * * * * * * * * * * * * * * * * * * * */
+    getShift = () => {
+        API.getShifts()
+        .then((results) => {
+            // let newShifts = results.data
+            // this.setState({shifts: newShifts})
+        }).catch(error => {
+            if (error) throw (error)
+        })
+    };
+
 
     render() {
         let activeContent = null;

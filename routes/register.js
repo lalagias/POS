@@ -25,7 +25,7 @@ router.post('/open', (req, res, next) => {
 });
 
 router.put('/updateRegister/:id', (req, res, next) => {
-    console.log(req.body)
+    console.log(req.body);
     register.findOneAndUpdate({$and:[{_id: mongoose.Types.ObjectId(req.params
                 .id)},{closed:false}]}, {$inc: {total: req.body.cost , card:req.body.card ,cash:req.body.cash}},{new:true}, (err, updatedShift) => {
         if (err) return handleError(err);
@@ -34,7 +34,7 @@ router.put('/updateRegister/:id', (req, res, next) => {
 });
 
 router.post('/close/:id', (req, res, next) => {
-    console.log (req.body)
+    console.log (req.body);
     register.findOneAndUpdate({$and :[{_id: mongoose.Types.ObjectId(req.params
                 .id)
         },{closed:false}]}, {$set: {closed: req.body.closed}},{new:true}, (err, updatedRegister) => {

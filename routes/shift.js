@@ -10,6 +10,7 @@ const printing = require('./print');
 const options = { encoding: "ISO 8859-7"  };
 const printer = new escpos.Printer(device, options);///todo when no printer available then comment this line*/
 //let orderprint='\n\n Τραπεζι ';
+
 // Get all shifts
 router.get('/', (req, res, next) => {
     shift.find()
@@ -20,9 +21,10 @@ router.get('/', (req, res, next) => {
             res.json(error)
         })
 });
+
 //start new shift
 router.post('/start', (req, res, next) => {
-    console.log('in paid ')
+    console.log('in paid');
     shift.create(req.body)
         .then(results => {
             res.json(results)
@@ -42,6 +44,7 @@ router.put('/updateShift/:id', (req, res, next) => {
         res.status(200).send({new:req.body.name, shift:updatedShift})
     })
 });
+
 //finish Shift
 router.put('/finishShift/:id', (req, res, next) => {
     shift.findOneAndUpdate({$and :[{_id: mongoose.Types.ObjectId(req.params
