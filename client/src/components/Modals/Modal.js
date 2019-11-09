@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Hoc from '../Hoc/Hoc'
 import Occupied from './Occupied/Occupied';
 import NewSeating from './NewSeating/NewSeating'
+import Order from "../Order/Order";
 
 
 class SeatModal extends Component {
@@ -50,6 +51,11 @@ class SeatModal extends Component {
                         order={this.props.order}
                         receipt={this.props.receipt}
                         submitPayment={this.props.submitPayment}
+                        submitPartialPayment={this.props.submitPartialPayment}
+                        partialTable={this.props.partialTable}
+                        orderSubmit={this.props.orderSubmit}
+                        updatePendingOrder={this.props.updatePendingOrder}
+                        seatGuestsPartialPayment={this.props.seatGuestsPartialPayment}
                         changeTable={this.props.changeTable}
                         close={this.props.close}
                         render={this.state.occupiedRender} />

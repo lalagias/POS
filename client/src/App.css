@@ -1,3 +1,20 @@
+/* * * * * * * * * * * * * * * * *
+  SCROLLBAR CSS
+* * * * * * * * * * * * * * * * * */
+body::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border: 2px solid #555555;
+}
+
 .App {
   text-align: center;
 }
@@ -40,7 +57,6 @@
 }
 
 #dropBtn {
-  float: center;
   width: inherit;
   height: 30px;
   margin:20px;
@@ -48,4 +64,20 @@
 
 #modalDiv {
   z-index: 1;
+}
+
+textarea {
+  resize: none;
+}
+
+.category:hover {
+  cursor: pointer;
+}
+
+.mt-10 {
+  margin-top: 10rem;
+}
+
+.mt-5 {
+  margin-top: 5rem;
 }

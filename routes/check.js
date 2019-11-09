@@ -61,13 +61,14 @@ router.post('/seat', (req, res, next) => {
 
 // Update check information
 router.put('/:id', (req, res, next) => {
-    //console.log(req);
+    console.log('req.params.id]', req.params.id);
     menu.find().then(m => {
-        receipt.findById(req.params.id, (err, check) => {
-            if (err) return handleError(err);
+        receipt.findByIdAndUpdate(req.params.id, {new: true},(err, check) => {
+
+            if (err) return console.log(err);
 
             receipt.find().where("_id").equals(req.params.id).then(results => {
-                console.log(results);
+                console.log('results', results);
                 let print = '\n\n' + results[0].table;
                 let total = 0;
                 for (let i = 0; i < results[0].items.length; i++) {
@@ -79,10 +80,11 @@ router.put('/:id', (req, res, next) => {
                     }
                 }
                 print += '\n\n Total: ' + parseFloat(total).toFixed(2) + '\n\n\n';//results[0].total;
-                let bool = false;
-                while (!bool) {
+                // let bool = false;
+                let bool = true
+                // while (!bool) {
                     try {
-                        bool = printing.printingCheck(print);
+                        // bool = printing.printingCheck(print);
                         if (bool) {
                             check.paid = req.body.paid;
                             check.card = req.body.card;
@@ -96,10 +98,10 @@ router.put('/:id', (req, res, next) => {
                         }
                     }
                     catch (e) {
-                        console.log(e);
+                        console.log('execpetion', e);
                         res.send('Error! check printer');
                     }
-                }
+                // }
             })
         });
     })
@@ -108,11 +110,7 @@ router.put('/:id', (req, res, next) => {
 // Query for check based on ID field
 router.get('/:id', (req, res, next) => {
     console.log('req.params.id', req.params.id);
-    receipt.findOneAndUpdate({
-        where: {
-            _id: req.params.id
-        }
-    })
+    receipt.findByIdAndUpdate(req.params.id, {new: true})
         .then(result => {
             console.log(result);
             res.json(result)
@@ -154,7 +152,6 @@ router.get('/shift/total/:print', async (req, res, next) => {
 
     })
 });
-
 
 // Update Table (changeTable function)
 
