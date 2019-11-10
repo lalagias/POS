@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
-import {Button, Col, Row, Grid, Panel} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Col } from 'react-bootstrap';
 import Hoc from "../../Hoc/Hoc";
 import './Total.css';
-
+import Shifts from "../Shifts/Shifts";
+import Register from "../Register/Register";
 
 class Total extends Component {
 
@@ -21,41 +22,31 @@ class Total extends Component {
   render() {
 
     return (
-      <Grid fluid>
-        <Row>
-          <Hoc>
-            <Col
-              lg={4}
-              lgOffset={4}
-              md={4}
-              mdOffset={4}
-              xs={12}>
-              <Panel className="totalPanel text-center">
-                <h3>Total: {this.props.todaysTotal} &euro;</h3>
-
-              </Panel>
-            </Col>
-          </Hoc>
-        </Row>
-        <Row>
-          <Hoc>
-            <Col
-              lg={4}
-              lgOffset={4}
-              md={4}
-              mdOffset={4}
-              xs={12}
-              className="text-center">
-              <Button
-                bsSize="large"
-                bsStyle="info"
+      <Hoc>
+        <Col
+          className="mb-3"
+          lg={3}
+          md={3}
+          xs={12}>
+          <div className="card mb-3">
+            <div className="card-title">
+              Total
+            </div>
+            <div className="card-value-total text-center">
+              {this.props.todaysTotal}&euro;
+            </div>
+            <div className="text-center">
+              <button
+                className="btn-clearfix btn-submit"
                 onClick={this.printTotal}>
                 Print total
-              </Button>
-            </Col>
-          </Hoc>
-        </Row>
-      </Grid>
+              </button>
+            </div>
+          </div>
+          <Register/>
+          <Shifts/>
+        </Col>
+      </Hoc>
     )
   }
 }

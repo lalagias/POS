@@ -1,7 +1,4 @@
-import React, {Component} from 'react'
-import {
-  Button,
-} from 'react-bootstrap'
+import React, {Component} from 'react';
 
 class Shifts extends Component {
   constructor(props) {
@@ -11,7 +8,7 @@ class Shifts extends Component {
     };
   }
 
-  handleShift = (event) => {
+  handleShift = () => {
     this.setState((prevState) => ({
       isToggleShift: !prevState.isToggleShift
     }));
@@ -20,13 +17,20 @@ class Shifts extends Component {
   render() {
 
     return (
-      <div>
-        <Button
-          bsSize="large"
-          bsStyle="info"
-          onClick={this.handleShift}>
-          {this.state.isToggleShift ? 'Open Shift' : 'Close Shift'}
-        </Button>
+      <div className="card mb-3">
+        <div className="card-title">
+          Shift
+        </div>
+        <div className="card-value-subtotal text-center">
+          0&euro;
+        </div>
+        <div className="text-center">
+          <button
+            className="btn-clearfix btn-submit"
+            onClick={this.handleShift}>
+            {this.state.isToggleShift ? 'Open Shift' : 'Close Shift'}
+          </button>
+        </div>
       </div>
     )
   }

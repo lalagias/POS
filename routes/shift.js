@@ -24,7 +24,7 @@ router.get('/', (req, res, next) => {
 
 //start new shift
 router.post('/start', (req, res, next) => {
-    console.log('in paid');
+    console.log('in paid', req.body);
     shift.create(req.body)
         .then(results => {
             res.json(results)

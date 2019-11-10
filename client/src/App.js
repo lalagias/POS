@@ -13,808 +13,808 @@ import Login from './components/Login/Login';
 import {withAlert} from 'react-alert';
 
 class App extends Component {
-    state = {
-        // Holds all information regarding the tables.
-        // Pending Order contains name and quantity
-        // Items contains name, quantity, and cost
-        tables: [
-            {
-                name: "Table 11",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 12",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 13",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 14",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 15",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 16",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 21",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 22",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 23",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 24",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 25",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 26",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            }, {
-                name: "Table 31",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            },
-            {
-                name: "Table 32",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            }, {
-                name: "Table 33",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            }, {
-                name: "Table 34",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            }, {
-                name: "Balcony 1",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
-            }, {
-                name: "Balcony 2",
-                isOccupied: false,
-                guestNumber: null,
-                server: null,
-                pendingOrder: [],
-                bill: {
-                    id: null,
-                    items: [],
-                    total: 0.00
-                }
+  state = {
+    // Holds all information regarding the tables.
+    // Pending Order contains name and quantity
+    // Items contains name, quantity, and cost
+    tables: [
+      {
+        name: "Table 11",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 12",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 13",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 14",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 15",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 16",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 21",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 22",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 23",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 24",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 25",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 26",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      }, {
+        name: "Table 31",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      },
+      {
+        name: "Table 32",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      }, {
+        name: "Table 33",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      }, {
+        name: "Table 34",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      }, {
+        name: "Balcony 1",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      }, {
+        name: "Balcony 2",
+        isOccupied: false,
+        guestNumber: null,
+        server: null,
+        pendingOrder: [],
+        bill: {
+          id: null,
+          items: [],
+          total: 0.00
+        }
+      }
+    ],
+    // Today's total
+    todaysTotal: null,
+    // List of servers
+    servers: [],
+    // Holds all menu information found in DB: id, name, description, cost
+    menu: {},
+    // Currently logged in User
+    user: null,
+    // the page that is currently active
+    activePage: "Tables",
+    // Table that has been selected
+    activeTable: null,
+    // Index position of table that has been selected
+    activeTableIndex: null,
+    // Is modal active
+    modalActive: false,
+    // is order modal active
+    orderModal: false,
+    // Response from DB upon submitted the order from order component
+    orderResponse: null,
+    // Response from DB upon submitted the partial payment from checkout component
+    partialPaymentResponse: null,
+    // Is message modal active
+    messageModalActive: false,
+    // Content of message modal
+    messageModal: "",
+    // Partial Table
+    partialTable: {
+      bill: {
+        id: "",
+        items: [],
+        total: 0,
+      },
+      guestNumber: 0,
+      isOccupied: false,
+      name: "",
+      pendingOrder: [],
+      server: "",
+      print: false
+    },
+  };
+
+  componentDidMount() {
+    //populates the data from the DB
+    console.log('got DATA');
+    this.populateData();
+  };
+
+  populateData = () => {
+    this.getMenu();
+    this.getServers();
+    this.getUnpaidChecks();
+  };
+
+  activePageHandler = (event) => {
+    //This is for the navbar to find the active page
+    this.getUnpaidChecks();
+    this.forceUpdate();
+    console.log('pagehandler update');
+    this.setState({activePage: event});
+  };
+
+  getMenu = () => {
+    API.getMenu().then(results => {
+      let newMenu = results.data;
+      this.setState({menu: newMenu}, () => {
+      })
+    }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  getServers = () => {
+    API.getServers().then((results) => {
+      let newServers = results.data;
+      this.setState({servers: newServers})
+    }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  getUnpaidChecks = () => {
+    console.log('getUnpaidChecks');
+    //this checks the database on load to see if there are unpaid checks
+    API.getTables().then(results => {
+      let newTablesData = results.data;
+      // if the result has data, there are unpaid checks
+      if (newTablesData) {
+        // get the tables from state in a stretch
+        let updateChecks = [...this.state.tables];
+        //map through the data from the d/b
+        newTablesData.map(item => {
+          // match them against the tables in state
+          updateChecks.map((table, index) => {
+            if (table.name === item.table) {
+              let updateChecksIndex;
+              //update the table's object
+              updateChecksIndex = index;
+              updateChecks[updateChecksIndex].bill.id = item._id;
+              updateChecks[updateChecksIndex].isOccupied = true;
+              updateChecks[updateChecksIndex].server = item.server;
+              updateChecks[updateChecksIndex].guestNumber = item.guests;
+              updateChecks[updateChecksIndex].bill.items = item.items;
+              updateChecks[updateChecksIndex].bill.total = item.total;
             }
-        ],
-        // Today's total
-        todaysTotal: null,
-        // List of servers
-        servers: [],
-        // Holds all menu information found in DB: id, name, description, cost
-        menu: {},
-        // Currently logged in User
-        user: null,
-        // the page that is currently active
-        activePage: "Tables",
-        // Table that has been selected
-        activeTable: null,
-        // Index position of table that has been selected
-        activeTableIndex: null,
-        // Is modal active
-        modalActive: false,
-        // is order modal active
-        orderModal: false,
-        // Response from DB upon submitted the order from order component
-        orderResponse: null,
-        // Response from DB upon submitted the partial payment from checkout component
-        partialPaymentResponse: null,
-        // Is message modal active
-        messageModalActive: false,
-        // Content of message modal
-        messageModal: "",
-        // Partial Table
-        partialTable: {
+          })
+        });
+        //push the changed tables back to state
+        this.setState({tables: updateChecks});
+        console.log('updated the fucking tables');
+      }
+    })
+  };
+
+  //clears the active table;
+  cleanTable = () => {
+    let misterClean = [...this.state.tables];
+    misterClean[this.state.activeTableIndex].isOccupied = false;
+    misterClean[this.state.activeTableIndex].guestNumber = null;
+    misterClean[this.state.activeTableIndex].server = null;
+    misterClean[this.state.activeTableIndex].pendingOrder = [];
+    misterClean[this.state.activeTableIndex].bill.id = null;
+    misterClean[this.state.activeTableIndex].bill.items = [];
+    misterClean[this.state.activeTableIndex].total = null;
+
+    this.setState({
+      tables: misterClean,
+      activeTable: null,
+      activeTableIndex: null,
+      modalActive: false
+    });
+  };
+
+  // handles what happens when a table is clicked (sets an active table, active index, and opens the modal
+  handleTableClick = (item) => {
+    let newTableIndex = null;
+    this.state.tables.map((table, index) => {
+      if (table.name === item) {
+        newTableIndex = index;
+        this.setState({activeTable: item, activeTableIndex: newTableIndex},
+          () => {
+            this.modalOpen()
+          })
+      }
+    })
+  };
+
+  // Callback function for DB query to verify login code
+  setUser = (name) => {
+    // Checks if return is a string or object
+    if (typeof name === "string") {
+      //Sets the user name that does callback to display login
+      this.setState({
+        user: name
+      }, function () {
+        this.props.alert.show('Successfully Logged In!', {type: "success"})
+      })
+    }
+  };
+
+  // When user clicks logout button set user to null
+  unsetUser = () => {
+    this.setState({
+      user: null
+    }, function () {
+      this.props.alert.show('Successfully Logged Out!')
+    })
+  };
+
+  // Called from Order.js component, updates pending order list for active table
+  updatePendingOrder = pendingOrder => {
+    this.setState({
+      [this.state.tables[this.state.activeTableIndex].pendingOrder]: pendingOrder
+    }, () => console.log('state after update pending order', this.state.tables[this.state.activeTableIndex].pendingOrder));
+  };
+
+  // Saves pending orders into ordered list
+  savePendingOrder = (newPartialOrder) => {
+    if (newPartialOrder) {
+      return new Promise((resolve, reject) => {
+        let pendingOrders = newPartialOrder.pendingOrder;
+        let total = 0;
+
+        // Loop through list of pending orders
+        let items = pendingOrders.map(item => {
+          let newItem = {};
+          total += item.charge;
+          newItem.charge = item.charge;
+          newItem.quantity = item.quantity;
+          newItem.name = item.name;
+          return newItem;
+        });
+
+        let tableTemp = {...this.state.partialTable};
+        tableTemp.bill.items = [...items];
+        tableTemp.bill.total = total;
+        tableTemp.paymentType = newPartialOrder.paymentType;
+        tableTemp.card = newPartialOrder.card;
+        tableTemp.amountTendered = newPartialOrder.amountTendered;
+
+        this.setState({partialTable: tableTemp}, () => {
+          resolve(this.state.partialTable)
+        });
+      }).then(async (result) => {
+        let orderToDb = await this.orderToDb(this.state.partialTable);
+        this.orderToDb();
+        return result
+      })
+
+    } else {
+      // variables for aesthetic purposes, shorten code length
+      const activeTable = this.state.activeTableIndex;
+      const pendingOrders = this.state.tables[activeTable].pendingOrder;
+
+      let currentOrderList = this.state.tables[activeTable].bill.items;
+      let table = this.state.tables[activeTable];
+
+      // Loop through list of pending orders
+      pendingOrders.map(newItem => {
+        // Gets index position of newItem from table
+        const currentItemIndex = currentOrderList.findIndex(index => index.name === newItem.name);
+        // Gets index position of item from menu
+        const menuItemIndex = this.state.menu.findIndex(index => index.name === newItem.name);
+        // variables for aesthetic purposes, shorten code length
+        const menuItem = this.state.menu[menuItemIndex];
+
+        // If item is found in the list add the ordered quantity to the pending quantity and calculate the new cost of the quantity
+        // If not found calculate the total cost and push all items into the array
+
+        if (currentItemIndex !== -1) {
+          currentOrderList[currentItemIndex].quantity = parseInt(currentOrderList[currentItemIndex].quantity, 10) + parseInt(newItem.quantity, 10);
+          currentOrderList[currentItemIndex].charge = (parseFloat(currentOrderList[currentItemIndex].quantity) * parseFloat(menuItem.cost));
+        } else {
+          newItem.charge = parseInt(newItem.quantity, 10) * parseFloat(menuItem.cost);
+          currentOrderList.push(newItem);
+        }
+      });
+
+      // Store updated info into table object
+      table.bill.items = currentOrderList;
+      // Reduce function to sum up all the charges in the bill array
+      table.bill.total = this.state.tables[activeTable].bill.items.map(item => item.charge).reduce((sum, nextCharge) => sum + nextCharge);
+      table.pendingOrder = [];
+
+      //Set State using table object and use callback once state is updated
+      this.setState({
+          [this.state.tables[activeTable]]: table,
+        }, () => this.orderToDb()
+      );
+    }
+  };
+
+  // Call placeOrder API route to update database and wait for response
+  orderToDb = (partialNewOrder = false) => {
+    if (partialNewOrder) {
+      return new Promise((resolve, reject) => {
+        API.placeOrder(this.state.partialTable, this.dbresponse);
+        resolve(this.state.partialTable);
+      }).then((result) => {
+        this.submitPartialPayment(this.state.partialTable);
+        return result
+      })
+    } else {
+      API.placeOrder(this.state.tables[this.state.activeTableIndex], this.dbresponse);
+    }
+  };
+
+  // Process route response from updating order and set message to be forwarded to Order component
+  dbresponse = (response) => {
+    let orderMessage;
+
+    response.status === 200 ? orderMessage = "Order Submitted" : orderMessage = "An error occured, order was saved and will be saved on next transaction";
+
+    this.setState({
+      orderResponse: orderMessage,
+      orderModal: true
+    });
+  };
+
+  dbPartialPaymentResponse = (response) => {
+    let partialPaymentMessage;
+
+    response.status === 200 ? partialPaymentMessage = "Partial Payment Submitted!" : partialPaymentMessage = "An error occured";
+
+    this.setState({
+      partialPaymentResponse: partialPaymentMessage,
+      orderModal: true
+    })
+  };
+
+  // Close Response modal
+  orderClose = () => {
+    this.setState({
+      orderModal: false
+    })
+  };
+
+  setServer = (server) => {
+    this.setState({[this.state.tables[this.state.activeTableIndex].server]: server});
+  };
+
+  addServer = (server, callback) => {
+    API.addServer(server)
+      .then(results => {
+          if (results.status === 200) {
+            this.getServers();
+          }
+        }
+      ).catch(error => {
+      throw error
+    })
+  };
+
+  addMenu = (menu) => {
+    API.addMenu(menu)
+      .then(results => {
+          if (results.status === 200) {
+            this.getMenu();
+          }
+        }
+      ).catch(error => {
+      throw error
+    })
+  };
+
+  seatGuestsHelperFromPartialPayment = (server, guests, tableName) => {
+    console.log('SEAT');
+    return new Promise((resolve, reject) => {
+      // Push to the DB
+      const seating = {};
+      seating.server = server;
+      seating.guests = guests;
+      seating.table = tableName;
+      console.log('seatGuestsHelperFromPartialPayment seating', seating);
+      API.seatGuests(seating).then(results => {
+        if (results.status === 200) {
+          console.log('new order successful for partial', results);
+          let partialTable = {
             bill: {
-                id: "",
-                items: [],
-                total: 0,
+              id: results.data._id,
+              items: results.data.items,
+              total: results.data.total,
             },
-            guestNumber: 0,
-            isOccupied: false,
-            name: "",
+            isOccupied: true,
             pendingOrder: [],
-            server: "",
-            print: false
-        },
-    };
+            guestNumber: results.data.guests,
+            name: results.data.table,
+            server: results.data.server,
+            print: false,
+          };
 
-    componentDidMount() {
-        //populates the data from the DB
-        console.log('got DATA');
-        this.populateData();
-    };
+          this.setState({partialTable: {...partialTable}}, () => {
+            console.log('this.state.newPartialOrder AFTER SEATING', this.state.partialTable);
+            resolve(this.state.partialTable);
+          });
+        } else {
+          console.log(results.status);
+        }
+      });
+    }).then((result) => {
+      return result
+    })
 
-    populateData = () => {
-        this.getMenu();
-        this.getServers();
-        this.getUnpaidChecks();
-    };
+  };
 
-    activePageHandler = (event) => {
-        //This is for the navbar to find the active page
-        this.getUnpaidChecks();
-        this.forceUpdate();
-        console.log('pagehandler update');
-        this.setState({activePage: event});
-    };
+  seatGuestsFromModalHandler = (server, guests) => {
+    //click handler from the modal, seats new guests, updates state, creates a new receipt and then updates state with the new receipt
+    // Push to the DB
+    const seating = {};
+    seating.server = server;
+    seating.guests = guests;
+    seating.table = this.state.activeTable;
 
-    getMenu = () => {
-        API.getMenu().then(results => {
-            let newMenu = results.data;
-            this.setState({menu: newMenu}, () => {
-            })
-        }).catch(error => {
-            if (error) throw (error)
-        })
-    };
+    API.seatGuests(seating).then(results => {
+      if (results.status === 200) {
 
-    getServers = () => {
-        API.getServers().then((results) => {
-            let newServers = results.data;
-            this.setState({servers: newServers})
-        }).catch(error => {
-            if (error) throw (error)
-        })
-    };
-
-    getUnpaidChecks = () => {
-        console.log('getUnpaidChecks');
-        //this checks the database on load to see if there are unpaid checks
-        API.getTables().then(results => {
-            let newTablesData = results.data;
-            // if the result has data, there are unpaid checks
-            if (newTablesData) {
-                // get the tables from state in a stretch
-                let updateChecks = [...this.state.tables];
-                //map through the data from the d/b
-                newTablesData.map(item => {
-                    // match them against the tables in state
-                    updateChecks.map((table, index) => {
-                        if (table.name === item.table) {
-                            let updateChecksIndex;
-                            //update the table's object
-                            updateChecksIndex = index;
-                            updateChecks[updateChecksIndex].bill.id = item._id;
-                            updateChecks[updateChecksIndex].isOccupied = true;
-                            updateChecks[updateChecksIndex].server = item.server;
-                            updateChecks[updateChecksIndex].guestNumber = item.guests;
-                            updateChecks[updateChecksIndex].bill.items = item.items;
-                            updateChecks[updateChecksIndex].bill.total = item.total;
-                        }
-                    })
-                });
-                //push the changed tables back to state
-                this.setState({tables: updateChecks});
-                console.log('updated the fucking tables');
-            }
-        })
-    };
-
-    //clears the active table;
-    cleanTable = () => {
-        let misterClean = [...this.state.tables];
-        misterClean[this.state.activeTableIndex].isOccupied = false;
-        misterClean[this.state.activeTableIndex].guestNumber = null;
-        misterClean[this.state.activeTableIndex].server = null;
-        misterClean[this.state.activeTableIndex].pendingOrder = [];
-        misterClean[this.state.activeTableIndex].bill.id = null;
-        misterClean[this.state.activeTableIndex].bill.items = [];
-        misterClean[this.state.activeTableIndex].total = null;
-
+        let updateTables = [...this.state.tables];
+        updateTables[this.state.activeTableIndex].guestNumber = guests;
+        updateTables[this.state.activeTableIndex].server = server;
+        updateTables[this.state.activeTableIndex].isOccupied = true;
+        updateTables[this.state.activeTableIndex].bill.id = results.data._id;
         this.setState({
-            tables: misterClean,
+          modalActive: false,
+          tables: updateTables
+        }, function () {
+          this.props.alert.show('Guests Seated Successfully', {type: "success"})
+        });
+      }
+    });
+  };
+
+  //these are helper functions to open and close the modals
+  modalOpen = () => {
+    this.getUnpaidChecks();
+    console.log("modal opener ");
+    this.setState({modalActive: true}, function () {
+    })
+  };
+
+  modalClose = () => {
+    this.setState({modalActive: false}, function () {
+    })
+  };
+
+  modalOrder = () => {
+    // from inside the modal, this function lets the modal open an order page, it closes the modal too
+    this.setState({activePage: "Orders", modalActive: false})
+  };
+
+  changeTable = (table, tables) => {
+    console.log('table from App.js', table);
+    API.changeTable(table, tables)
+      .then(results => {
+        if (results.status === 200) {
+          this.cleanTable();
+          this.getUnpaidChecks();
+        }
+      })
+      .catch(error => {
+        throw error
+      })
+  };
+
+  shiftTotal = (print) => {
+    API.shiftTotal(print).then(result => {
+      if (result.status === 200) {
+        //todo get response and visualize in a modal
+        console.log('shift total result data:', result);
+        this.setState({todaysTotal: result.data.totalSales});
+      }
+    }).catch(error => {
+      throw error;
+    })
+  };
+
+  submitPayment = (payment) => {
+    console.log('payment obg:', payment);
+    API.submitPayment(payment)
+      .then(results => {
+        if (results.status === 200) {
+          this.cleanTable();
+        }
+      })
+      .catch(error => {
+        throw error
+      })
+  };
+
+  submitPartialPayment = (payment) => {
+    console.log('app js ', payment);
+    API.submitPartialPayment(payment)
+      .then(results => {
+        if (results.status === 200) {
+          console.log('app js payment obj PARTIAL', payment);
+          this.setState({
             activeTable: null,
             activeTableIndex: null,
             modalActive: false
-        });
-    };
-
-    // handles what happens when a table is clicked (sets an active table, active index, and opens the modal
-    handleTableClick = (item) => {
-        let newTableIndex = null;
-        this.state.tables.map((table, index) => {
-            if (table.name === item) {
-                newTableIndex = index;
-                this.setState({activeTable: item, activeTableIndex: newTableIndex},
-                    () => {
-                        this.modalOpen()
-                    })
-            }
-        })
-    };
-
-    // Callback function for DB query to verify login code
-    setUser = (name) => {
-        // Checks if return is a string or object
-        if (typeof name === "string") {
-            //Sets the user name that does callback to display login
-            this.setState({
-                user: name
-            }, function () {
-                this.props.alert.show('Successfully Logged In!', {type: "success"})
-            })
+          });
         }
-    };
+      })
+      .catch(error => {
+        throw error
+      })
+  };
 
-    // When user clicks logout button set user to null
-    unsetUser = () => {
-        this.setState({
-            user: null
-        }, function () {
-            this.props.alert.show('Successfully Logged Out!')
-        })
-    };
-
-    // Called from Order.js component, updates pending order list for active table
-    updatePendingOrder = pendingOrder => {
-        this.setState({
-            [this.state.tables[this.state.activeTableIndex].pendingOrder]: pendingOrder
-        }, () => console.log('state after update pending order', this.state.tables[this.state.activeTableIndex].pendingOrder));
-    };
-
-    // Saves pending orders into ordered list
-    savePendingOrder = (newPartialOrder) => {
-        if (newPartialOrder) {
-            return new Promise((resolve,reject)=>{
-                let pendingOrders = newPartialOrder.pendingOrder;
-                let total = 0;
-
-                // Loop through list of pending orders
-                let items = pendingOrders.map(item => {
-                    let newItem = {};
-                    total += item.charge;
-                    newItem.charge = item.charge;
-                    newItem.quantity = item.quantity;
-                    newItem.name = item.name;
-                    return newItem;
-                });
-
-                let tableTemp = {...this.state.partialTable};
-                tableTemp.bill.items = [...items];
-                tableTemp.bill.total = total;
-                tableTemp.paymentType = newPartialOrder.paymentType;
-                tableTemp.card = newPartialOrder.card;
-                tableTemp.amountTendered = newPartialOrder.amountTendered;
-
-                this.setState({ partialTable: tableTemp}, () => {
-                    resolve(this.state.partialTable)
-                });
-            }).then(async (result)=>{
-                let orderToDb = await this.orderToDb(this.state.partialTable);
-                this.orderToDb();
-                return result
-            })
-
-        } else {
-            // variables for aesthetic purposes, shorten code length
-            const activeTable = this.state.activeTableIndex;
-            const pendingOrders = this.state.tables[activeTable].pendingOrder;
-
-            let currentOrderList = this.state.tables[activeTable].bill.items;
-            let table = this.state.tables[activeTable];
-
-            // Loop through list of pending orders
-            pendingOrders.map(newItem => {
-                // Gets index position of newItem from table
-                const currentItemIndex = currentOrderList.findIndex(index => index.name === newItem.name);
-                // Gets index position of item from menu
-                const menuItemIndex = this.state.menu.findIndex(index => index.name === newItem.name);
-                // variables for aesthetic purposes, shorten code length
-                const menuItem = this.state.menu[menuItemIndex];
-
-                // If item is found in the list add the ordered quantity to the pending quantity and calculate the new cost of the quantity
-                // If not found calculate the total cost and push all items into the array
-
-                if (currentItemIndex !== -1) {
-                    currentOrderList[currentItemIndex].quantity = parseInt(currentOrderList[currentItemIndex].quantity, 10) + parseInt(newItem.quantity, 10);
-                    currentOrderList[currentItemIndex].charge = (parseFloat(currentOrderList[currentItemIndex].quantity) * parseFloat(menuItem.cost));
-                } else {
-                    newItem.charge = parseInt(newItem.quantity, 10) * parseFloat(menuItem.cost);
-                    currentOrderList.push(newItem);
-                }
-            });
-
-            // Store updated info into table object
-            table.bill.items = currentOrderList;
-            // Reduce function to sum up all the charges in the bill array
-            table.bill.total = this.state.tables[activeTable].bill.items.map(item => item.charge).reduce((sum, nextCharge) => sum + nextCharge);
-            table.pendingOrder = [];
-
-            //Set State using table object and use callback once state is updated
-            this.setState({
-                    [this.state.tables[activeTable]]: table,
-                }, () => this.orderToDb()
-            );
+  menuDelete = (menuItem) => {
+    API.menuDelete(menuItem)
+      .then(results => {
+        if (results.status === 200) {
+          this.getMenu()
         }
-    };
+      })
+      .catch(error => {
+        throw error
+      })
+  };
 
-    // Call placeOrder API route to update database and wait for response
-    orderToDb = (partialNewOrder = false) => {
-        if (partialNewOrder) {
-            return new Promise((resolve,reject)=> {
-                API.placeOrder(this.state.partialTable, this.dbresponse);
-                resolve(this.state.partialTable);
-                }).then((result)=>{
-                    this.submitPartialPayment(this.state.partialTable);
-                    return result
-                })
-        } else {
-            API.placeOrder(this.state.tables[this.state.activeTableIndex], this.dbresponse);
-        }
-    };
-
-    // Process route response from updating order and set message to be forwarded to Order component
-    dbresponse = (response) => {
-        let orderMessage;
-
-        response.status === 200 ? orderMessage = "Order Submitted" : orderMessage = "An error occured, order was saved and will be saved on next transaction";
-
-        this.setState({
-            orderResponse: orderMessage,
-            orderModal: true
-        });
-    };
-
-    dbPartialPaymentResponse = (response) => {
-        let partialPaymentMessage;
-
-        response.status === 200 ? partialPaymentMessage = "Partial Payment Submitted!" : partialPaymentMessage = "An error occured";
-
-        this.setState({
-            partialPaymentResponse: partialPaymentMessage,
-            orderModal: true
-        })
-    };
-
-    // Close Response modal
-    orderClose = () => {
-        this.setState({
-            orderModal: false
-        })
-    };
-
-    setServer = (server) => {
-        this.setState({[this.state.tables[this.state.activeTableIndex].server]: server});
-    };
-
-    addServer = (server, callback) => {
-        API.addServer(server)
-            .then(results => {
-                    if (results.status === 200) {
-                        this.getServers();
-                    }
-                }
-            ).catch(error => {
-            throw error
-        })
-    };
-
-    addMenu = (menu) => {
-        API.addMenu(menu)
-            .then(results => {
-                    if (results.status === 200) {
-                        this.getMenu();
-                    }
-                }
-            ).catch(error => {
-            throw error
-        })
-    };
-
-    seatGuestsHelperFromPartialPayment = (server, guests, tableName) => {
-        console.log('SEAT');
-        return new Promise((resolve,reject)=>{
-            // Push to the DB
-            const seating = {};
-            seating.server = server;
-            seating.guests = guests;
-            seating.table = tableName;
-            console.log('seatGuestsHelperFromPartialPayment seating', seating);
-            API.seatGuests(seating).then(results => {
-                if (results.status === 200) {
-                    console.log('new order successful for partial', results);
-                    let partialTable = {
-                        bill: {
-                            id: results.data._id,
-                            items: results.data.items,
-                            total: results.data.total,
-                        },
-                        isOccupied: true,
-                        pendingOrder: [],
-                        guestNumber: results.data.guests,
-                        name: results.data.table,
-                        server: results.data.server,
-                        print: false,
-                    };
-
-                    this.setState({partialTable: {...partialTable}}, () => {
-                        console.log('this.state.newPartialOrder AFTER SEATING', this.state.partialTable);
-                        resolve(this.state.partialTable);
-                    });
-                } else {
-                    console.log(results.status);
-                }
-            });
-        }).then((result)=>{
-            return result
-        })
-
-    };
-
-    seatGuestsFromModalHandler = (server, guests) => {
-        //click handler from the modal, seats new guests, updates state, creates a new receipt and then updates state with the new receipt
-        // Push to the DB
-        const seating = {};
-        seating.server = server;
-        seating.guests = guests;
-        seating.table = this.state.activeTable;
-
-        API.seatGuests(seating).then(results => {
-            if (results.status === 200) {
-
-                let updateTables = [...this.state.tables];
-                updateTables[this.state.activeTableIndex].guestNumber = guests;
-                updateTables[this.state.activeTableIndex].server = server;
-                updateTables[this.state.activeTableIndex].isOccupied = true;
-                updateTables[this.state.activeTableIndex].bill.id = results.data._id;
-                this.setState({
-                    modalActive: false,
-                    tables: updateTables
-                }, function () {
-                    this.props.alert.show('Guests Seated Successfully', {type: "success"})
-                });
-            }
-        });
-    };
-
-    //these are helper functions to open and close the modals
-    modalOpen = () => {
-        this.getUnpaidChecks();
-        console.log("modal opener ");
-        this.setState({modalActive: true}, function () {
-        })
-    };
-
-    modalClose = () => {
-        this.setState({modalActive: false}, function () {
-        })
-    };
-
-    modalOrder = () => {
-        // from inside the modal, this function lets the modal open an order page, it closes the modal too
-        this.setState({activePage: "Orders", modalActive: false})
-    };
-
-    changeTable = (table, tables) => {
-        console.log('table from App.js', table);
-        API.changeTable(table, tables)
-            .then(results => {
-                if (results.status === 200) {
-                    this.cleanTable();
-                    this.getUnpaidChecks();
-                }
-            })
-            .catch(error => {
-                throw error
-            })
-    };
-
-    shiftTotal = (print) => {
-        API.shiftTotal(print).then(result => {
-            if (result.status === 200) {
-                //todo get response and visualize in a modal
-                console.log('shift total result data:', result);
-                this.setState({todaysTotal: result.data.totalSales});
-            }
-        }).catch(error => {
-            throw error;
-        })
-    };
-
-    submitPayment = (payment) => {
-        console.log('payment obg:', payment);
-        API.submitPayment(payment)
-            .then(results => {
-                if (results.status === 200) {
-                    this.cleanTable();
-                }
-            })
-            .catch(error => {
-                throw error
-            })
-    };
-
-    submitPartialPayment = (payment) => {
-        console.log('app js ', payment);
-        API.submitPartialPayment(payment)
-            .then(results => {
-                if (results.status === 200) {
-                    console.log('app js payment obj PARTIAL', payment);
-                    this.setState({
-                        activeTable: null,
-                        activeTableIndex: null,
-                        modalActive: false
-                    });
-                }
-            })
-            .catch(error => {
-                throw error
-            })
-    };
-
-    menuDelete = (menuItem) => {
-        API.menuDelete(menuItem)
-            .then(results => {
-                if (results.status === 200) {
-                    this.getMenu()
-                }
-            })
-            .catch(error => {
-                throw error
-            })
-    };
-
-    /* * * * * * * * * * * * * * * * * * * * * * * * *
-   * * * * * * SHIFT FUNCTIONALITY  * * * * * *
-   * * * * * * * * * * * * * * * * * * * * * * * * */
-    getShift = () => {
-        API.getShifts()
-        .then((results) => {
-            // let newShifts = results.data
-            // this.setState({shifts: newShifts})
-        }).catch(error => {
-            if (error) throw (error)
-        })
-    };
+  /* * * * * * * * * * * * * * * * * * * * * * * * *
+ * * * * * * SHIFT FUNCTIONALITY  * * * * * *
+ * * * * * * * * * * * * * * * * * * * * * * * * */
+  getShift = () => {
+    API.getShifts()
+      .then((results) => {
+        // let newShifts = results.data
+        // this.setState({shifts: newShifts})
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
 
 
-    render() {
-        let activeContent = null;
-        if (this.state.user === null) {
-            activeContent = (<Login setUser={this.setUser}/>)
-        } else {
+  render() {
+    let activeContent = null;
+    if (this.state.user === null) {
+      activeContent = (<Login setUser={this.setUser}/>)
+    } else {
 
-            switch (this.state.activePage) {
-                case ("Tables"):
-                    activeContent = (
-                        <Table
-                            tables={this.state.tables}
-                            clicked={this.handleTableClick}/>
+      switch (this.state.activePage) {
+        case ("Tables"):
+          activeContent = (
+            <Table
+              tables={this.state.tables}
+              clicked={this.handleTableClick}/>
 
-                    );
-                    break;
-                case ("Orders"):
-                    // Sets Order Page as rendered page and passes props to Order Component
-                    activeContent = (
-                        <Order
-                            menu={this.state.menu}
-                            activeTable={this.state.activeTable}
-                            table={this.state.tables[this.state.activeTableIndex]}
-                            orderSubmit={this.savePendingOrder}
-                            updatePendingOrder={this.updatePendingOrder}
-                            orderModal={this.state.orderModal}/>
-                    );
-                    break;
-                case ("Admin"):
-                    activeContent = (
-                        <Admin
-                            menuDelete={this.menuDelete}
-                            todaysTotal={this.state.todaysTotal}
-                            shiftTotal={this.shiftTotal}
-                            servers={this.state.servers}
-                            addServer={this.addServer}
-                            menu={this.state.menu}
-                            addMenu={this.addMenu}/>
-                    );
-                    break;
-                default:
-                    activeContent = null
-            }
-        }
-
-        return (
-            <Hoc>
-                <Grid fluid>
-                    <Navbar
-                        activePage={this.state.activePage}
-                        handleSelect={this.activePageHandler}
-                        activeTable={this.state.activeTable}
-                        loggedInUser={this.state.user}
-                        logOut={this.unsetUser}/>
-                </Grid>
-                <Grid>
-                    <Row>
-                        {/* active content (conditional page render) */}
-                        {activeContent}
-                    </Row>
-                    {/* modal conditional rendering is below */}
-                    {/* Displays Order modal if state is true */}
-                    {
-                        this.state.orderModal ?
-                            <OrderModal
-                                orderMessage={this.state.orderResponse}
-                                orderClose={this.orderClose}/>
-                            : null
-                    }
-                    {
-                        this.state.modalActive ?
-                            (<Modal
-                                tables={this.state.tables}
-                                activeTable={this.state.activeTable}
-                                activeTableIndex={this.state.activeTableIndex}
-                                partialTable={this.state.partialTable}
-                                servers={this.state.servers}
-                                close={this.modalClose}
-                                order={this.modalOrder}
-                                receipt={this.printReceipt}
-                                submitPayment={this.submitPayment}
-                                submitPartialPayment={this.submitPartialPayment}
-                                orderSubmit={this.savePendingOrder}
-                                updatePendingOrder={this.updatePendingOrder}
-                                changeTable={this.changeTable}
-                                setServer={this.setServer}
-                                seatGuests={this.seatGuestsFromModalHandler}
-                                seatGuestsPartialPayment={this.seatGuestsHelperFromPartialPayment}/>)
-                            : null
-                    }
-                </Grid>
-            </Hoc>
-        );
+          );
+          break;
+        case ("Orders"):
+          // Sets Order Page as rendered page and passes props to Order Component
+          activeContent = (
+            <Order
+              menu={this.state.menu}
+              activeTable={this.state.activeTable}
+              table={this.state.tables[this.state.activeTableIndex]}
+              orderSubmit={this.savePendingOrder}
+              updatePendingOrder={this.updatePendingOrder}
+              orderModal={this.state.orderModal}/>
+          );
+          break;
+        case ("Admin"):
+          activeContent = (
+            <Admin
+              menuDelete={this.menuDelete}
+              todaysTotal={this.state.todaysTotal}
+              shiftTotal={this.shiftTotal}
+              servers={this.state.servers}
+              addServer={this.addServer}
+              menu={this.state.menu}
+              addMenu={this.addMenu}/>
+          );
+          break;
+        default:
+          activeContent = null
+      }
     }
+
+    return (
+      <Hoc>
+        <Grid fluid>
+          <Navbar
+            activePage={this.state.activePage}
+            handleSelect={this.activePageHandler}
+            activeTable={this.state.activeTable}
+            loggedInUser={this.state.user}
+            logOut={this.unsetUser}/>
+        </Grid>
+        <Grid className="mt-5">
+          <Row>
+            {/* active content (conditional page render) */}
+            {activeContent}
+          </Row>
+          {/* modal conditional rendering is below */}
+          {/* Displays Order modal if state is true */}
+          {
+            this.state.orderModal ?
+              <OrderModal
+                orderMessage={this.state.orderResponse}
+                orderClose={this.orderClose}/>
+              : null
+          }
+          {
+            this.state.modalActive ?
+              (<Modal
+                tables={this.state.tables}
+                activeTable={this.state.activeTable}
+                activeTableIndex={this.state.activeTableIndex}
+                partialTable={this.state.partialTable}
+                servers={this.state.servers}
+                close={this.modalClose}
+                order={this.modalOrder}
+                receipt={this.printReceipt}
+                submitPayment={this.submitPayment}
+                submitPartialPayment={this.submitPartialPayment}
+                orderSubmit={this.savePendingOrder}
+                updatePendingOrder={this.updatePendingOrder}
+                changeTable={this.changeTable}
+                setServer={this.setServer}
+                seatGuests={this.seatGuestsFromModalHandler}
+                seatGuestsPartialPayment={this.seatGuestsHelperFromPartialPayment}/>)
+              : null
+          }
+        </Grid>
+      </Hoc>
+    );
+  }
 }
 
 export default withAlert(App);
