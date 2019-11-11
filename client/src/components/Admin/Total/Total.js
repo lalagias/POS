@@ -17,6 +17,7 @@ class Total extends Component {
       cardRegister: 0,
       cashServer: 0,
       cardServer: 0,
+      unpaidTables: 0,
     };
   }
 
@@ -31,10 +32,17 @@ class Total extends Component {
 
   // Shift can open when Register is Open
   handleShift = () => {
-    if (this.state.isRegisterOpen) {
+    let unpaidTables = this.props.finishShift();
+    this.setState({unpaidTables: unpaidTables});
+
+    if (this.state.isRegisterOpen && this.state.unpaidTables === 0) {
       this.setState((prevState) => ({
         isShiftOpen: !prevState.isShiftOpen
       }));
+    } else if (this.state.unpaidTables !== 0) {
+      console.log('NOT ALL TABLES ARE PAID')
+    } else if (!this.state.isRegisterOpen) {
+      console.log('REGISTER IS NOT YET OPENED')
     }
   };
 

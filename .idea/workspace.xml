@@ -6,13 +6,8 @@
       <change beforePath="$PROJECT_DIR$/client/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/asset-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/service-worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Menu/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Menu/Menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Register/Register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Shifts/Shifts.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Shifts/Shifts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Total/Total.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Total/Total.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Total/Total.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +21,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="817" column="14" selection-start-line="817" selection-start-column="14" selection-end-line="817" selection-end-column="14" />
+            <state relative-caret-position="295">
+              <caret line="736" column="32" selection-start-line="736" selection-start-column="32" selection-end-line="736" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -35,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/utils/API.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="203" column="32" selection-start-line="203" selection-start-column="32" selection-end-line="203" selection-end-column="32" />
+            <state relative-caret-position="255">
+              <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -86,29 +81,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Register/Register.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Total/Total.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="76" column="19" lean-forward="true" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="4" column="10" lean-forward="true" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Total/Total.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="38" lean-forward="true" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Shifts/Shifts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="51">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -129,9 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setHeader</find>
-      <find>_http_outgoing.js</find>
-      <find>ChangeTable</find>
       <find>resetToInitialState</find>
       <find>tablePropsToState</find>
       <find>printing.printingCheck</find>
@@ -159,6 +148,9 @@
       <find>alert</find>
       <find>console.log(</find>
       <find>updateShift</find>
+      <find>getTable</find>
+      <find>get</find>
+      <find>getTables</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -197,10 +189,10 @@
         <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/components/Admin/Total/Total.css" />
         <option value="$PROJECT_DIR$/client/src/components/Admin/Register/Register.js" />
-        <option value="$PROJECT_DIR$/client/src/components/Admin/Shifts/Shifts.js" />
-        <option value="$PROJECT_DIR$/client/src/App.js" />
         <option value="$PROJECT_DIR$/client/src/components/Admin/Admin.js" />
+        <option value="$PROJECT_DIR$/client/src/App.js" />
         <option value="$PROJECT_DIR$/client/src/components/Admin/Total/Total.js" />
+        <option value="$PROJECT_DIR$/client/src/components/Admin/Shifts/Shifts.js" />
       </list>
     </option>
   </component>
@@ -331,7 +323,7 @@
       <workItem from="1571911222381" duration="7514000" />
       <workItem from="1573303954580" duration="4937000" />
       <workItem from="1573391026699" duration="11371000" />
-      <workItem from="1573489799776" duration="8005000" />
+      <workItem from="1573489799776" duration="8704000" />
     </task>
     <task id="LOCAL-00001" summary="debug login">
       <created>1568827318122</created>
@@ -382,11 +374,18 @@
       <option name="project" value="LOCAL" />
       <updated>1573402973754</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Menu Management:&#10;Some UI changes.&#10;Register and Shift components changed to stateless functions.&#10;API function passed down from App.js to Admin-&gt;Total.&#10;Register/Shift constraint.&#10;CSS and DOM changes.">
+      <created>1573503120260</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1573503120261</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91985000" />
+    <option name="totallyTimeSpent" value="92684000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -450,7 +449,8 @@
     <MESSAGE value="Partial Payment Feature" />
     <MESSAGE value="Merge branch 'master' of https://github.com/sarkots/POS&#10;&#10;# Conflicts:&#10;#&#9;node_modules/lodash/LICENSE&#10;#&#9;node_modules/lodash/README.md&#10;#&#9;node_modules/lodash/_baseClone.js&#10;#&#9;node_modules/lodash/_baseMerge.js&#10;#&#9;node_modules/lodash/_createRound.js&#10;#&#9;node_modules/lodash/_safeGet.js&#10;#&#9;node_modules/lodash/core.js&#10;#&#9;node_modules/lodash/core.min.js&#10;#&#9;node_modules/lodash/debounce.js&#10;#&#9;node_modules/lodash/lodash.js&#10;#&#9;node_modules/lodash/lodash.min.js&#10;#&#9;node_modules/lodash/package.json&#10;#&#9;node_modules/lodash/template.js&#10;#&#9;node_modules/mixin-deep/index.js&#10;#&#9;node_modules/mixin-deep/package.json&#10;#&#9;node_modules/set-value/index.js&#10;#&#9;node_modules/set-value/package.json&#10;#&#9;node_modules/union-value/package.json" />
     <MESSAGE value="Menu Management:&#10;Polished UI. New components. DOM, CSS changes.&#10;Needs rework for responsiveness.&#10;Register/Shift functionality atm working on it." />
-    <option name="LAST_COMMIT_MESSAGE" value="Menu Management:&#10;Polished UI. New components. DOM, CSS changes.&#10;Needs rework for responsiveness.&#10;Register/Shift functionality atm working on it." />
+    <MESSAGE value="Menu Management:&#10;Some UI changes.&#10;Register and Shift components changed to stateless functions.&#10;API function passed down from App.js to Admin-&gt;Total.&#10;Register/Shift constraint.&#10;CSS and DOM changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Menu Management:&#10;Some UI changes.&#10;Register and Shift components changed to stateless functions.&#10;API function passed down from App.js to Admin-&gt;Total.&#10;Register/Shift constraint.&#10;CSS and DOM changes." />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -790,31 +790,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Shifts/Shifts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
           <caret line="141" selection-start-line="141" selection-end-line="143" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/utils/API.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="203" column="32" selection-start-line="203" selection-start-column="32" selection-end-line="203" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="817" column="14" selection-start-line="817" selection-start-column="14" selection-end-line="817" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -828,20 +807,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Register/Register.js">
+    <entry file="file://$PROJECT_DIR$/client/src/utils/API.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+        <state relative-caret-position="255">
+          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="736" column="32" selection-start-line="736" selection-start-column="32" selection-end-line="736" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Total/Total.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="76" column="19" lean-forward="true" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="51">
+          <caret line="3" column="38" lean-forward="true" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Register/Register.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="10" lean-forward="true" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Shifts/Shifts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>

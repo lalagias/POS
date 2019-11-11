@@ -733,13 +733,16 @@ class App extends Component {
   };
 
   finishShift = () => {
-    API.finishShift()
-      .then((results) => {
-        // let newShifts = results.data
-        // this.setState({shifts: newShifts})
-      }).catch(error => {
-      if (error) throw (error)
-    })
+    API.getTables().then(results => {
+      console.log(results.data);
+      // API.finishShift()
+      //   .then((results) => {
+      //     // let newShifts = results.data
+      //     // this.setState({shifts: newShifts})
+      //   }).catch(error => {
+      //   if (error) throw (error)
+      // })
+    });
   };
 
   /* * * * * * * * * * * * * * * * *

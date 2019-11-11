@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Shifts(props) {
-  console.log(props);
 
   return (
     <div className="card mb-3">
