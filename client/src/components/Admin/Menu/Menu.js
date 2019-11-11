@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Grid, FormControl, Row, Col } from 'react-bootstrap'
+import React, {Component} from 'react';
+import {Grid, FormControl, Row, Col} from 'react-bootstrap'
 import {withAlert} from 'react-alert';
 import Hoc from '../../Hoc/Hoc';
 
@@ -60,108 +60,120 @@ class Menu extends Component {
           className="mb-3"
           lg={6}
           xs={12}>
+          <div className="mb-3 card">
+            <div className="card-title">
+              Add new Menu Item
+            </div>
+            <div className="card-content">
+              <form>
+                <div className="form-row">
+                  <FormControl
+                    className="w-12"
+                    type="text"
+                    value={this.state.newMenu.name}
+                    placeholder="Name"
+                    onChange={event => this.changeHandler(event, "name")}/>
+                  <FormControl
+                    className="w-12 m-0 mr-5"
+                    type="text"
+                    value={this.state.newMenu.description}
+                    placeholder="Description"
+                    onChange={event => this.changeHandler(event, "description")}/>
+
+                  <FormControl
+                    className="w-5 m-0"
+                    type="text"
+                    value={this.state.newMenu.cost}
+                    placeholder="0 &euro;"
+                    onChange={event => this.changeHandler(event, "cost")}/>
+
+                  <FormControl
+                    componentClass="select"
+                    value={this.state.newMenu.category}
+                    onChange={event => this.changeHandler(event, "category")}>
+                    <option selected
+                            value="Salads"
+                    >
+                      Salads
+                    </option>
+                    <option
+                      value="Starters"
+                    >
+                      Starters
+                    </option>
+                    <option
+                      value="Drinks"
+                    >
+                      Drinks
+                    </option>
+                    <option
+                      value="Main"
+                    >
+                      Main
+                    </option>
+                    <option
+                      value="Special"
+                    >
+                      Special
+                    </option>
+                  </FormControl>
+                  <div className="text-center">
+                    <button
+                      className="btn-clearfix btn-submit"
+                      onClick={this.newMenuSubmitHandler}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
           <div className="card">
             <div className="card-title">
               Menu Management
             </div>
-            {this.props.menu.map(menu => {
-                return (
-                  <div className="tile">
-                    <Grid fluid>
-                      <Row
-                        data-menuid={menu._id} key={menu._id}
-                      >
-                        <Col
-                          className="pt-2 "
-                          lg={3}
-                        > {menu.name} </Col>
-                        <Col
-                          className="pt-2 "
-                          lg={3}
-                        > {menu.description} </Col>
-                        <Col
-                          className="pt-2 "
-                          lg={2}
-                        > {menu.cost}&euro; </Col>
-                        <Col
-                          className="pt-2 "
-                          lg={2}
-                        > {menu.category} </Col>
-                        <Col
-                          className="pt-2 "
-                          lg={1}
+            <div className="card-content">
+              {this.props.menu.map(menu => {
+                  return (
+                    <div className="tile">
+                      <Grid fluid>
+                        <Row
+                          data-menuid={menu._id} key={menu._id}
                         >
-                          <button
-                            className="btn-clearfix btn-red btn-delete"
-                            id={menu.name + "delete"}
-                            onClick={(event) => this.deleteMenuItem(event)}>
-                            X
-                          </button>
-                        </Col>
-                      </Row>
-                    </Grid>
-                  </div>)
-              }
-            )}
-            <form>
-              <div className="form-row">
-                <FormControl
-                  type="text"
-                  value={this.state.newMenu.name}
-                  placeholder="Enter name"
-                  onChange={event => this.changeHandler(event, "name")}/>
-                <FormControl
-                  type="text"
-                  value={this.state.newMenu.description}
-                  placeholder="Enter description"
-                  onChange={event => this.changeHandler(event, "description")}/>
-
-                <FormControl
-                  type="text"
-                  value={this.state.newMenu.cost}
-                  placeholder="Enter cost"
-                  onChange={event => this.changeHandler(event, "cost")}/>
-
-                <FormControl
-                  componentClass="select"
-                  value={this.state.newMenu.category}
-                  onChange={event => this.changeHandler(event, "category")}>
-                  <option selected
-                          value="Salads"
-                  >
-                    Salads
-                  </option>
-                  <option
-                    value="Starters"
-                  >
-                    Starters
-                  </option>
-                  <option
-                    value="Drinks"
-                  >
-                    Drinks
-                  </option>
-                  <option
-                    value="Main"
-                  >
-                    Main
-                  </option>
-                  <option
-                    value="Special"
-                  >
-                    Special
-                  </option>
-                </FormControl>
-                <div className="text-center">
-                  <button
-                    className="btn-clearfix btn-submit"
-                    onClick={this.newMenuSubmitHandler}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </form>
+                          <Col
+                            className="pt-2 "
+                            lg={3}
+                          > {menu.name} </Col>
+                          <Col
+                            className="pt-2 "
+                            lg={3}
+                          > {menu.description} </Col>
+                          <Col
+                            className="pt-2 "
+                            lg={2}
+                          > {menu.cost}&euro; </Col>
+                          <Col
+                            className="pt-2 "
+                            lg={2}
+                          > {menu.category} </Col>
+                          <Col
+                            className="pt-2 "
+                            lg={1}
+                          >
+                            <button
+                              className="btn-clearfix btn-red btn-delete"
+                              id={menu.name + "delete"}
+                              onClick={(event) => this.deleteMenuItem(event)}>
+                              X
+                            </button>
+                          </Col>
+                        </Row>
+                      </Grid>
+                    </div>)
+                }
+              )}
+            </div>
           </div>
         </Col>
       </Hoc>

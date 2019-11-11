@@ -285,10 +285,9 @@ class App extends Component {
   };
 
   activePageHandler = (event) => {
-    //This is for the navbar to find the active page
+    // This is for the navbar to find the active page
     this.getUnpaidChecks();
     this.forceUpdate();
-    console.log('pagehandler update');
     this.setState({activePage: event});
   };
 
@@ -339,7 +338,6 @@ class App extends Component {
         });
         //push the changed tables back to state
         this.setState({tables: updateChecks});
-        console.log('updated the fucking tables');
       }
     })
   };
@@ -386,6 +384,8 @@ class App extends Component {
         user: name
       }, function () {
         this.props.alert.show('Successfully Logged In!', {type: "success"})
+
+        setTimeout(() => { this.props.alert.remove(alert) }, 3000);
       })
     }
   };
@@ -556,17 +556,16 @@ class App extends Component {
   };
 
   seatGuestsHelperFromPartialPayment = (server, guests, tableName) => {
-    console.log('SEAT');
     return new Promise((resolve, reject) => {
       // Push to the DB
       const seating = {};
       seating.server = server;
       seating.guests = guests;
       seating.table = tableName;
-      console.log('seatGuestsHelperFromPartialPayment seating', seating);
+
       API.seatGuests(seating).then(results => {
         if (results.status === 200) {
-          console.log('new order successful for partial', results);
+
           let partialTable = {
             bill: {
               id: results.data._id,
@@ -582,7 +581,6 @@ class App extends Component {
           };
 
           this.setState({partialTable: {...partialTable}}, () => {
-            console.log('this.state.newPartialOrder AFTER SEATING', this.state.partialTable);
             resolve(this.state.partialTable);
           });
         } else {
@@ -624,7 +622,6 @@ class App extends Component {
   //these are helper functions to open and close the modals
   modalOpen = () => {
     this.getUnpaidChecks();
-    console.log("modal opener ");
     this.setState({modalActive: true}, function () {
     })
   };
@@ -640,7 +637,6 @@ class App extends Component {
   };
 
   changeTable = (table, tables) => {
-    console.log('table from App.js', table);
     API.changeTable(table, tables)
       .then(results => {
         if (results.status === 200) {
@@ -656,8 +652,6 @@ class App extends Component {
   shiftTotal = (print) => {
     API.shiftTotal(print).then(result => {
       if (result.status === 200) {
-        //todo get response and visualize in a modal
-        console.log('shift total result data:', result);
         this.setState({todaysTotal: result.data.totalSales});
       }
     }).catch(error => {
@@ -666,7 +660,6 @@ class App extends Component {
   };
 
   submitPayment = (payment) => {
-    console.log('payment obg:', payment);
     API.submitPayment(payment)
       .then(results => {
         if (results.status === 200) {
@@ -679,11 +672,9 @@ class App extends Component {
   };
 
   submitPartialPayment = (payment) => {
-    console.log('app js ', payment);
     API.submitPartialPayment(payment)
       .then(results => {
         if (results.status === 200) {
-          console.log('app js payment obj PARTIAL', payment);
           this.setState({
             activeTable: null,
             activeTableIndex: null,
@@ -708,9 +699,9 @@ class App extends Component {
       })
   };
 
-  /* * * * * * * * * * * * * * * * * * * * * * * * *
- * * * * * * SHIFT FUNCTIONALITY  * * * * * *
- * * * * * * * * * * * * * * * * * * * * * * * * */
+  /* * * * * * * * * * * * * * * * *
+          SHIFT FUNCTIONALITY
+  * * * * * * * * * * * * * * * * * */
   getShift = () => {
     API.getShifts()
       .then((results) => {
@@ -721,6 +712,78 @@ class App extends Component {
     })
   };
 
+  startShift = () => {
+    API.startShift()
+      .then((results) => {
+        // let newShifts = results.data
+        // this.setState({shifts: newShifts})
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  updateShift = () => {
+    API.updateShift()
+      .then((results) => {
+        // let newShifts = results.data
+        // this.setState({shifts: newShifts})
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  finishShift = () => {
+    API.finishShift()
+      .then((results) => {
+        // let newShifts = results.data
+        // this.setState({shifts: newShifts})
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  /* * * * * * * * * * * * * * * * *
+         SHIFT FUNCTIONALITY
+ * * * * * * * * * * * * * * * * * */
+  getRegister = () => {
+    API.getRegister()
+      .then((results) => {
+        // let newShifts = results.data
+        // this.setState({shifts: newShifts})
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  openRegister = () => {
+    API.openRegister()
+      .then((results) => {
+        // let newShifts = results.data
+        // this.setState({shifts: newShifts})
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  updateRegister = () => {
+    API.updateRegister()
+      .then((results) => {
+        // let newShifts = results.data
+        // this.setState({shifts: newShifts})
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  closeRegister = () => {
+    API.closeRegister()
+      .then((results) => {
+        // let newShifts = results.data
+        // this.setState({shifts: newShifts})
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
 
   render() {
     let activeContent = null;
@@ -752,6 +815,14 @@ class App extends Component {
         case ("Admin"):
           activeContent = (
             <Admin
+              getShift={this.getShift}
+              startShift={this.startShift}
+              updateShift={this.updateShift}
+              finishShift={this.finishShift}
+              getRegister={this.getRegister}
+              openRegister={this.openRegister}
+              updateRegister={this.updateRegister}
+              closeRegister={this.closeRegister}
               menuDelete={this.menuDelete}
               todaysTotal={this.state.todaysTotal}
               shiftTotal={this.shiftTotal}

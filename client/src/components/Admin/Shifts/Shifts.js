@@ -1,39 +1,25 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Shifts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isToggleShift: true
-    };
-  }
+function Shifts(props) {
+  console.log(props);
 
-  handleShift = () => {
-    this.setState((prevState) => ({
-      isToggleShift: !prevState.isToggleShift
-    }));
-  };
-
-  render() {
-
-    return (
-      <div className="card mb-3">
-        <div className="card-title">
-          Shift
-        </div>
-        <div className="card-value-subtotal text-center">
-          0&euro;
-        </div>
-        <div className="text-center">
-          <button
-            className="btn-clearfix btn-submit"
-            onClick={this.handleShift}>
-            {this.state.isToggleShift ? 'Open Shift' : 'Close Shift'}
-          </button>
-        </div>
+  return (
+    <div className="card mb-3">
+      <div className="card-title">
+        Shift
       </div>
-    )
-  }
+      <div className="card-value-subtotal text-center">
+        0&euro;
+      </div>
+      <div className="text-center">
+        <button
+          className="btn-clearfix btn-submit"
+          onClick={props.handleShift}>
+          {props.isShiftOpen ? 'Close Shift' : 'Open Shift' }
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default Shifts;

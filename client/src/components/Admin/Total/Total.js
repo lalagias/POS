@@ -1,11 +1,42 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
 import Hoc from "../../Hoc/Hoc";
-import './Total.css';
 import Shifts from "../Shifts/Shifts";
 import Register from "../Register/Register";
 
 class Total extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRegisterOpen: false,
+      isShiftOpen: false,
+      registerTotal: 0,
+      shiftTotal: 0,
+      ordersNo: 0,
+      cashRegister: 0,
+      cardRegister: 0,
+      cashServer: 0,
+      cardServer: 0,
+    };
+  }
+
+  // Register can open when Shift is closed
+  handleRegister = () => {
+    if (!this.state.isShiftOpen) {
+      this.setState((prevState) => ({
+        isRegisterOpen: !prevState.isRegisterOpen
+      }));
+    }
+  };
+
+  // Shift can open when Register is Open
+  handleShift = () => {
+    if (this.state.isRegisterOpen) {
+      this.setState((prevState) => ({
+        isShiftOpen: !prevState.isShiftOpen
+      }));
+    }
+  };
 
   shiftTotal = () => {
     this.props.shiftTotal(false);
@@ -17,7 +48,7 @@ class Total extends Component {
 
   componentDidMount() {
     this.shiftTotal();
-  }
+  };
 
   render() {
 
@@ -43,8 +74,24 @@ class Total extends Component {
               </button>
             </div>
           </div>
-          <Register/>
-          <Shifts/>
+          <Register
+            getRegister={this.props.getRegister}
+            openRegister={this.props.openRegister}
+            updateRegister={this.props.updateRegister}
+            closeRegister={this.props.closeRegister}
+            isRegisterOpen={this.state.isRegisterOpen}
+            isShiftOpen={this.state.isShiftOpen}
+            handleRegister={this.handleRegister}
+          />
+          <Shifts
+            getShift={this.props.getShift}
+            startShift={this.props.startShift}
+            updateShift={this.props.updateShift}
+            finishShift={this.props.finishShift}
+            isRegisterOpen={this.state.isRegisterOpen}
+            isShiftOpen={this.state.isShiftOpen}
+            handleShift={this.handleShift}
+          />
         </Col>
       </Hoc>
     )
