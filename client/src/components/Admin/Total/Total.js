@@ -10,14 +10,14 @@ class Total extends Component {
     super(props);
     this.state = {
       register: {
-        id: null,
+        id: "",
         closed: true,
         cash: 0,
         card: 0,
         total: 0
       },
       shift: {
-        id: null,
+        id: "",
         finished: true,
         total: 0,
         ordersNo: 0,
@@ -37,15 +37,18 @@ class Total extends Component {
       .then((results) => {
         if (results.status === 200) {
           let register = {};
-          register.id = results.data[results.data.length - 1]._id;
-          register.closed = results.data[results.data.length - 1].closed;
-          register.cash = results.data[results.data.length - 1].cash;
-          register.card = results.data[results.data.length - 1].card;
-          register.total = results.data[results.data.length - 1].total;
 
-          this.setState({register: {...register}}, () => {
-            console.log(this.state)
-          })
+          if (results.data.length !== 0) {
+            register.id = results.data[results.data.length - 1]._id;
+            register.closed = results.data[results.data.length - 1].closed;
+            register.cash = results.data[results.data.length - 1].cash;
+            register.card = results.data[results.data.length - 1].card;
+            register.total = results.data[results.data.length - 1].total;
+
+            this.setState({register: {...register}}, () => {
+              console.log(this.state)
+            })
+          }
         }
       }).catch(error => {
       if (error) throw (error)

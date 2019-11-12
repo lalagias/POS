@@ -92,6 +92,7 @@ export default {
         newPayment.card = payment.card;
         newPayment.amountTendered = payment.amount;
         newPayment.paymentType = payment.paymentType;
+
         let URL = encodeURI("/check/" + payment.bill.id);
         console.log('URL', URL);
         return (
@@ -115,7 +116,7 @@ export default {
         newPartialPayment.amountTendered = payment.amountTendered;
         newPartialPayment.paymentType = payment.paymentType;
         newPartialPayment.paid = true;
-        console.log('API JS newPartialPayment', newPartialPayment);
+
         let URL = encodeURI("/check/" + payment.bill.id);
         return (
           axios.put(URL, newPartialPayment)
@@ -285,8 +286,10 @@ export default {
     // Close Register
     closeRegister: (register) => {
       console.log(register);
+
+      let URL = encodeURI("/register/close/" + register.id);
         return (
-          axios.post("/register/close/" + register.id)
+          axios.post(URL, register)
             .then(response => {
                 console.log(response);
                 return response;
@@ -295,5 +298,5 @@ export default {
                 return error;
             })
         )
-    }
+    },
 }
