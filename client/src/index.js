@@ -7,8 +7,9 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker';
 
 const options = {
-    timeout: 5000
-}
+    timeout: 3000
+};
+
 class Root extends Component {
     render() {
         return (
@@ -19,5 +20,5 @@ class Root extends Component {
     }
 }
 
-render(<Root />, document.getElementById('root'))
+render(<Root />, document.getElementById('root'));
 registerServiceWorker();

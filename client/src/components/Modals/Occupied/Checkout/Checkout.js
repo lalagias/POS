@@ -36,21 +36,6 @@ class Checkout extends Component {
     this.setState(initialState)
   };
 
-  // tablePropsToState = () => {
-  //     console.log(this.props.table.bill.items);
-  //     let items = [...this.props.table.bill.items];
-  //
-  //     items.map(item => {
-  //        // item.quantity = 0;
-  //        return item.name;
-  //     });
-  //
-  //     this.setState({partialPaymentItems: [...items]}, () => {
-  //         console.log(this.state.partialPaymentItems);
-  //     });
-  //
-  // };
-
   getUnpaidChecks = () => {
     console.log('getUnpaidChecks');
     //this checks the database on load to see if there are unpaid checks
@@ -213,7 +198,7 @@ class Checkout extends Component {
 
   render() {
 
-    //conditional rendering based on the pulldown menu
+    // conditional rendering based on the pull-down menu
     let paymentMethodRender = null;
     switch (this.state.paymentMethod) {
 

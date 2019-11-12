@@ -14,7 +14,7 @@ function Register(props) {
         <button
           className="btn-clearfix btn-submit"
           onClick={props.handleRegister}>
-          {props.isRegisterOpen ? 'Close Register' : 'Open Register'}
+          {props.register.closed ? 'Open Register' : 'Close Register'}
         </button>
       </div>
     </div>

@@ -7,14 +7,6 @@ import Hoc from '../Hoc/Hoc';
 const admin = props => (
   <Hoc>
     <Total
-      getShift={props.getShift}
-      startShift={props.startShift}
-      updateShift={props.updateShift}
-      finishShift={props.finishShift}
-      getRegister={props.getRegister}
-      openRegister={props.openRegister}
-      updateRegister={props.updateRegister}
-      closeRegister={props.closeRegister}
       todaysTotal={props.todaysTotal}
       shiftTotal={props.shiftTotal}/>
     <Menu

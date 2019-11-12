@@ -14,7 +14,7 @@ function Shifts(props) {
         <button
           className="btn-clearfix btn-submit"
           onClick={props.handleShift}>
-          {props.isShiftOpen ? 'Close Shift' : 'Open Shift' }
+          {props.shift.finished ? 'Open Shift' : 'Close Shift' }
         </button>
       </div>
     </div>

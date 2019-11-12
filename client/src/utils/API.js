@@ -284,9 +284,11 @@ export default {
 
     // Close Register
     closeRegister: (register) => {
+      console.log(register);
         return (
           axios.post("/register/close/" + register.id)
             .then(response => {
+                console.log(response);
                 return response;
             })
             .catch(error => {

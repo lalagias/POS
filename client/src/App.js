@@ -294,8 +294,7 @@ class App extends Component {
   getMenu = () => {
     API.getMenu().then(results => {
       let newMenu = results.data;
-      this.setState({menu: newMenu}, () => {
-      })
+      this.setState({menu: newMenu})
     }).catch(error => {
       if (error) throw (error)
     })
@@ -383,9 +382,7 @@ class App extends Component {
       this.setState({
         user: name
       }, function () {
-        this.props.alert.show('Successfully Logged In!', {type: "success"})
-
-        setTimeout(() => { this.props.alert.remove(alert) }, 3000);
+        this.props.alert.show('Successfully Logged In!', {type: "success"});
       })
     }
   };
@@ -699,95 +696,6 @@ class App extends Component {
       })
   };
 
-  /* * * * * * * * * * * * * * * * *
-          SHIFT FUNCTIONALITY
-  * * * * * * * * * * * * * * * * * */
-  getShift = () => {
-    API.getShifts()
-      .then((results) => {
-        // let newShifts = results.data
-        // this.setState({shifts: newShifts})
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
-
-  startShift = () => {
-    API.startShift()
-      .then((results) => {
-        // let newShifts = results.data
-        // this.setState({shifts: newShifts})
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
-
-  updateShift = () => {
-    API.updateShift()
-      .then((results) => {
-        // let newShifts = results.data
-        // this.setState({shifts: newShifts})
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
-
-  finishShift = () => {
-    API.getTables().then(results => {
-      console.log(results.data);
-      // API.finishShift()
-      //   .then((results) => {
-      //     // let newShifts = results.data
-      //     // this.setState({shifts: newShifts})
-      //   }).catch(error => {
-      //   if (error) throw (error)
-      // })
-    });
-  };
-
-  /* * * * * * * * * * * * * * * * *
-         SHIFT FUNCTIONALITY
- * * * * * * * * * * * * * * * * * */
-  getRegister = () => {
-    API.getRegister()
-      .then((results) => {
-        // let newShifts = results.data
-        // this.setState({shifts: newShifts})
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
-
-  openRegister = () => {
-    API.openRegister()
-      .then((results) => {
-        // let newShifts = results.data
-        // this.setState({shifts: newShifts})
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
-
-  updateRegister = () => {
-    API.updateRegister()
-      .then((results) => {
-        // let newShifts = results.data
-        // this.setState({shifts: newShifts})
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
-
-  closeRegister = () => {
-    API.closeRegister()
-      .then((results) => {
-        // let newShifts = results.data
-        // this.setState({shifts: newShifts})
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
-
   render() {
     let activeContent = null;
     if (this.state.user === null) {
@@ -818,14 +726,6 @@ class App extends Component {
         case ("Admin"):
           activeContent = (
             <Admin
-              getShift={this.getShift}
-              startShift={this.startShift}
-              updateShift={this.updateShift}
-              finishShift={this.finishShift}
-              getRegister={this.getRegister}
-              openRegister={this.openRegister}
-              updateRegister={this.updateRegister}
-              closeRegister={this.closeRegister}
               menuDelete={this.menuDelete}
               todaysTotal={this.state.todaysTotal}
               shiftTotal={this.shiftTotal}
