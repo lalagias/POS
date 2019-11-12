@@ -726,6 +726,7 @@ class App extends Component {
         case ("Admin"):
           activeContent = (
             <Admin
+              server={this.state.user}
               menuDelete={this.menuDelete}
               todaysTotal={this.state.todaysTotal}
               shiftTotal={this.shiftTotal}

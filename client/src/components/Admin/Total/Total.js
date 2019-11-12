@@ -19,15 +19,34 @@ class Total extends Component {
       shift: {
         id: "",
         finished: true,
-        total: 0,
+        cost: 0,
         ordersNo: 0,
         cash: 0,
         card: 0,
-        unpaidTables: 0,
-        name: ""
+        unpaidTables: false,
+        name: this.props.server
       }
     };
   }
+
+  getUnpaidChecks = () => {
+    API.getTables()
+      .then((results) => {
+        if (results.status === 200) {
+          let unpaidTables = results.data;
+
+          if (unpaidTables) {
+            let newShift = {...this.state.shift};
+            newShift.unpaidTables = unpaidTables;
+            this.setState({shift: newShift}, () => {
+              console.log('unpaidTables', this.state.shift.unpaidTables)
+            })
+          }
+        }
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
 
   /* * * * * * * * * * * * * * * * *
          REGISTER FUNCTIONALITY
@@ -117,9 +136,26 @@ class Total extends Component {
     })
   };
 
-  startShift = () => {
-    API.startShift()
+  startShift = (shift) => {
+    API.startShift(shift)
       .then((results) => {
+        console.log(results.data);
+        if (results.status === 200) {
+          console.log(results.data);
+          let shift = {};
+          shift.id = results.data._id;
+          shift.cash = results.data.cash;
+          shift.card = results.data.card;
+          shift.cost = results.data.cost;
+          shift.ordersNo = results.data.ordersNo;
+          shift.finished = results.data.finished;
+          shift.name = results.data.name;
+          shift.unpaidTables = this.state.shift.unpaidTables;
+
+          this.setState({shift: {...shift}}, () => {
+            console.log('this.state.shift',this.state.shift);
+          })
+        }
       }).catch(error => {
       if (error) throw (error)
     })
@@ -133,20 +169,18 @@ class Total extends Component {
     })
   };
 
-  finishShift = () => {
-    API.getTables().then(results => {
-      console.log(results.data);
-      API.finishShift()
-        .then((results) => {
-        }).catch(error => {
-        if (error) throw (error)
-      })
-    });
+  finishShift = (shift) => {
+    API.finishShift(shift)
+      .then((results) => {
+        console.log('finish shift', results)
+      }).catch(error => {
+      if (error) throw (error)
+    })
   };
 
   // Register can close when Shift is closed
   handleRegister = () => {
-    console.log('handleRegister');
+
     let register = {};
     register.cash = this.state.register.cash;
     register.card = this.state.register.card;
@@ -157,24 +191,28 @@ class Total extends Component {
       this.openRegister(register);
     } else {
       register.closed = true;
-      console.log('closeRegister handler',register);
       this.closeRegister(register);
     }
   };
 
   // Shift can open when Register is Open
   handleShift = () => {
-    let unpaidTables = this.props.finishShift();
-    this.setState({unpaidTables: unpaidTables});
 
-    if (this.state.register.closed && this.state.unpaidTables === 0) {
-      this.setState((prevState) => ({
-        isShiftOpen: !prevState.isShiftOpen
-      }));
-    } else if (this.state.unpaidTables !== 0) {
-      console.log('NOT ALL TABLES ARE PAID')
-    } else if (!this.state.isRegisterOpen) {
-      console.log('REGISTER IS NOT YET OPENED')
+    let shift = {};
+    shift.id = this.state.shift.id;
+    shift.finished = false;
+    shift.cash = this.state.shift.cash;
+    shift.card = this.state.shift.card;
+    shift.cost = this.state.shift.cost;
+    shift.ordersNo = this.state.shift.ordersNo;
+    shift.unpaidTables = this.state.shift.unpaidTables;
+    shift.name = this.state.shift.name;
+
+    console.log(shift);
+    if (!this.state.register.closed && this.state.shift.finished) {
+      this.startShift(shift);
+    } else if (!this.state.shift.unpaidTables && !this.state.shift.finished) {
+      this.finishShift(shift);
     }
   };
 
@@ -191,6 +229,7 @@ class Total extends Component {
   };
 
   componentDidMount() {
+    this.getUnpaidChecks();
     this.shiftTotal();
     this.populateData();
   };

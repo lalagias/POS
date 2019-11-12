@@ -7,6 +7,7 @@ import Hoc from '../Hoc/Hoc';
 const admin = props => (
   <Hoc>
     <Total
+      server={props.server}
       todaysTotal={props.todaysTotal}
       shiftTotal={props.shiftTotal}/>
     <Menu

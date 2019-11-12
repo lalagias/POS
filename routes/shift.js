@@ -49,10 +49,10 @@ router.put('/updateShift/:id', (req, res, next) => {
 router.put('/finishShift/:id', (req, res, next) => {
     shift.findOneAndUpdate({$and :[{_id: mongoose.Types.ObjectId(req.params
             .id)
-    },{finished:false}]}, {$set: {finished: req.body.finished}},{new:true}, (err, updatedShift) => {
+    },{finished:false}]}, {$set: {finished: req.body.finished}},{new:true}, (err, finishShift) => {
         if (err) return handleError(err);
 
-        res.status(200).send({new:req.body.name, shift:updatedShift})
+        res.status(200).send({new:req.body.name, shift:finishShift})
     })
 
 });
