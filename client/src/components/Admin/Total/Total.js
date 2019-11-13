@@ -34,10 +34,9 @@ class Total extends Component {
       .then((results) => {
         if (results.status === 200) {
           let unpaidTables = results.data;
-
-          if (unpaidTables) {
+          if (Array.isArray(unpaidTables) && unpaidTables.length === 0) {
             let newShift = {...this.state.shift};
-            newShift.unpaidTables = unpaidTables;
+            newShift.unpaidTables = false;
             this.setState({shift: newShift}, () => {
               console.log('unpaidTables', this.state.shift.unpaidTables)
             })
@@ -131,6 +130,33 @@ class Total extends Component {
   getShift = () => {
     API.getShifts()
       .then((results) => {
+        console.log(results);
+        if (results.status === 200) {
+          let indexOfShift = results.data.findIndex((result) => {
+            return (result.name === this.state.shift.name && result.finished === false)
+          });
+
+          console.log('indexOfShift', indexOfShift);
+
+          if (indexOfShift !== -1) {
+            console.log( results.data[indexOfShift]);
+
+            let shift ={};
+            shift.name = this.state.shift.name;
+            shift.finished = results.data[indexOfShift].finished;
+            shift.cost = results.data[indexOfShift].cost;
+            shift.card = results.data[indexOfShift].card;
+            shift.cash = results.data[indexOfShift].cash;
+            shift.ordersNo = results.data[indexOfShift].ordersNo;
+            shift.unpaidTables = this.state.shift.unpaidTables;
+            shift.id = results.data[indexOfShift]._id;
+
+            console.log(shift);
+            this.setState({ shift: shift }, () => {
+              console.log(this.state.shift);
+            })
+          }
+        }
       }).catch(error => {
       if (error) throw (error)
     })
@@ -172,7 +198,23 @@ class Total extends Component {
   finishShift = (shift) => {
     API.finishShift(shift)
       .then((results) => {
-        console.log('finish shift', results)
+        if (results.status === 200) {
+          console.log(results.data);
+
+          let shift = {};
+          shift.id = results.data.shift._id;
+          shift.cash = results.data.shift.cash;
+          shift.card = results.data.shift.card;
+          shift.cost = results.data.shift.cost;
+          shift.ordersNo = results.data.shift.ordersNo;
+          shift.finished = results.data.shift.finished;
+          shift.name = results.data.shift.name;
+          shift.unpaidTables = this.state.shift.unpaidTables;
+
+          this.setState({shift: {...shift}}, () => {
+            console.log('this.state.shift',this.state.shift);
+          })
+        }
       }).catch(error => {
       if (error) throw (error)
     })
@@ -200,7 +242,6 @@ class Total extends Component {
 
     let shift = {};
     shift.id = this.state.shift.id;
-    shift.finished = false;
     shift.cash = this.state.shift.cash;
     shift.card = this.state.shift.card;
     shift.cost = this.state.shift.cost;
@@ -209,9 +250,15 @@ class Total extends Component {
     shift.name = this.state.shift.name;
 
     console.log(shift);
+    console.log('STARTING SHIFT-------', !this.state.register.closed && this.state.shift.finished);
+    console.log('FINISHING SHIFT-------', !this.state.shift.unpaidTables && !this.state.shift.finished);
     if (!this.state.register.closed && this.state.shift.finished) {
+      shift.finished = false;
+      console.log('STARTING SHIFT-------', shift);
       this.startShift(shift);
     } else if (!this.state.shift.unpaidTables && !this.state.shift.finished) {
+      shift.finished = true;
+      console.log('FINISHING SHIFT-------', shift);
       this.finishShift(shift);
     }
   };
@@ -226,6 +273,7 @@ class Total extends Component {
 
   populateData = () => {
     this.getRegister();
+    this.getShift();
   };
 
   componentDidMount() {
