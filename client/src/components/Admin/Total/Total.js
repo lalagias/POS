@@ -8,70 +8,52 @@ import API from "../../../utils/API";
 class Total extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      register: {
-        id: "",
-        closed: true,
-        cash: 0,
-        card: 0,
-        total: 0
-      },
-      shift: {
-        id: "",
-        finished: true,
-        cost: 0,
-        ordersNo: 0,
-        cash: 0,
-        card: 0,
-        unpaidTables: false,
-        name: this.props.server
-      }
-    };
   }
 
-  getUnpaidChecks = () => {
-    API.getTables()
-      .then((results) => {
-        if (results.status === 200) {
-          let unpaidTables = results.data;
-          if (Array.isArray(unpaidTables) && unpaidTables.length === 0) {
-            let newShift = {...this.state.shift};
-            newShift.unpaidTables = false;
-            this.setState({shift: newShift}, () => {
-              console.log('unpaidTables', this.state.shift.unpaidTables)
-            })
-          }
-        }
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
+  //
+  // getUnpaidChecks = () => {
+  //   API.getTables()
+  //     .then((results) => {
+  //       if (results.status === 200) {
+  //         let unpaidTables = results.data;
+  //         if (Array.isArray(unpaidTables) && unpaidTables.length === 0) {
+  //           let newShift = {...this.state.shift};
+  //           newShift.unpaidTables = false;
+  //           this.setState({shift: newShift}, () => {
+  //             console.log('unpaidTables', this.state.shift.unpaidTables)
+  //           })
+  //         }
+  //       }
+  //     }).catch(error => {
+  //     if (error) throw (error)
+  //   })
+  // };
 
   /* * * * * * * * * * * * * * * * *
          REGISTER FUNCTIONALITY
  * * * * * * * * * * * * * * * * * */
-  getRegister = () => {
-    API.getRegister()
-      .then((results) => {
-        if (results.status === 200) {
-          let register = {};
-
-          if (results.data.length !== 0) {
-            register.id = results.data[results.data.length - 1]._id;
-            register.closed = results.data[results.data.length - 1].closed;
-            register.cash = results.data[results.data.length - 1].cash;
-            register.card = results.data[results.data.length - 1].card;
-            register.total = results.data[results.data.length - 1].total;
-
-            this.setState({register: {...register}}, () => {
-              console.log(this.state)
-            })
-          }
-        }
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
+  // getRegister = () => {
+  //   API.getRegister()
+  //     .then((results) => {
+  //       if (results.status === 200) {
+  //         let register = {};
+  //
+  //         if (results.data.length !== 0) {
+  //           register.id = results.data[results.data.length - 1]._id;
+  //           register.closed = results.data[results.data.length - 1].closed;
+  //           register.cash = results.data[results.data.length - 1].cash;
+  //           register.card = results.data[results.data.length - 1].card;
+  //           register.total = results.data[results.data.length - 1].total;
+  //
+  //           this.setState({register: {...register}}, () => {
+  //             console.log(this.state)
+  //           })
+  //         }
+  //       }
+  //     }).catch(error => {
+  //     if (error) throw (error)
+  //   })
+  // };
 
   openRegister = (register) => {
     console.log('OPEN REGISTER------------', register);
@@ -86,7 +68,8 @@ class Total extends Component {
           register.card = results.data.card;
           register.total = results.data.total;
 
-          this.setState({register: {...register}})
+          this.props.register = register;
+          // this.setState({register: {...register}})
         }
       }).catch(error => {
       if (error) throw (error)
@@ -114,9 +97,10 @@ class Total extends Component {
           register.card = results.data.register.card;
           register.total = results.data.register.total;
 
-          this.setState({register: {...register}}, () => {
-            console.log('after close register', this.state.register)
-          })
+          this.props.register = register;
+          // this.setState({register: {...register}}, () => {
+          //   console.log('after close register', this.state.register)
+          // })
         }
       }).catch(error => {
       if (error) throw (error)
@@ -127,40 +111,40 @@ class Total extends Component {
   /* * * * * * * * * * * * * * * * *
           SHIFT FUNCTIONALITY
   * * * * * * * * * * * * * * * * * */
-  getShift = () => {
-    API.getShifts()
-      .then((results) => {
-        console.log(results);
-        if (results.status === 200) {
-          let indexOfShift = results.data.findIndex((result) => {
-            return (result.name === this.state.shift.name && result.finished === false)
-          });
-
-          console.log('indexOfShift', indexOfShift);
-
-          if (indexOfShift !== -1) {
-            console.log( results.data[indexOfShift]);
-
-            let shift ={};
-            shift.name = this.state.shift.name;
-            shift.finished = results.data[indexOfShift].finished;
-            shift.cost = results.data[indexOfShift].cost;
-            shift.card = results.data[indexOfShift].card;
-            shift.cash = results.data[indexOfShift].cash;
-            shift.ordersNo = results.data[indexOfShift].ordersNo;
-            shift.unpaidTables = this.state.shift.unpaidTables;
-            shift.id = results.data[indexOfShift]._id;
-
-            console.log(shift);
-            this.setState({ shift: shift }, () => {
-              console.log(this.state.shift);
-            })
-          }
-        }
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
+  // getShift = () => {
+  //   API.getShifts()
+  //     .then((results) => {
+  //       console.log(results);
+  //       if (results.status === 200) {
+  //         let indexOfShift = results.data.findIndex((result) => {
+  //           return (result.name === this.props.server && result.finished === false)
+  //         });
+  //
+  //         console.log('indexOfShift', indexOfShift);
+  //
+  //         if (indexOfShift !== -1) {
+  //           console.log( results.data[indexOfShift]);
+  //
+  //           let shift ={};
+  //           shift.name = this.props.server;
+  //           shift.finished = results.data[indexOfShift].finished;
+  //           shift.cost = results.data[indexOfShift].cost;
+  //           shift.card = results.data[indexOfShift].card;
+  //           shift.cash = results.data[indexOfShift].cash;
+  //           shift.ordersNo = results.data[indexOfShift].ordersNo;
+  //           shift.unpaidTables = this.state.shift.unpaidTables;
+  //           shift.id = results.data[indexOfShift]._id;
+  //
+  //           console.log(shift);
+  //           this.setState({ shift: shift }, () => {
+  //             console.log(this.state.shift);
+  //           })
+  //         }
+  //       }
+  //     }).catch(error => {
+  //     if (error) throw (error)
+  //   })
+  // };
 
   startShift = (shift) => {
     API.startShift(shift)
@@ -175,21 +159,14 @@ class Total extends Component {
           shift.cost = results.data.cost;
           shift.ordersNo = results.data.ordersNo;
           shift.finished = results.data.finished;
-          shift.name = results.data.name;
-          shift.unpaidTables = this.state.shift.unpaidTables;
+          // shift.name = results.data.name;
+          shift.unpaidTables = this.props.shift.unpaidTables;
 
-          this.setState({shift: {...shift}}, () => {
-            console.log('this.state.shift',this.state.shift);
-          })
+          this.props.shift = shift;
+          // this.setState({shift: {...shift}}, () => {
+          //   console.log('this.state.shift',this.state.shift);
+          // })
         }
-      }).catch(error => {
-      if (error) throw (error)
-    })
-  };
-
-  updateShift = () => {
-    API.updateShift()
-      .then((results) => {
       }).catch(error => {
       if (error) throw (error)
     })
@@ -208,12 +185,13 @@ class Total extends Component {
           shift.cost = results.data.shift.cost;
           shift.ordersNo = results.data.shift.ordersNo;
           shift.finished = results.data.shift.finished;
-          shift.name = results.data.shift.name;
-          shift.unpaidTables = this.state.shift.unpaidTables;
+          // shift.name = results.data.shift.name;
+          shift.unpaidTables = this.props.shift.unpaidTables;
 
-          this.setState({shift: {...shift}}, () => {
-            console.log('this.state.shift',this.state.shift);
-          })
+          this.props.shift = shift;
+          // this.setState({shift: {...shift}}, () => {
+          //   console.log('this.state.shift',this.state.shift);
+          // })
         }
       }).catch(error => {
       if (error) throw (error)
@@ -223,13 +201,10 @@ class Total extends Component {
   // Register can close when Shift is closed
   handleRegister = () => {
 
-    let register = {};
-    register.cash = this.state.register.cash;
-    register.card = this.state.register.card;
-    register.total = this.state.register.total;
-    register.id = this.state.register.id;
+    let register = {...this.props.register};
 
-    if (this.state.register.closed) {
+    if (this.props.register.closed) {
+      register.id = null;
       this.openRegister(register);
     } else {
       register.closed = true;
@@ -239,27 +214,21 @@ class Total extends Component {
 
   // Shift can open when Register is Open
   handleShift = () => {
+    console.log('when clicking', this.props.shift.finished);
+    let shift = {...this.props.shift};
+    shift.name = this.props.server;
 
-    let shift = {};
-    shift.id = this.state.shift.id;
-    shift.cash = this.state.shift.cash;
-    shift.card = this.state.shift.card;
-    shift.cost = this.state.shift.cost;
-    shift.ordersNo = this.state.shift.ordersNo;
-    shift.unpaidTables = this.state.shift.unpaidTables;
-    shift.name = this.state.shift.name;
 
-    console.log(shift);
-    console.log('STARTING SHIFT-------', !this.state.register.closed && this.state.shift.finished);
-    console.log('FINISHING SHIFT-------', !this.state.shift.unpaidTables && !this.state.shift.finished);
-    if (!this.state.register.closed && this.state.shift.finished) {
+    if (!this.props.register.closed && this.props.shift.finished) {
       shift.finished = false;
-      console.log('STARTING SHIFT-------', shift);
       this.startShift(shift);
-    } else if (!this.state.shift.unpaidTables && !this.state.shift.finished) {
+      console.log('after starting shift', this.props.shift.finished);
+      console.log('Should be CLOSE SHIFT');
+    } else if (!this.props.shift.unpaidTables && !this.props.shift.finished) {
       shift.finished = true;
-      console.log('FINISHING SHIFT-------', shift);
       this.finishShift(shift);
+      console.log('after finishing shift', this.props.shift.finished);
+      console.log('Should be OPEN SHIFT');
     }
   };
 
@@ -271,19 +240,14 @@ class Total extends Component {
     this.props.shiftTotal(true);
   };
 
-  populateData = () => {
-    this.getRegister();
-    this.getShift();
-  };
-
   componentDidMount() {
-    this.getUnpaidChecks();
     this.shiftTotal();
-    this.populateData();
+    this.props.getRegister();
+    this.props.getShift();
+    console.log('COMPONENT MOUNT PROPS', this.props);
   };
 
   render() {
-
     return (
       <Hoc>
         <Col
@@ -307,11 +271,11 @@ class Total extends Component {
             </div>
           </div>
           <Register
-            register={this.state.register}
+            register={this.props.register}
             handleRegister={this.handleRegister}
           />
           <Shifts
-            shift={this.state.shift}
+            shift={this.props.shift}
             handleShift={this.handleShift}
           />
         </Col>

@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
         })
 });
 
-//start new shift
+// Start new shift
 router.post('/start', (req, res, next) => {
     console.log('in paid', req.body);
     shift.create(req.body)
@@ -34,7 +34,7 @@ router.post('/start', (req, res, next) => {
         })
 });
 
-//update shift this will be called on checkout and partial payment to add the total
+// Update shift this will be called on checkout and partial payment to add the total
 router.put('/updateShift/:id', (req, res, next) => {
     shift.findOneAndUpdate({$and:[{_id: mongoose.Types.ObjectId(req.params
             .id)},{finished:false}]
@@ -45,7 +45,7 @@ router.put('/updateShift/:id', (req, res, next) => {
     })
 });
 
-//finish Shift
+// Finish Shift
 router.put('/finishShift/:id', (req, res, next) => {
     shift.findOneAndUpdate({$and :[{_id: mongoose.Types.ObjectId(req.params
             .id)

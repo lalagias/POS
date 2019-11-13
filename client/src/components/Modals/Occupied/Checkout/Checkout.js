@@ -36,14 +36,6 @@ class Checkout extends Component {
     this.setState(initialState)
   };
 
-  getUnpaidChecks = () => {
-    console.log('getUnpaidChecks');
-    //this checks the database on load to see if there are unpaid checks
-    API.getTables().then(results => {
-      console.log(results);
-    });
-  };
-
   payment = method => {
     this.setState({paymentMethod: method});
   };
@@ -72,6 +64,25 @@ class Checkout extends Component {
     let card = {...this.state.card};
     card.cvc = event.target.value;
     this.setState({card: card})
+  };
+
+  updateShift = (shift) => {
+    API.updateShift(shift)
+      .then((results) => {
+        console.log(results.data);
+        if (results.status === 200) {
+          let shift = {};
+          shift.id = results.data._id;
+          shift.cash = results.data.cash;
+          shift.card = results.data.card;
+          shift.cost = results.data.cost;
+          shift.ordersNo = results.data.ordersNo;
+          shift.finished = results.data.finished;
+          shift.unpaidTables = this.state.shift.unpaidTables;
+        }
+      }).catch(error => {
+      if (error) throw (error)
+    })
   };
 
   submitPayment = () => {

@@ -8,6 +8,10 @@ const admin = props => (
   <Hoc>
     <Total
       server={props.server}
+      register={props.register}
+      getRegister={props.getRegister}
+      getShift={props.getShift}
+      shift={props.shift}
       todaysTotal={props.todaysTotal}
       shiftTotal={props.shiftTotal}/>
     <Menu

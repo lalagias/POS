@@ -270,6 +270,24 @@ class App extends Component {
       server: "",
       print: false
     },
+    // Register
+    register: {
+      id: null,
+      closed: true,
+      cash: 0,
+      card: 0,
+      total: 0
+    },
+    // Shift
+    shift: {
+      id: null,
+      finished: true,
+      cost: 0,
+      ordersNo: 0,
+      cash: 0,
+      card: 0,
+      unpaidTables: false
+    }
   };
 
   componentDidMount() {
@@ -282,6 +300,10 @@ class App extends Component {
     this.getMenu();
     this.getServers();
     this.getUnpaidChecks();
+    if (this.state.user) {
+      this.getRegister();
+      this.getShift();
+    }
   };
 
   activePageHandler = (event) => {
@@ -313,7 +335,17 @@ class App extends Component {
     console.log('getUnpaidChecks');
     //this checks the database on load to see if there are unpaid checks
     API.getTables().then(results => {
+
+      if (Array.isArray(results.data) && results.data.length === 0) {
+        let newShift = {...this.state.shift};
+        newShift.unpaidTables = false;
+        this.setState({shift: newShift}, () => {
+          console.log('unpaidTables', this.state.shift.unpaidTables)
+        })
+      }
+
       let newTablesData = results.data;
+
       // if the result has data, there are unpaid checks
       if (newTablesData) {
         // get the tables from state in a stretch
@@ -338,6 +370,64 @@ class App extends Component {
         //push the changed tables back to state
         this.setState({tables: updateChecks});
       }
+    })
+  };
+
+  getRegister = () => {
+    API.getRegister()
+      .then((results) => {
+        if (results.status === 200) {
+          let register = {};
+
+          if (results.data.length !== 0) {
+            register.id = results.data[results.data.length - 1]._id;
+            register.closed = results.data[results.data.length - 1].closed;
+            register.cash = results.data[results.data.length - 1].cash;
+            register.card = results.data[results.data.length - 1].card;
+            register.total = results.data[results.data.length - 1].total;
+
+            this.setState({register: {...register}}, ()=> {
+              console.log(this.state.register)
+            })
+          }
+        }
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  getShift = () => {
+    API.getShifts()
+      .then((results) => {
+        console.log(results);
+        if (results.status === 200) {
+          let indexOfShift = results.data.findIndex((result) => {
+            return (result.name === this.state.user && result.finished === false)
+          });
+
+          console.log('indexOfShift', indexOfShift);
+
+          if (indexOfShift !== -1) {
+            console.log( results.data[indexOfShift]);
+
+            let shift ={};
+            shift.name = this.state.user;
+            shift.finished = results.data[indexOfShift].finished;
+            shift.cost = results.data[indexOfShift].cost;
+            shift.card = results.data[indexOfShift].card;
+            shift.cash = results.data[indexOfShift].cash;
+            shift.ordersNo = results.data[indexOfShift].ordersNo;
+            shift.unpaidTables = this.state.shift.unpaidTables;
+            shift.id = results.data[indexOfShift]._id;
+
+            console.log(shift);
+            this.setState({ shift: shift }, () => {
+              console.log('this.state.shift', this.state.shift);
+            })
+          }
+        }
+      }).catch(error => {
+      if (error) throw (error)
     })
   };
 
@@ -381,7 +471,9 @@ class App extends Component {
       //Sets the user name that does callback to display login
       this.setState({
         user: name
-      }, function () {
+      },() => {
+        this.getRegister();
+        this.getShift();
         this.props.alert.show('Successfully Logged In!', {type: "success"});
       })
     }
@@ -431,7 +523,7 @@ class App extends Component {
           resolve(this.state.partialTable)
         });
       }).then(async (result) => {
-        let orderToDb = await this.orderToDb(this.state.partialTable);
+        await this.orderToDb(this.state.partialTable);
         this.orderToDb();
         return result
       })
@@ -726,6 +818,10 @@ class App extends Component {
         case ("Admin"):
           activeContent = (
             <Admin
+              register={this.state.register}
+              shift={this.state.shift}
+              getRegister={this.getRegister}
+              getShift={this.getShift}
               server={this.state.user}
               menuDelete={this.menuDelete}
               todaysTotal={this.state.todaysTotal}
@@ -768,6 +864,9 @@ class App extends Component {
           {
             this.state.modalActive ?
               (<Modal
+                register={this.state.register}
+                shift={this.state.shift}
+                server={this.state.user}
                 tables={this.state.tables}
                 activeTable={this.state.activeTable}
                 activeTableIndex={this.state.activeTableIndex}
