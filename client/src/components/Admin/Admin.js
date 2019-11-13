@@ -11,6 +11,10 @@ const admin = props => (
       register={props.register}
       getRegister={props.getRegister}
       getShift={props.getShift}
+      openRegister={props.openRegister}
+      closeRegister={props.closeRegister}
+      finishShift={props.finishShift}
+      startShift={props.startShift}
       shift={props.shift}
       todaysTotal={props.todaysTotal}
       shiftTotal={props.shiftTotal}/>
