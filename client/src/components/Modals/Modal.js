@@ -63,6 +63,7 @@ class SeatModal extends Component {
               seatGuestsPartialPayment={this.props.seatGuestsPartialPayment}
               changeTable={this.props.changeTable}
               close={this.props.close}
+              server={this.props.server}
               render={this.state.occupiedRender}/>
           ) : (
             <NewSeating

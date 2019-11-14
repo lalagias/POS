@@ -59,6 +59,7 @@ class Menu extends Component {
         <Col
           className="mb-3"
           lg={6}
+          md={6}
           xs={12}>
           <div className="mb-3 card">
             <div className="card-title">
@@ -140,26 +141,27 @@ class Menu extends Component {
                       <Grid fluid>
                         <Row
                           data-menuid={menu._id} key={menu._id}
+
                         >
                           <Col
-                            className="pt-2 "
-                            lg={3}
+                            className="pt-2 tile-content-menu"
+                            xs={3}
                           > {menu.name} </Col>
                           <Col
-                            className="pt-2 "
-                            lg={3}
+                            className="pt-2 tile-content-menu"
+                            xs={3}
                           > {menu.description} </Col>
                           <Col
-                            className="pt-2 "
-                            lg={2}
+                            className="pt-2 tile-content-menu"
+                            xs={2}
                           > {menu.cost}&euro; </Col>
                           <Col
-                            className="pt-2 "
-                            lg={2}
+                            className="pt-2 tile-content-menu"
+                            xs={2}
                           > {menu.category} </Col>
                           <Col
-                            className="pt-2 "
-                            lg={1}
+                            className="pt-2 tile-content-menu"
+                            xs={1}
                           >
                             <button
                               className="btn-clearfix btn-red btn-delete"

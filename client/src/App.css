@@ -68,6 +68,22 @@ textarea {
 }
 
 /* * * * * * * * * * * * * * * * *
+  MODAL CSS
+* * * * * * * * * * * * * * * * * */
+
+.modal-content {
+  position: relative;
+  background-color: #121212 !important;
+  border: 0 solid transparent;
+  -webkit-border-radius: 0.6rem;
+  -moz-border-radius: 0.6rem;
+  border-radius: 0.6rem;
+  -webkit-box-shadow: 6px 7px 16px 3px rgba(0, 0, 0, 0.49);
+  -moz-box-shadow: 6px 7px 16px 3px rgba(0, 0, 0, 0.49);
+  box-shadow: 6px 7px 16px 3px rgba(0, 0, 0, 0.49);
+}
+
+/* * * * * * * * * * * * * * * * *
   BUTTON CSS
 * * * * * * * * * * * * * * * * * */
 .btn-clearfix {
@@ -79,16 +95,18 @@ textarea {
   padding: 1rem 1.5rem;
   font-size: 1.5rem;
   font-weight: 400;
-  -webkit-box-shadow: 0 5px 21px 8px rgba(0, 0, 0, 0.49);
-  -moz-box-shadow: 0 5px 21px 8px rgba(0, 0, 0, 0.49);
-  box-shadow: 0 5px 21px 8px rgba(0, 0, 0, 0.49);
-  transition: box-shadow .3s;
 }
 
-.btn-clearfix:hover {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
+.btn-modal-fix {
+  border: none;
+  border-radius: 0.3rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  outline: none !important;
+  padding: 1rem 1rem;
+  font-size: 2rem;
+  font-weight: 600;
+  width: 95%;
 }
 
 .btn-submit {
@@ -105,6 +123,22 @@ textarea {
 
 .btn-red:hover {
   background-color: #b52f3c !important;
+}
+
+.btn-green {
+  background-color: #62C462 !important;
+}
+
+.btn-green:hover {
+  background-color: #52A552 !important;
+}
+
+.btn-gray {
+  background-color: #33373B !important;
+}
+
+.btn-gray:hover {
+  background-color: #4C5155 !important;
 }
 
 .btn-delete {
@@ -176,6 +210,10 @@ textarea {
 
 .tile-content {
   padding: 1rem 1.5rem;
+}
+
+.tile-content-menu {
+  font-size: 1.5rem;
 }
 
 /* * * * * * * * * * * * * * * * *
