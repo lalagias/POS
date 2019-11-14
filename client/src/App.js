@@ -648,17 +648,17 @@ class App extends Component {
       orderModal: true
     });
   };
-
-  dbPartialPaymentResponse = (response) => {
-    let partialPaymentMessage;
-
-    response.status === 200 ? partialPaymentMessage = "Partial Payment Submitted!" : partialPaymentMessage = "An error occured";
-
-    this.setState({
-      partialPaymentResponse: partialPaymentMessage,
-      orderModal: true
-    })
-  };
+  //
+  // dbPartialPaymentResponse = (response) => {
+  //   let partialPaymentMessage;
+  //
+  //   response.status === 200 ? partialPaymentMessage = "Partial Payment Submitted!" : partialPaymentMessage = "An error occured";
+  //
+  //   this.setState({
+  //     partialPaymentResponse: partialPaymentMessage,
+  //     orderModal: true
+  //   })
+  // };
 
   // Close Response modal
   orderClose = () => {
@@ -1056,7 +1056,7 @@ class App extends Component {
 
     return (
       <Hoc>
-        <Grid fluid>
+        <Grid fluid className="mt-1">
           <Navbar
             activePage={this.state.activePage}
             handleSelect={this.activePageHandler}
