@@ -340,6 +340,12 @@ class App extends Component {
         this.setState({shift: newShift}, () => {
           console.log('unpaidTables', this.state.shift.unpaidTables)
         })
+      } else if (results.data.length > 0) {
+        let newShift = {...this.state.shift};
+        newShift.unpaidTables = true;
+        this.setState({shift: newShift}, () => {
+          console.log('unpaidTables', this.state.shift.unpaidTables)
+        })
       }
     })
   };
@@ -352,6 +358,12 @@ class App extends Component {
       if (Array.isArray(results.data) && results.data.length === 0) {
         let newShift = {...this.state.shift};
         newShift.unpaidTables = false;
+        this.setState({shift: newShift}, () => {
+          console.log('unpaidTables', this.state.shift.unpaidTables)
+        })
+      } else if (results.data.length > 0) {
+        let newShift = {...this.state.shift};
+        newShift.unpaidTables = true;
         this.setState({shift: newShift}, () => {
           console.log('unpaidTables', this.state.shift.unpaidTables)
         })
@@ -400,7 +412,7 @@ class App extends Component {
             register.total = results.data[results.data.length - 1].total;
 
             this.setState({register: {...register}}, () => {
-              console.log(this.state.register)
+              console.log('getRegister',this.state.register)
             })
           }
         }
@@ -437,6 +449,31 @@ class App extends Component {
             this.setState({shift: shift}, () => {
               console.log('this.state.shift', this.state.shift);
             })
+          }
+        }
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  getOpenedShifts = () => {
+    API.getShifts()
+      .then((results) => {
+        console.log(results);
+        if (results.status === 200) {
+          let data = results.data.filter((result) => {
+            return (result.finished === false)
+          });
+          console.log('getOpenedShifts', data);
+          if (Array.isArray(data) && data.length > 0) {
+            let register = {...this.state.register};
+            register.cash = data.reduce((a, b) => a + b.cash, 0);
+            register.card = data.reduce((a, b) => a + b.card, 0);
+            register.total = data.reduce((a, b) => a + b.cost, 0);
+            console.log(register);
+            this.setState({register: register}, () => {
+              this.updateRegister(register);
+            });
           }
         }
       }).catch(error => {
@@ -830,9 +867,22 @@ class App extends Component {
     })
   };
 
-  updateRegister = () => {
-    API.updateRegister()
+  updateRegister = (register) => {
+    console.log('updateRegister', register);
+    API.updateRegister(register)
       .then((results) => {
+        if (results.status === 200) {
+          console.log(results.data);
+          let register = {};
+          register.id = results.data._id;
+          register.closed = results.data.closed;
+          register.cash = results.data.cash;
+          register.card = results.data.card;
+          register.total = results.data.total;
+
+          // this.props.register = register;
+          this.setState({register: {...register}})
+        }
       }).catch(error => {
       if (error) throw (error)
     })
@@ -978,6 +1028,7 @@ class App extends Component {
         case ("Admin"):
           activeContent = (
             <Admin
+              getOpenedShifts={this.getOpenedShifts}
               getUnpaidCheckBool = {this.getUnpaidCheckBool}
               register={this.state.register}
               shift={this.state.shift}

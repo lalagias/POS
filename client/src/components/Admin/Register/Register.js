@@ -7,9 +7,6 @@ function Register(props) {
       <div className="card-title">
         Register
       </div>
-      <div className="card-value-subtotal text-center">
-        0&euro;
-      </div>
       <div className="text-center">
         <button
           className="btn-clearfix btn-submit"

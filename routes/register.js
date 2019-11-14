@@ -38,8 +38,6 @@ router.put('/updateRegister/:id', (req, res, next) => {
 });
 
 router.post('/close/:id', (req, res, next) => {
-  console.log('kalispera', req.body);
-  console.log('kalinixta', req.params);
   register.findOneAndUpdate({
     $and: [{
       _id: mongoose.Types.ObjectId(req.params.id)

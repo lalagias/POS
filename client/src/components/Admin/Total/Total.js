@@ -50,6 +50,7 @@ class Total extends Component {
     this.shiftTotal();
     this.props.getRegister();
     this.props.getShift();
+    this.props.getOpenedShifts();
     this.props.getUnpaidCheckBool();
   };
 
@@ -63,10 +64,10 @@ class Total extends Component {
           xs={12}>
           <div className="card mb-3">
             <div className="card-title">
-              Total
+              Total Register
             </div>
             <div className="card-value-total text-center">
-              {this.props.todaysTotal}&euro;
+              {this.props.register.total}&euro;
             </div>
             <div className="text-center">
               <button
