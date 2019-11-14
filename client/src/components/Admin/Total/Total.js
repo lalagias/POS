@@ -27,7 +27,8 @@ class Total extends Component {
   handleShift = () => {
     let shift = {...this.props.shift};
     shift.name = this.props.server;
-
+    console.log('unpaidTables', this.props.shift.unpaidTables);
+    console.log('unpaidTables', this.props.shift.cost);
     if (!this.props.register.closed && this.props.shift.finished) {
       shift.finished = false;
       this.props.startShift(shift);
@@ -49,6 +50,7 @@ class Total extends Component {
     this.shiftTotal();
     this.props.getRegister();
     this.props.getShift();
+    this.props.getUnpaidCheckBool();
   };
 
   render() {

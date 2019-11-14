@@ -8,7 +8,7 @@ function Shifts(props) {
         Shift
       </div>
       <div className="card-value-subtotal text-center">
-        0&euro;
+        {props.shift.cost} &euro;
       </div>
       <div className="text-center">
         <button

@@ -331,6 +331,19 @@ class App extends Component {
     })
   };
 
+  getUnpaidCheckBool = () => {
+    API.getTables().then(results => {
+
+      if (Array.isArray(results.data) && results.data.length === 0) {
+        let newShift = {...this.state.shift};
+        newShift.unpaidTables = false;
+        this.setState({shift: newShift}, () => {
+          console.log('unpaidTables', this.state.shift.unpaidTables)
+        })
+      }
+    })
+  };
+
   getUnpaidChecks = () => {
     console.log('getUnpaidChecks');
     //this checks the database on load to see if there are unpaid checks
@@ -752,6 +765,8 @@ class App extends Component {
     API.submitPayment(payment)
       .then(results => {
         if (results.status === 200) {
+          console.log('payment data submit payment', payment);
+          this.updateShiftHandler(payment);
           this.cleanTable();
         }
       })
@@ -764,6 +779,8 @@ class App extends Component {
     API.submitPartialPayment(payment)
       .then(results => {
         if (results.status === 200) {
+          console.log('payment data submit payment', payment);
+          this.updateShiftHandler(payment);
           this.setState({
             activeTable: null,
             activeTableIndex: null,
@@ -872,6 +889,41 @@ class App extends Component {
     })
   };
 
+  updateShift = (shift) => {
+    console.log('data send to API updateshidt', shift);
+    API.updateShift(shift)
+      .then((results) => {
+        console.log(results.data);
+        if (results.status === 200) {
+          let shift = {};
+          shift.id = results.data.shift._id;
+          shift.cash = results.data.shift.cash;
+          shift.card = results.data.shift.card;
+          shift.cost = results.data.shift.cost;
+          shift.ordersNo = results.data.shift.ordersNo;
+          shift.finished = results.data.shift.finished;
+          shift.unpaidTables = this.state.shift.unpaidTables;
+
+          this.setState({ shift: shift })
+        }
+      }).catch(error => {
+      if (error) throw (error)
+    })
+  };
+
+  updateShiftHandler = (payment) => {
+    let shift = {...this.state.shift};
+    console.log(this.state.shift);
+    if (payment.paymentType === "Card") {
+      //TBD
+    } else if (payment.paymentType === "Cash" || payment.paymentType === "Partial Payment") {
+      payment.amountTendered ? shift.cash = payment.amountTendered : shift.cash = payment.amount;
+      shift.cost = shift.cash;
+      console.log('updateShiftHandler',shift);
+    }
+    this.updateShift(shift);
+  };
+
   finishShift = (shift) => {
     API.finishShift(shift)
       .then((results) => {
@@ -879,11 +931,11 @@ class App extends Component {
           console.log(results.data);
 
           let shift = {};
-          shift.id = results.data.shift._id;
-          shift.cash = results.data.shift.cash;
-          shift.card = results.data.shift.card;
-          shift.cost = results.data.shift.cost;
-          shift.ordersNo = results.data.shift.ordersNo;
+          shift.id = null;
+          shift.cash = 0;
+          shift.card = 0;
+          shift.cost = 0;
+          shift.ordersNo = 0;
           shift.finished = results.data.shift.finished;
           shift.unpaidTables = this.state.shift.unpaidTables;
 
@@ -926,6 +978,7 @@ class App extends Component {
         case ("Admin"):
           activeContent = (
             <Admin
+              getUnpaidCheckBool = {this.getUnpaidCheckBool}
               register={this.state.register}
               shift={this.state.shift}
               getRegister={this.getRegister}

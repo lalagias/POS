@@ -206,7 +206,7 @@ export default {
   // Update Shift
   updateShift: (shift) => {
 
-    let URL = encodeURI("/shift/updateShift" + shift.id);
+    let URL = encodeURI("/shift/updateShift/" + shift.id);
     return (
       axios.put(URL, shift)
         .then(response => {

@@ -36,9 +36,10 @@ router.post('/start', (req, res, next) => {
 
 // Update shift this will be called on checkout and partial payment to add the total
 router.put('/updateShift/:id', (req, res, next) => {
+    console.log(req.body);
     shift.findOneAndUpdate({$and:[{_id: mongoose.Types.ObjectId(req.params
             .id)},{finished:false}]
-    }, {$inc: {cost: req.body.cost}},{new:true}, (err, updatedShift) => {
+    }, {$inc: {cost: req.body.cost, cash: req.body.cash, card: req.body.card, ordersNo: 1}},{new:true}, (err, updatedShift) => {
         if (err) return handleError(err);
 
         res.status(200).send({new:req.body.name, shift:updatedShift})
