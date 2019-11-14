@@ -303,6 +303,7 @@ class App extends Component {
     if (this.state.user) {
       this.getRegister();
       this.getShift();
+      this.getOpenedShifts();
     }
   };
 

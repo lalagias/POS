@@ -31,7 +31,8 @@ router.put('/updateRegister/:id', (req, res, next) => {
       _id: mongoose.Types.ObjectId(req.params
         .id)
     }, {closed: false}]
-  }, {$inc: {total: req.body.cost, card: req.body.card, cash: req.body.cash}}, {new: true}, (err, updateRegister) => {
+  }, {$inc: {total: req.body.total, card: req.body.card, cash: req.body.cash}}, {new: true}, (err, updateRegister) => {
+    console.log(err);
     if (err) return handleError(err);
     res.status(200).send({new: req.body.name, register: updateRegister})
   })

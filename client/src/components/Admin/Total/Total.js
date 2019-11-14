@@ -50,7 +50,6 @@ class Total extends Component {
     this.shiftTotal();
     this.props.getRegister();
     this.props.getShift();
-    this.props.getOpenedShifts();
     this.props.getUnpaidCheckBool();
   };
 

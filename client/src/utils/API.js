@@ -262,6 +262,7 @@ export default {
 
   // Update Register
   updateRegister: (register) => {
+    console.log(register);
     let URL = encodeURI("/register/updateRegister/" + register.id);
     return (
       axios.put(URL, register)
