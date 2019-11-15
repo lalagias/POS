@@ -141,7 +141,6 @@ class Menu extends Component {
                       <Grid fluid>
                         <Row
                           data-menuid={menu._id} key={menu._id}
-
                         >
                           <Col
                             className="pt-2 tile-content-menu"
@@ -167,7 +166,7 @@ class Menu extends Component {
                               className="btn-clearfix btn-red btn-delete"
                               id={menu.name + "delete"}
                               onClick={(event) => this.deleteMenuItem(event)}>
-                              X
+                              <img className="svg-icons" src={require('../../../svgs/letter-x.svg')} alt={"X icon"}/>
                             </button>
                           </Col>
                         </Row>

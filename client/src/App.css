@@ -142,9 +142,12 @@ textarea {
 }
 
 .btn-delete {
+  width: 4rem;
+  height: 4rem;
   color: white;
   border: 0 solid transparent;
   border-radius: 50%;
+  padding: 0;
 }
 
 .btn-login {
@@ -330,4 +333,29 @@ input[type="text"] {
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: lightgray !important;
+}
+
+/* * * * * * * * * * * * * * * * *
+  ORDER CSS
+* * * * * * * * * * * * * * * * * */
+
+.menu-items-bar {
+  font-size: 3rem;
+  padding: 2rem;
+  font-weight: 500;
+}
+
+.hover-pointer {
+  cursor: pointer;
+}
+
+.hover-pointer:hover {
+  cursor: pointer;
+}
+
+/* * * * * * * * * * * * * * * * *
+  SVG CSS
+* * * * * * * * * * * * * * * * * */
+.svg-icons {
+  width: 2rem;
 }
