@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5eb9a70c-4954-40a5-aee1-392993240a57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/resources/fonts/fonts-icons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/resources/fonts/icomoon.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/resources/fonts/icomoon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/resources/fonts/icomoon.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/resources/fonts/icomoon.woff" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/service-worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Menu/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Menu/Menu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Modals/Occupied/Checkout/Checkout.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Modals/Occupied/Checkout/Checkout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Modals/Occupied/Occupied.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Modals/Occupied/Occupied.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Modals/Occupied/Print/Print.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Modals/Occupied/Print/Print.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Order/OrderList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Order/OrderList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/svgs/letter-x.svg" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/resources/svgs/letter-x.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/svgs/minus-symbol.svg" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/resources/svgs/minus-symbol.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/svgs/plus-symbol.svg" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/resources/svgs/plus-symbol.svg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +17,7 @@
         <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Menu/Menu.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1411">
-              <caret line="83" column="30" lean-forward="true" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
+              <caret line="83" column="30" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -46,6 +30,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="440">
               <caret line="360" selection-start-line="360" selection-end-line="360" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="19" />
+              <folding>
+                <element signature="e#737#4927#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -65,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/Modals/Occupied/Checkout/Checkout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="250" column="23" lean-forward="true" selection-start-line="250" selection-start-column="23" selection-end-line="250" selection-end-column="23" />
+            <state relative-caret-position="389">
+              <caret line="291" column="26" lean-forward="true" selection-start-line="291" selection-start-column="26" selection-end-line="291" selection-end-column="26" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -78,7 +74,7 @@
         <entry file="file://$PROJECT_DIR$/client/src/resources/fonts/fonts-icons.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="22" column="41" lean-forward="true" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+              <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -99,19 +95,10 @@
         <entry file="file://$PROJECT_DIR$/client/src/components/Modals/Occupied/Occupied.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="253">
-              <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+              <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/Order/OrderList.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -138,7 +125,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getRegister</find>
       <find>let register = {};</find>
       <find>updateRegi</find>
       <find>getOpenedShifts</find>
@@ -168,6 +154,7 @@
       <find>letter-x</find>
       <find>&lt;im</find>
       <find>img</find>
+      <find>app.css</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -280,14 +267,6 @@
             <path>
               <item name="POS" type="b2602c69:ProjectViewProjectNode" />
               <item name="POS" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="fonts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="POS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="POS" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -370,7 +349,7 @@
       <workItem from="1573671909758" duration="863000" />
       <workItem from="1573731410234" duration="19364000" />
       <workItem from="1573824119482" duration="10837000" />
-      <workItem from="1573909175447" duration="10147000" />
+      <workItem from="1573909175447" duration="10617000" />
     </task>
     <task id="LOCAL-00001" summary="debug login">
       <created>1568827318122</created>
@@ -519,11 +498,18 @@
       <option name="project" value="LOCAL" />
       <updated>1573838463996</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Modal UI changes">
+      <created>1573922713774</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1573922713774</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="162631000" />
+    <option name="totallyTimeSpent" value="163101000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -538,7 +524,7 @@
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1780822" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1780822" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -550,7 +536,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32981783" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32981783" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49789253" visible="true" weight="0.27133268" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49789253" visible="true" weight="0.27133268" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5021075" side_tool="true" weight="0.27133268" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -599,9 +585,9 @@
     <MESSAGE value="Login: UI changed, Responsive.&#10;Menu Management:&#10;Open/Close debugged.&#10;Total Register completed. Handle error bug with updateRegister" />
     <MESSAGE value="Menu Management:&#10;updateRegister (debugged)" />
     <MESSAGE value="Navigation Bar reworked" />
-    <MESSAGE value="Modal UI changes" />
     <MESSAGE value="Orders:&#10;UI Changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Orders:&#10;UI Changed" />
+    <MESSAGE value="Modal UI changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modal UI changes" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="editorHistoryManager">
@@ -855,17 +841,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="766">
-          <caret line="1085" column="16" selection-start-line="1085" selection-start-column="16" selection-end-line="1085" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#737#4927#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/Modals/Occupied/ChangeTable/ChangeTable.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
@@ -950,7 +925,7 @@
     <entry file="file://$PROJECT_DIR$/client/src/components/Admin/Menu/Menu.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1411">
-          <caret line="83" column="30" lean-forward="true" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
+          <caret line="83" column="30" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -960,9 +935,26 @@
     <entry file="file://$PROJECT_DIR$/client/src/components/Modals/Occupied/Occupied.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
-          <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+          <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/resources/fonts/fonts-icons.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="19" />
+          <folding>
+            <element signature="e#737#4927#0" />
           </folding>
         </state>
       </provider>
@@ -974,17 +966,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/resources/fonts/fonts-icons.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="41" lean-forward="true" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/Modals/Occupied/Checkout/Checkout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="250" column="23" lean-forward="true" selection-start-line="250" selection-start-column="23" selection-end-line="250" selection-end-column="23" />
+        <state relative-caret-position="389">
+          <caret line="291" column="26" lean-forward="true" selection-start-line="291" selection-start-column="26" selection-end-line="291" selection-end-column="26" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

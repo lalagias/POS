@@ -10,7 +10,7 @@ import {
   MenuItem,
 } from 'react-bootstrap';
 import Hoc from '../../../Hoc/Hoc';
-import fonts from '../../../../resources/fonts/fonts-icons.css';
+import '../../../../resources/fonts/fonts-icons.css';
 
 //initial state 
 const initialState = {
@@ -258,57 +258,45 @@ class Checkout extends Component {
                 </div>
               );
             })}
-            <Grid
-              fluid>
-              <Row>
-                <Col
-                  xs={12}
-                  className="text-center">
-                  Partial Payment Bill
-                </Col>
-                <Col xs={12}>
+            <div
+              className="text-center">
+              Partial Payment Bill
+            </div>
 
-                  {/* Loops through partialPaymentItems and displays the item name, quantity and delete button */}
-                  {this.state.partialPaymentItems.map((item) => {
-                    return (
-                      <div className="tile">
-                        <Grid fluid>
-                          <Row
-                            key={item._id}
-                          >
-                            <Col
-                              className="pt-2 tile-content-menu"
-                              xs={4}
-                            > {item.name} </Col>
-                            <Col
-                              className="pt-2 tile-content-menu"
-                              xs={4}
-                              data-quantity={item.quantity} data-charge={item.charge}
-                            > {item.quantity} </Col>
-                            <Col
-                              className="pt-2 tile-content-menu"
-                              xs={4}
-                            >
-                              <button className="btn-clearfix btn-delete btn-red icon-letter-x"
-                                      id={item.name + " delete"}
-                                      onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>
-                              </button>
-                            </Col>
-                          </Row>
-                        </Grid>
-                      </div>
-                    );
-                  })}
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12} sm={6} smOffset={3}>
-                  <div className="tile text-center">
-                    <div className="tile-content">Partial Total: {this.state.partialTotal} &euro;</div>
-                  </div>
-                </Col>
-              </Row>
-            </Grid>
+            {/* Loops through partialPaymentItems and displays the item name, quantity and delete button */}
+            {this.state.partialPaymentItems.map((item) => {
+              return (
+                <div className="tile">
+                  <Grid fluid>
+                    <Row
+                      key={item._id}
+                    >
+                      <Col
+                        className="pt-2 tile-content-menu"
+                        xs={4}
+                      > {item.name} </Col>
+                      <Col
+                        className="pt-2 tile-content-menu"
+                        xs={4}
+                        data-quantity={item.quantity} data-charge={item.charge}
+                      > {item.quantity} </Col>
+                      <Col
+                        className="pt-2 tile-content-menu"
+                        xs={4}
+                      >
+                        <button className="btn-clearfix btn-delete btn-red icon-letter-x"
+                                id={item.name + " delete"}
+                                onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>
+                        </button>
+                      </Col>
+                    </Row>
+                  </Grid>
+                </div>
+              );
+            })}
+            <div className="tile text-center">
+              <div className="tile-content">Partial Total: {this.state.partialTotal} &euro;</div>
+            </div>
 
             <div className="text-center">
               <button className="btn-clearfix btn-submit"
