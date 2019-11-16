@@ -166,7 +166,8 @@ class Menu extends Component {
                               className="btn-clearfix btn-red btn-delete"
                               id={menu.name + "delete"}
                               onClick={(event) => this.deleteMenuItem(event)}>
-                              <img className="svg-icons" src={require('../../../svgs/letter-x.svg')} alt={"X icon"}/>
+                              {/*<img className="svg-icons" src={require('../../../resources/svgs/letter-x.svg')} alt={"X icon"}/>*/}
+                              \e900
                             </button>
                           </Col>
                         </Row>

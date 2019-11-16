@@ -286,6 +286,7 @@ textarea {
 /* * * * * * * * * * * * * * * * *
   FORM CSS
 * * * * * * * * * * * * * * * * * */
+
 .form-control {
   display: inline;
   width: auto;
@@ -356,6 +357,19 @@ input[type="text"] {
 /* * * * * * * * * * * * * * * * *
   SVG CSS
 * * * * * * * * * * * * * * * * * */
+
 .svg-icons {
   width: 2rem;
+}
+
+/* * * * * * * * * * * * * * * * *
+  MODAL CSS
+* * * * * * * * * * * * * * * * * */
+
+.modal {
+  overflow: auto !important;
+}
+
+.border-bottom-divider {
+  border-bottom: 1px solid #1c1e22;
 }

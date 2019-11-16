@@ -86,12 +86,6 @@ const occupied = props => {
             <div className="tile-content">Guests: {props.table.guestNumber}</div>
             <div className="tile-content">Server: {props.server}</div>
           </div>
-          {/*Guests: {props.table.guestNumber}*/}
-          {/*{props.removeItemToggle ? <Button*/}
-            {/*bsSize="large"*/}
-            {/*bsStyle="info"*/}
-            {/*className="pull-right"*/}
-            {/*onClick={props.removeItem}>Edit</Button> : null}*/}
         </Modal.Body>
         {occupiedRenderPage}
         <Modal.Footer>

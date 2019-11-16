@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
 import {
-  Button,
   ControlLabel,
   DropdownButton,
   FormControl,
   FormGroup,
   Grid,
-  ListGroup,
-  ListGroupItem,
+  Row,
+  Col,
   MenuItem,
-  Panel,
-  Table,
-  Well
 } from 'react-bootstrap';
 import Hoc from '../../../Hoc/Hoc';
+import fonts from '../../../../resources/fonts/fonts-icons.css';
 
 //initial state 
 const initialState = {
@@ -80,6 +77,7 @@ class Checkout extends Component {
 
   // called when Choose ("+") button is clicked
   getItemToPayPartial = (event) => {
+    event.preventDefault();
     // Retrieves the id information
     const itemToPay = event.target;
 
@@ -139,6 +137,7 @@ class Checkout extends Component {
 
   // called when Remove ("X") button is clicked
   removeItemFromPartialPaymentBill = (event) => {
+    event.preventDefault();
     const itemToPay = event.target;
 
     let itemToPayQuantity = itemToPay.parentElement.previousSibling;
@@ -201,20 +200,24 @@ class Checkout extends Component {
               value={this.state.amountTendered}
               placeholder="Cash Tendered"
               onChange={this.handleAmountChange}/>
-            <Button
-              bsSize="large"
-              bsStyle="info"
-              onClick={this.submitPayment}>Submit</Button>
+            <div className="text-center">
+              <button
+                className="btn-clearfix btn-submit"
+                onClick={this.submitPayment}>Submit
+              </button>
+            </div>
           </Hoc>
         );
         break;
 
       case("Payment Method"):
         paymentMethodRender = (
-          <Button
-            bsSize="large"
-            bsStyle="info"
-            disabled>Submit</Button>
+          <div className="text-center">
+            <button
+              className="btn-clearfix btn-submit"
+              disabled>Submit
+            </button>
+          </div>
         );
         break;
 
@@ -222,85 +225,96 @@ class Checkout extends Component {
         // this.tablePropsToState();
         paymentMethodRender = (
           <Hoc>
-            <Grid fluid>
-              <Table striped bordered condensed hover className="mt-5">
-                <thead>
-                <tr>
-                  <th>
-                    Item
-                  </th>
-                  <th>
-                    Quantity
-                  </th>
-                  <th>
-                    Choose
-                  </th>
-                </tr>
-                </thead>
-                <tbody>
-                {/* Loops through bill.items and displays the item name, quantity and delete button */}
-                {this.props.table.bill.items.map((item) => {
-                  return (
-                    <tr key={item._id}>
-                      <td>
-                        {item.name}
-                      </td>
-                      <td data-quantity={item.quantity} data-charge={item.charge}>
-                        {item.quantity}
-                      </td>
-                      <td>
-                        <Button bsStyle="info" id={item.name + " choose"}
-                                onClick={(event) => this.getItemToPayPartial(event)}>+</Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-                </tbody>
-              </Table>
+            <div className="text-center">
+              Total Bill
+            </div>
+            {/* Loops through bill.items and displays the item name, quantity and delete button */}
+            {this.props.table.bill.items.map((item) => {
+              return (
+                <div className="tile">
+                  <Grid fluid>
+                    <Row
+                      key={item._id}
+                    >
+                      <Col
+                        className="pt-2 tile-content-menu"
+                        xs={4}
+                      > {item.name} </Col>
+                      <Col
+                        className="pt-2 tile-content-menu"
+                        xs={4}
+                        data-quantity={item.quantity} data-charge={item.charge}
+                      > {item.quantity} </Col>
+                      <Col
+                        className="pt-2 tile-content-menu"
+                        xs={4}
+                      >
+                        <button className="btn-clearfix btn-submit icon-plus-symbol" id={item.name + " choose"}
+                                onClick={(event) => this.getItemToPayPartial(event)}>
+                        </button>
+                      </Col>
+                    </Row>
+                  </Grid>
+                </div>
+              );
+            })}
+            <Grid
+              fluid>
+              <Row>
+                <Col
+                  xs={12}
+                  className="text-center">
+                  Partial Payment Bill
+                </Col>
+                <Col xs={12}>
+
+                  {/* Loops through partialPaymentItems and displays the item name, quantity and delete button */}
+                  {this.state.partialPaymentItems.map((item) => {
+                    return (
+                      <div className="tile">
+                        <Grid fluid>
+                          <Row
+                            key={item._id}
+                          >
+                            <Col
+                              className="pt-2 tile-content-menu"
+                              xs={4}
+                            > {item.name} </Col>
+                            <Col
+                              className="pt-2 tile-content-menu"
+                              xs={4}
+                              data-quantity={item.quantity} data-charge={item.charge}
+                            > {item.quantity} </Col>
+                            <Col
+                              className="pt-2 tile-content-menu"
+                              xs={4}
+                            >
+                              <button className="btn-clearfix btn-delete btn-red icon-letter-x"
+                                      id={item.name + " delete"}
+                                      onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>
+                              </button>
+                            </Col>
+                          </Row>
+                        </Grid>
+                      </div>
+                    );
+                  })}
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12} sm={6} smOffset={3}>
+                  <div className="tile text-center">
+                    <div className="tile-content">Partial Total: {this.state.partialTotal} &euro;</div>
+                  </div>
+                </Col>
+              </Row>
             </Grid>
-            <Grid fluid>
-              <Table striped bordered condensed hover>
-                <thead>
-                <tr>
-                  <th>
-                    Partial Payment Bill
-                  </th>
-                  <th>
-                    Quantity
-                  </th>
-                  <th>
-                    Delete
-                  </th>
-                </tr>
-                </thead>
-                <tbody>
-                {/* Loops through partialPaymentItems and displays the item name, quantity and delete button */}
-                {this.state.partialPaymentItems.map((item) => {
-                  return (
-                    <tr key={item._id}>
-                      <td>
-                        {item.name}
-                      </td>
-                      <td data-quantity={item.quantity} data-charge={item.charge}>
-                        {item.quantity}
-                      </td>
-                      <td>
-                        <Button bsStyle="danger" id={item.name + " delete"}
-                                onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>X</Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-                </tbody>
-              </Table>
-            </Grid>
-            <Panel className="totalPanel text-center">
-              <h3>Partial Total: {this.state.partialTotal} &euro;</h3>
-            </Panel>
-            <Button
-              bsSize="large"
-              bsStyle="info"
-              onClick={this.submitPartialPayment}>Submit</Button>
+
+            <div className="text-center">
+              <button className="btn-clearfix btn-submit"
+                      onClick={this.submitPartialPayment}>Submit
+              </button>
+            </div>
           </Hoc>
         );
         break;
@@ -344,62 +358,74 @@ class Checkout extends Component {
                 onChange={this.handleCvcChange}/>
             </div>
             <div className="text-center">
-              <Button
-                bsSize="large"
-                bsStyle="info"
-                onClick={this.submitPayment}>
+              <button className="btn-clearfix btn-submit"
+                      onClick={this.submitPayment}>
                 Submit
-              </Button>
+              </button>
             </div>
           </Hoc>
         )
     }
     return (
-      <Well>
-        <ListGroup>
-          <ListGroupItem> Server: {this.props.table.server} </ListGroupItem>
-          <ListGroupItem> ID: {this.props.table.bill.id} </ListGroupItem>
-          <ListGroupItem> Total: {this.props.table.bill.total} </ListGroupItem>
-        </ListGroup>
+      <div>
+        <Grid fluid>
+          <Row>
+            <Col xs={12} sm={6} smOffset={3}>
+              <div className="tile">
+                <div className="tile-content text-center">
+                  Total: {this.props.table.bill.total} &euro;
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
         <form>
           <FormGroup>
-            <DropdownButton
-              id="checkoutDropDown"
-              title={this.state.paymentMethod}>
-              {/*<MenuItem
-                                    value="VISA" 
+            <Grid fluid>
+              <Row>
+                <Col xs={12} sm={6} smOffset={3}
+                     className="text-center mb-3">
+                  <DropdownButton
+                    id="checkoutDropDown"
+                    className="btn-clearfix btn-gray m-0"
+                    title={this.state.paymentMethod}>
+                    {/*<MenuItem
+                                    value="VISA"
                                     onSelect={() => this.payment("VISA")}>VISA
                                     </MenuItem>
 
-                                    <MenuItem 
-                                    value="MasterCard" 
+                                    <MenuItem
+                                    value="MasterCard"
                                     onSelect={() => this.payment("MasterCard")}>MasterCard
                                     </MenuItem>
 
-                                    <MenuItem 
-                                    value="AMEX" 
+                                    <MenuItem
+                                    value="AMEX"
                                     onSelect={() => this.payment("AMEX")}>AMEX
                                     </MenuItem>
 
-                                    <MenuItem 
-                                    value="Diners Club" 
+                                    <MenuItem
+                                    value="Diners Club"
                                     onSelect={() => this.payment("Diners Club")}>Diners Club
                                     </MenuItem>*/}
-              <MenuItem
-                value="Cash"
-                onSelect={() => this.payment("Cash")}>Cash
-              </MenuItem>
-              <MenuItem
-                value="Partial Payment"
-                onSelect={() => this.payment("Partial Payment")}>Partial Payment
-              </MenuItem>
-            </DropdownButton>
-
-            {paymentMethodRender}
-
+                    <MenuItem
+                      value="Cash"
+                      onSelect={() => this.payment("Cash")}>Cash
+                    </MenuItem>
+                    <MenuItem
+                      value="Partial Payment"
+                      onSelect={() => this.payment("Partial Payment")}>Partial Payment
+                    </MenuItem>
+                  </DropdownButton>
+                </Col>
+                <Col xs={12} className="text-center">
+                  {paymentMethodRender}
+                </Col>
+              </Row>
+            </Grid>
           </FormGroup>
         </form>
-      </Well>
+      </div>
     )
   }
 }
