@@ -79,7 +79,7 @@ class Checkout extends Component {
     event.preventDefault();
 
     console.log('ADD PARTIAL ITEM');
-    console.log('event.target',event.target);
+    console.log('event.target', event.target);
     // Retrieves the event.target information
     const itemToPay = event.target;
 
@@ -182,7 +182,7 @@ class Checkout extends Component {
       console.log('this.props.table.bill.items[propItemIndex].charge', this.props.table.bill.items[propItemIndex].charge);
 
       // Set new State of partial Data
-      let itemsCopy = [...this.state.partialPaymentItems];
+      let itemsCopy = this.state.partialPaymentItems;
       itemsCopy[indexPartialPaymentItem].quantity -= 1;
       itemsCopy[indexPartialPaymentItem].charge = itemsCopy[indexPartialPaymentItem].cost * itemsCopy[indexPartialPaymentItem].quantity;
       console.log('itemsCopy', itemsCopy);
@@ -190,10 +190,10 @@ class Checkout extends Component {
 
       let partialTotal = itemsCopy.reduce((a, b) => a + b.charge, 0);
 
-      this.setState({partialTotal: partialTotal}, ()=> {
+      this.setState({partialTotal: partialTotal}, () => {
         console.log('this.state.partialTotal', this.state.partialTotal);
       });
-      this.setState({partialPaymentItems: [...itemsCopy]}, ()=> {
+      this.setState({partialPaymentItems: [...itemsCopy]}, () => {
         console.log('this.state.partialPaymentItems', this.state.partialPaymentItems)
       });
 
@@ -266,74 +266,56 @@ class Checkout extends Component {
             <div className="text-center">
               Total Bill
             </div>
-            {/* Loops through bill.items and displays the item name, quantity and delete button */}
-            {this.props.table.bill.items.map((item) => {
-              console.log('KALINIXTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', item.quantity);
-              return (
-                <div className="tile">
-                  <Grid fluid>
-                    <Row
-                      key={item._id}
-                    >
-                      <Col
-                        className="pt-2 tile-content-menu"
-                        xs={4}
-                      > {item.name} </Col>
-                      <Col
-                        className="pt-2 tile-content-menu"
-                        xs={4}
-                        data-quantity={item.quantity} data-charge={item.charge}
-                      > {item.quantity} </Col>
-                      <Col
-                        className="pt-2 tile-content-menu"
-                        xs={4}
-                      >
-                        <button className="btn-clearfix btn-submit icon-plus-symbol" id={item.name + " choose"}
-                                onClick={(event) => this.getItemToPayPartial(event)}>
-                        </button>
-                      </Col>
-                    </Row>
-                  </Grid>
-                </div>
-              );
-            })}
+            <table className="mb-3">
+              <tbody>
+              {/* Loops through bill.items and displays the item name, quantity and delete button */}
+              {this.props.table.bill.items.map((item) => {
+                return (
+                  <tr key={item._id}>
+                    <td>
+                      {item.name}
+                    </td>
+                    <td data-quantity={item.quantity} data-charge={item.charge}>
+                      {item.quantity}
+                    </td>
+                    <td>
+                      <button className="btn-clearfix btn-submit btn icon-plus-symbol mb-0" id={item.name + " choose"}
+                              onClick={(event) => this.getItemToPayPartial(event)}/>
+                    </td>
+                  </tr>
+                );
+              })}
+              </tbody>
+            </table>
             <div
               className="text-center">
               Partial Payment Bill
-            </div>
+              {/*{this.state.partialPaymentItems[0] !== undefined ? 'STATE ' + this.state.partialPaymentItems[0].quantity : 'STATE NULL'}*/}
 
-            {/* Loops through partialPaymentItems and displays the item name, quantity and delete button */}
-            {this.state.partialPaymentItems.map((item) => {
-              console.log('kalimeraAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', item.quantity);
-              return (
-                <div className="tile">
-                  <Grid fluid>
-                    <Row
-                      key={item._id}
-                    >
-                      <Col
-                        className="pt-2 tile-content-menu"
-                        xs={4}
-                      > {item.name} </Col>
-                      <Col
-                        className="pt-2 tile-content-menu"
-                        xs={4}
-                        data-quantity={item.quantity} data-charge={item.charge}
-                      > {item.quantity} </Col>
-                      <Col
-                        className="pt-2 tile-content-menu"
-                        xs={4}
-                      >
-                        <button className="btn-clearfix btn-delete btn-red icon-letter-x"
-                                id={item.name + " delete"}
-                                onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>
-                        </button>
-                      </Col>
-                    </Row>
-                  </Grid>
-                </div>
-              );
-            })}
+              {/*PROPS: {this.props.table.bill.items[0].quantity}*/}
+            </div>
+            <table className="mb-3">
+              <tbody>
+              {/* Loops through partialPaymentItems and displays the item name, quantity and delete button */}
+              {this.state.partialPaymentItems.map((item) => {
+                return (
+                  <tr key={item._id}>
+                    <td>
+                      {item.name}
+                    </td>
+                    <td data-quantity={item.quantity} data-charge={item.charge}>
+                      {item.quantity}
+                    </td>
+                    <td>
+                      <button className="btn-clearfix btn-delete btn-red mb-0" id={item.name + " delete"}
+                              onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>-
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+              </tbody>
+            </table>
             <div className="tile text-center">
               <div className="tile-content">Partial Total: {this.state.partialTotal} &euro;</div>
             </div>
