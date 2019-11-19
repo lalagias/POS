@@ -5,7 +5,7 @@
 // Hoc is a self wrapper for react
 
 import React, {Component} from 'react';
-import {Button, Panel, Grid, Row, Col, Well} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 import Menubuttons from "./MenuButtons";
 import OrderList from "./OrderList";
 import Hoc from "../Hoc/Hoc";

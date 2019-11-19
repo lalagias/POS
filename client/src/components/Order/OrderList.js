@@ -28,9 +28,9 @@ class OrderList extends Component {
                       xs={4}
                     >
                       <button
-                        className="btn-clearfix btn-delete btn-red"
+                        className="btn-clearfix btn-delete btn-red icon-minus-symbol"
                         id={item.name + "delete"} onClick={(event) => this.getItemToRemove(event)}>
-                        <img className="svg-icons" src={require('../../resources/svgs/minus-symbol.svg')} alt={"minus icon"}/>
+                        {/*<img className="svg-icons" src={require('../../resources/svgs/minus-symbol.svg')} alt={"minus icon"}/>*/}
                       </button>
                     </Col>
                   </Row>

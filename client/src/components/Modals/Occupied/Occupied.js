@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Modal, ButtonGroup} from 'react-bootstrap';
+import {Modal, ButtonGroup} from 'react-bootstrap';
 import Checkout from './Checkout/Checkout'
 import Print from './Print/Print'
 import ChangeTable from './ChangeTable/ChangeTable'

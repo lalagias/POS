@@ -11,6 +11,7 @@ import Hoc from './components/Hoc/Hoc';
 import OrderModal from './components/Modals/Order';
 import Login from './components/Login/Login';
 import {withAlert} from 'react-alert';
+import './resources/fonts/fonts-icons.css';
 
 class App extends Component {
   state = {
