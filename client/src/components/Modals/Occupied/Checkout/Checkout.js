@@ -78,24 +78,24 @@ class Checkout extends Component {
   getItemToPayPartial = (event) => {
     event.preventDefault();
 
-    console.log('ADD PARTIAL ITEM');
-    console.log('event.target', event.target);
+    // console.log('ADD PARTIAL ITEM');
+    // console.log('event.target', event.target);
     // Retrieves the event.target information
     const itemToPay = event.target;
 
     let itemToPayQuantity = itemToPay.parentElement.previousSibling;
     let itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
     let itemToPayChargeInt = parseFloat(itemToPayQuantity.getAttribute('data-charge'));
-    console.log('itemToPayQuantity', itemToPayQuantity);
-    console.log('itemToPayQuantityInt', itemToPayQuantityInt);
-    console.log('itemToPayChargeInt', itemToPayChargeInt);
+    // console.log('itemToPayQuantity', itemToPayQuantity);
+    // console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+    // console.log('itemToPayChargeInt', itemToPayChargeInt);
     let itemToPayCost = itemToPayChargeInt / itemToPayQuantityInt;
 
     // Condition that you can't add any more items if quantity is zero
     if (itemToPayQuantityInt > 0) {
       // removes the word choose to retrieve the item name
       const itemToPayName = itemToPay.id.replace(" choose", "");
-      console.log('itemToPayName', itemToPayName);
+      // console.log('itemToPayName', itemToPayName);
       // create new item Object
       const itemObject = {
         name: itemToPayName,
@@ -136,78 +136,79 @@ class Checkout extends Component {
       itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt - 1);
       itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
       itemToPayQuantity.innerText = itemToPayQuantityInt;
-      console.log('itemToPayQuantityInt', itemToPayQuantityInt);
-      console.log('itemToPayQuantity', itemToPayQuantity);
-      console.log('this.state', this.state.partialTotal);
-      console.log('this.state', this.state.partialPaymentItems);
+      // console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+      // console.log('itemToPayQuantity', itemToPayQuantity);
+      // console.log('this.state', this.state.partialTotal);
+      // console.log('this.state', this.state.partialPaymentItems);
     }
   };
 
   // called when Remove ("X") button is clicked
   removeItemFromPartialPaymentBill = (event) => {
     event.preventDefault();
-
-    console.log('REMOVE ITEM FROM PARTIAL');
-    console.log('this.state.partialTotal', this.state.partialTotal);
-    console.log('this.state.partialPaymentItems', this.state.partialPaymentItems);
-
-    console.log('event.target', event.target);
+    //
+    // console.log('REMOVE ITEM FROM PARTIAL');
+    // console.log('this.state.partialTotal', this.state.partialTotal);
+    // console.log('this.state.partialPaymentItems', this.state.partialPaymentItems);
+    //
+    // console.log('event.target', event.target);
     // Retrieves the event.target information
     const itemToPay = event.target;
 
     let itemToPayQuantity = itemToPay.parentElement.previousSibling;
     let itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
     let itemToPayChargeInt = parseFloat(itemToPayQuantity.getAttribute('data-charge'));
-    console.log('itemToPayQuantity', itemToPayQuantity);
-    console.log('itemToPayQuantityInt', itemToPayQuantityInt);
-    console.log('itemToPayChargeInt', itemToPayChargeInt);
+    // console.log('itemToPayQuantity', itemToPayQuantity);
+    // console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+    // console.log('itemToPayChargeInt', itemToPayChargeInt);
     let itemToPayCost = itemToPayChargeInt / itemToPayQuantityInt;
 
-    console.log('itemToPayCost', itemToPayCost);
+    // console.log('itemToPayCost', itemToPayCost);
     if (itemToPayQuantityInt > 0) {
       const itemToPayName = itemToPay.id.replace(" delete", "");
-      console.log('itemToPayName', itemToPayName);
+      // console.log('itemToPayName', itemToPayName);
 
       // Find index of item in the state partialPaymentItems
       let indexPartialPaymentItem = this.state.partialPaymentItems.findIndex(item => item.name === itemToPayName);
-      console.log('indexPartialPaymentItem', indexPartialPaymentItem);
+      // console.log('indexPartialPaymentItem', indexPartialPaymentItem);
       // Find index of item in the bill
       let propItemIndex = this.props.table.bill.items.findIndex(item => item.name === itemToPayName);
-      console.log('propItemIndex', propItemIndex);
+      // console.log('propItemIndex', propItemIndex);
 
       // Increase quantity of item in the state of bill and recalculate new charge
       this.props.table.bill.items[propItemIndex].quantity += 1;
       this.props.table.bill.items[propItemIndex].charge = this.props.table.bill.items[propItemIndex].quantity * itemToPayCost;
-      console.log('this.props.table.bill.items[propItemIndex].quantity', this.props.table.bill.items[propItemIndex].quantity);
-      console.log('this.props.table.bill.items[propItemIndex].charge', this.props.table.bill.items[propItemIndex].charge);
+      // console.log('this.props.table.bill.items[propItemIndex].quantity', this.props.table.bill.items[propItemIndex].quantity);
+      // console.log('this.props.table.bill.items[propItemIndex].charge', this.props.table.bill.items[propItemIndex].charge);
 
       // Set new State of partial Data
       let itemsCopy = this.state.partialPaymentItems;
       itemsCopy[indexPartialPaymentItem].quantity -= 1;
       itemsCopy[indexPartialPaymentItem].charge = itemsCopy[indexPartialPaymentItem].cost * itemsCopy[indexPartialPaymentItem].quantity;
-      console.log('itemsCopy', itemsCopy);
-      console.log('itemsCopy[indexPartialPaymentItem]', itemsCopy[indexPartialPaymentItem]);
+      // console.log('itemsCopy', itemsCopy);
+      // console.log('itemsCopy[indexPartialPaymentItem]', itemsCopy[indexPartialPaymentItem]);
 
       let partialTotal = itemsCopy.reduce((a, b) => a + b.charge, 0);
 
       this.setState({partialTotal: partialTotal}, () => {
-        console.log('this.state.partialTotal', this.state.partialTotal);
+        // console.log('this.state.partialTotal', this.state.partialTotal);
       });
       this.setState({partialPaymentItems: [...itemsCopy]}, () => {
-        console.log('this.state.partialPaymentItems', this.state.partialPaymentItems)
+        // console.log('this.state.partialPaymentItems', this.state.partialPaymentItems)
       });
 
-      console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+      // console.log('itemToPayQuantityInt', itemToPayQuantityInt);
       itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt - 1);
       itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
       itemToPayQuantity.innerText = itemToPayQuantityInt;
 
-      console.log('itemToPayQuantityInt', itemToPayQuantityInt);
-      console.log('itemToPayQuantity', itemToPayQuantity);
+      // console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+      // console.log('itemToPayQuantity', itemToPayQuantity);
     }
   };
 
-  submitPartialPayment = async () => {
+  submitPartialPayment = async (event) => {
+    event.preventDefault();
     let newPartialTable = {...this.props.table};
     newPartialTable.name = newPartialTable.name + " partial";
 
