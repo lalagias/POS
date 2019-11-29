@@ -214,15 +214,16 @@ class Checkout extends Component {
 
     let orderList = [...this.state.partialPaymentItems];
     newPartialTable.pendingOrder = [...orderList];
-
+    setTimeout(3000);
     newPartialTable.bill.total -= this.state.partialTotal;
     newPartialTable.amountTendered = this.state.partialTotal;
     newPartialTable.card = this.state.card;
     newPartialTable.paymentType = this.state.paymentMethod;
     newPartialTable.paid = false;
 
-    let seatGuestsPartialPayment = await this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name);
-    let orderSubmit = await this.props.orderSubmit(newPartialTable);
+    let seatGuestsPartialPayment = await setTimeout(this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name),3000);
+    let orderSubmit = await setTimeout(this.props.orderSubmit(newPartialTable),3000);
+
   };
 
   render() {
