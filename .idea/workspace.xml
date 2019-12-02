@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa5b3b93-7063-4712-8978-ec0df28bd92b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/build/service-worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Menu/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Menu/Menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Register/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Servers/Servers.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Servers/Servers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Admin/Total/Total.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Admin/Total/Total.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Nav/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Nav/Navbar.js" afterDir="false" />
-    </list>
+    <list default="true" id="fa5b3b93-7063-4712-8978-ec0df28bd92b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573148477390</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Minor DOM changes, some debugging for ADMIN PANEL">
+      <created>1573149875411</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1573149875411</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,6 +124,7 @@
     <MESSAGE value="Minor css changes. Responsiveness issues updated. Added Delete button on login. Delete Menu Product, works." />
     <MESSAGE value="removed console logs" />
     <MESSAGE value="Register &amp; Shift:&#10;- Axios calls&#10;- UI Components (working on them atm)&#10;- App function etc." />
-    <option name="LAST_COMMIT_MESSAGE" value="Register &amp; Shift:&#10;- Axios calls&#10;- UI Components (working on them atm)&#10;- App function etc." />
+    <MESSAGE value="Minor DOM changes, some debugging for ADMIN PANEL" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor DOM changes, some debugging for ADMIN PANEL" />
   </component>
 </project>
