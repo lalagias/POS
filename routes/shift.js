@@ -13,47 +13,61 @@ const printer = new escpos.Printer(device, options);///todo when no printer avai
 
 // Get all shifts
 router.get('/', (req, res, next) => {
-    shift.find()
-        .then(results => {
-            res.json(results)
-        })
-        .catch(error => {
-            res.json(error)
-        })
+  shift.find()
+    .then(results => {
+      res.json(results)
+    })
+    .catch(error => {
+      res.json(error)
+    })
 });
 
-//start new shift
+// Start new shift
 router.post('/start', (req, res, next) => {
-    console.log('in paid');
-    shift.create(req.body)
-        .then(results => {
-            res.json(results)
-        })
-        .catch(error => {
-            res.json(error)
-        })
+  console.log('in paid', req.body);
+  shift.create(req.body)
+    .then(results => {
+      res.json(results)
+    })
+    .catch(error => {
+      res.json(error)
+    })
 });
 
-//update shift this will be called on checkout and partial payment to add the total
+// Update shift this will be called on checkout and partial payment to add the total
 router.put('/updateShift/:id', (req, res, next) => {
-    shift.findOneAndUpdate({$and:[{_id: mongoose.Types.ObjectId(req.params
-            .id)},{finished:false}]
-    }, {$inc: {cost: req.body.cost}},{new:true}, (err, updatedShift) => {
-        if (err) return handleError(err);
+  console.log(req.body);
+  shift.findOneAndUpdate({
+    $and: [{
+      _id: mongoose.Types.ObjectId(req.params
+        .id)
+    }, {finished: false}]
+  }, {
+    $inc: {
+      cost: req.body.cost,
+      cash: req.body.cash,
+      card: req.body.card,
+      ordersNo: 1
+    }
+  }, {new: true}, (err, updatedShift) => {
+    if (err) return handleError(err);
 
-        res.status(200).send({new:req.body.name, shift:updatedShift})
-    })
+    res.status(200).send({new: req.body.name, shift: updatedShift})
+  })
 });
 
-//finish Shift
+// Finish Shift
 router.put('/finishShift/:id', (req, res, next) => {
-    shift.findOneAndUpdate({$and :[{_id: mongoose.Types.ObjectId(req.params
-            .id)
-    },{finished:false}]}, {$set: {finished: req.body.finished}},{new:true}, (err, updatedShift) => {
-        if (err) return handleError(err);
+  shift.findOneAndUpdate({
+    $and: [{
+      _id: mongoose.Types.ObjectId(req.params
+        .id)
+    }, {finished: false}]
+  }, {$set: {finished: req.body.finished}}, {new: true}, (err, finishShift) => {
+    if (err) return handleError(err);
 
-        res.status(200).send({new:req.body.name, shift:updatedShift})
-    })
+    res.status(200).send({new: req.body.name, shift: finishShift})
+  })
 
 });
 

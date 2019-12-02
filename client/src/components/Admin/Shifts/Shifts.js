@@ -1,35 +1,24 @@
-import React, {Component} from 'react'
-import {
-  Button,
-} from 'react-bootstrap'
+import React from 'react';
 
-class Shifts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isToggleShift: true
-    };
-  }
+function Shifts(props) {
 
-  handleShift = (event) => {
-    this.setState((prevState) => ({
-      isToggleShift: !prevState.isToggleShift
-    }));
-  };
-
-  render() {
-
-    return (
-      <div>
-        <Button
-          bsSize="large"
-          bsStyle="info"
-          onClick={this.handleShift}>
-          {this.state.isToggleShift ? 'Open Shift' : 'Close Shift'}
-        </Button>
+  return (
+    <div className="card mb-3">
+      <div className="card-title">
+        Shift
       </div>
-    )
-  }
+      <div className="card-value-subtotal text-center">
+        {props.shift.cost} &euro;
+      </div>
+      <div className="text-center">
+        <button
+          className="btn-clearfix btn-submit"
+          onClick={props.handleShift}>
+          {props.shift.finished ? 'Open Shift' : 'Close Shift' }
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default Shifts;

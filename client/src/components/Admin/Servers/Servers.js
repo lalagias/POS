@@ -1,17 +1,12 @@
 import React, {Component} from 'react';
 import {
-  Button,
-  Well,
-  Panel,
   FormControl,
-  Row,
   FormGroup,
   ControlLabel,
-  Col,
-  ListGroup,
-  ListGroupItem
+  Col
 } from 'react-bootstrap';
 import {withAlert} from 'react-alert';
+import Hoc from '../../Hoc/Hoc';
 
 // makes it easy to reset the state of the page / clear the forms
 const initialState = {
@@ -24,22 +19,23 @@ const initialState = {
 class Servers extends Component {
   state = initialState;
 
-  //updates states immediately on change
+  // updates states immediately on change
   newServerNameChangeHandler = event => {
     let server = {...this.state.newServer};
     server.name = event.target.value;
     this.setState({newServer: server})
   };
 
-  //updates states immediately on change
+  // updates states immediately on change
   newServerCodeChangeHandler = event => {
     let server = {...this.state.newServer};
     server.code = event.target.value;
     this.setState({newServer: server})
   };
 
-  //Submits a new server
-  newServerSubmitHandler = () => {
+  // Submit a new server
+  newServerSubmitHandler = (event) => {
+    event.preventDefault();
     this.props.addServer(this.state.newServer);
 
     this.resetToInitialState()
@@ -54,53 +50,62 @@ class Servers extends Component {
   render() {
 
     return (
-      <Row>
-        <Col md={6} xs={12}>
-          <Panel>
-            <h3> Current Servers: </h3>
-            <ListGroup>
+      <Hoc>
+        <Col
+          className="mb-3"
+          lg={3}
+          md={3}
+          xs={12}>
+          <div className="card">
+            <div className="card-title">
+              Current Servers
+            </div>
+            <div className="card-content">
               {this.props.servers.map((server) => (
-                <ListGroupItem
-                  key={server._id}> {server.name}
-                </ListGroupItem>
+                <div className="tile" key={server._id}>
+                  <div className="tile-content">
+                    {server.name}
+                  </div>
+                </div>
               ))
               }
-            </ListGroup>
-          </Panel>
+            </div>
+          </div>
         </Col>
-        <Col md={6} xs={12}>
-          <Panel>
-            <Well>
-              <form>
-                <legend>
-                  Add new Server
-                </legend>
-                <FormGroup>
-                  <ControlLabel>New Server Name</ControlLabel>
-                  <FormControl
-                    type="text"
-                    bsSize="small"
-                    value={this.state.newServer.name}
-                    onChange={this.newServerNameChangeHandler}/>
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>New Server Pin Code</ControlLabel>
-                  <FormControl
-                    type="text"
-                    bsSize="small"
-                    value={this.state.newServer.code}
-                    onChange={this.newServerCodeChangeHandler}/>
-                </FormGroup>
-                <Button
-                  bsSize="large"
-                  bsStyle="info"
+        <Col
+          className="mb-3"
+          lg={3}
+          md={3}
+          xs={12}>
+          <div className="card">
+            <div className="card-title">
+              Add new Server
+            </div>
+            <form>
+              <FormGroup>
+                <ControlLabel>New Server Name</ControlLabel>
+                <FormControl
+                  type="text"
+                  value={this.state.newServer.name}
+                  onChange={this.newServerNameChangeHandler}/>
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>New Server Pin Code</ControlLabel>
+                <FormControl
+                  type="text"
+                  value={this.state.newServer.code}
+                  onChange={this.newServerCodeChangeHandler}/>
+              </FormGroup>
+              <div className="text-center">
+                <button
+                  className="btn-clearfix btn-submit"
                   onClick={this.newServerSubmitHandler}> Submit
-                </Button>
-              </form>
-            </Well>
-          </Panel>
+                </button>
+              </div>
+            </form>
+          </div>
         </Col>
-      </Row>
+      </Hoc>
     )
   }
 }

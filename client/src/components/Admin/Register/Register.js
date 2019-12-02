@@ -1,35 +1,21 @@
-import React, {Component} from 'react'
-import {
-  Button,
-} from 'react-bootstrap'
+import React from 'react';
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isToggleRegister: true
-    };
-  }
+function Register(props) {
 
-  handleRegister = (event) => {
-    this.setState((prevState) => ({
-      isToggleRegister: !prevState.isToggleRegister
-    }));
-  };
-
-  render() {
-
-    return (
-      <div>
-        <Button
-          bsSize="large"
-          bsStyle="info"
-          onClick={this.handleRegister}>
-          {this.state.isToggleRegister ? 'Open Register' : 'Close Register'}
-        </Button>
+  return (
+    <div className="card mb-3">
+      <div className="card-title">
+        Register
       </div>
-    )
-  }
+      <div className="text-center">
+        <button
+          className="btn-clearfix btn-submit"
+          onClick={props.handleRegister}>
+          {props.register.closed ? 'Open Register' : 'Close Register'}
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default Register;

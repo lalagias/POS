@@ -4,9 +4,14 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const models = require('../models/all-models.js');
+const escpos = require('escpos');
+const usb = require('usb');
 const receipt = models.Receipts;
 const menu = models.Menu;
 const printing = require('./print.js');
+/*const device  = new escpos.USB();///todo when no printer available then comment this line
+const options = { encoding: "ISO 8859-7"  };
+const printer = new escpos.Printer(device, options);*/
 
 // Get all receipts that have not been paid and return them
 router.get('/', (req, res, next) => {
@@ -61,7 +66,9 @@ router.post('/seat', (req, res, next) => {
 
 // Update check information
 router.put('/:id', (req, res, next) => {
+
     console.log('req.params.id]', req.params.id);
+    console.log(req.body);
     menu.find().then(m => {
         receipt.findByIdAndUpdate(req.params.id, {new: true},(err, check) => {
 
@@ -80,11 +87,11 @@ router.put('/:id', (req, res, next) => {
                     }
                 }
                 print += '\n\n Total: ' + parseFloat(total).toFixed(2) + '\n\n\n';//results[0].total;
-                // let bool = false;
-                let bool = true
-                // while (!bool) {
+                 let bool = false;
+                 while (!bool) {
                     try {
-                        // bool = printing.printingCheck(print);
+                        console.log('check print');
+                        bool = printing.printingCheck(print);
                         if (bool) {
                             check.paid = req.body.paid;
                             check.card = req.body.card;
@@ -93,6 +100,7 @@ router.put('/:id', (req, res, next) => {
                             check.paidTime = Date.now();
                             check.save((err, updatedCheck) => {
                                 if (err) return handleError(err);
+                                //printer.close();
                                 res.send(updatedCheck)
                             });
                         }
@@ -101,7 +109,7 @@ router.put('/:id', (req, res, next) => {
                         console.log('execpetion', e);
                         res.send('Error! check printer');
                     }
-                // }
+                 }
             })
         });
     })

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Nav, NavItem, Button} from 'react-bootstrap';
+import {Nav, NavItem} from 'react-bootstrap';
 import HOC from "../Hoc/Hoc";
 
 const navbar = (props) => {
@@ -7,7 +7,6 @@ const navbar = (props) => {
   return (
     <Nav
       navbar
-      bsStyle="pills"
       className="navigation-bar"
       activeKey={props.activePage}
       onSelect={k => props.handleSelect(k)}>
@@ -49,12 +48,11 @@ const navbar = (props) => {
                 title="LoggedInServer"
                 disabled>{props.loggedInUser}
               </NavItem>
-              <Button
+              <button
                 title="LogOutUser"
-                bsSize="large"
-                bsStyle="danger"
+                className="btn-clearfix btn-red"
                 onClick={props.logOut}>Logout
-              </Button>
+              </button>
             </HOC>
           )
           : null}

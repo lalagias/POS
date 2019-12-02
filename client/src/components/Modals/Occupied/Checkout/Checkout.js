@@ -1,20 +1,15 @@
 import React, {Component} from 'react';
 import {
-  Button,
   ControlLabel,
   DropdownButton,
   FormControl,
   FormGroup,
   Grid,
-  ListGroup,
-  ListGroupItem,
+  Row,
+  Col,
   MenuItem,
-  Panel,
-  Table,
-  Well
 } from 'react-bootstrap';
 import Hoc from '../../../Hoc/Hoc';
-import API from "../../../../utils/API";
 
 //initial state 
 const initialState = {
@@ -34,29 +29,6 @@ class Checkout extends Component {
 
   resetToInitialState = () => {
     this.setState(initialState)
-  };
-
-  // tablePropsToState = () => {
-  //     console.log(this.props.table.bill.items);
-  //     let items = [...this.props.table.bill.items];
-  //
-  //     items.map(item => {
-  //        // item.quantity = 0;
-  //        return item.name;
-  //     });
-  //
-  //     this.setState({partialPaymentItems: [...items]}, () => {
-  //         console.log(this.state.partialPaymentItems);
-  //     });
-  //
-  // };
-
-  getUnpaidChecks = () => {
-    console.log('getUnpaidChecks');
-    //this checks the database on load to see if there are unpaid checks
-    API.getTables().then(results => {
-      console.log(results);
-    });
   };
 
   payment = method => {
@@ -102,21 +74,28 @@ class Checkout extends Component {
     this.resetToInitialState();
   };
 
-  // called when Choose ("+") button is clicked
+  // Called when Choose ("+") button is clicked
   getItemToPayPartial = (event) => {
-    // Retrieves the id information
+    event.preventDefault();
+
+    // console.log('ADD PARTIAL ITEM');
+    // console.log('event.target', event.target);
+    // Retrieves the event.target information
     const itemToPay = event.target;
 
     let itemToPayQuantity = itemToPay.parentElement.previousSibling;
     let itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
     let itemToPayChargeInt = parseFloat(itemToPayQuantity.getAttribute('data-charge'));
-
+    // console.log('itemToPayQuantity', itemToPayQuantity);
+    // console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+    // console.log('itemToPayChargeInt', itemToPayChargeInt);
     let itemToPayCost = itemToPayChargeInt / itemToPayQuantityInt;
 
     // Condition that you can't add any more items if quantity is zero
     if (itemToPayQuantityInt > 0) {
       // removes the word choose to retrieve the item name
       const itemToPayName = itemToPay.id.replace(" choose", "");
+      // console.log('itemToPayName', itemToPayName);
       // create new item Object
       const itemObject = {
         name: itemToPayName,
@@ -124,7 +103,6 @@ class Checkout extends Component {
         charge: null,
         cost: itemToPayCost
       };
-
       // calculate charge (formula: cost * quantity)
       itemObject.charge = itemObject.cost * itemObject.quantity;
 
@@ -158,62 +136,99 @@ class Checkout extends Component {
       itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt - 1);
       itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
       itemToPayQuantity.innerText = itemToPayQuantityInt;
+      // console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+      // console.log('itemToPayQuantity', itemToPayQuantity);
+      // console.log('this.state', this.state.partialTotal);
+      // console.log('this.state', this.state.partialPaymentItems);
     }
   };
 
   // called when Remove ("X") button is clicked
   removeItemFromPartialPaymentBill = (event) => {
+    event.preventDefault();
+    //
+    // console.log('REMOVE ITEM FROM PARTIAL');
+    // console.log('this.state.partialTotal', this.state.partialTotal);
+    // console.log('this.state.partialPaymentItems', this.state.partialPaymentItems);
+    //
+    // console.log('event.target', event.target);
+    // Retrieves the event.target information
     const itemToPay = event.target;
 
     let itemToPayQuantity = itemToPay.parentElement.previousSibling;
     let itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
     let itemToPayChargeInt = parseFloat(itemToPayQuantity.getAttribute('data-charge'));
-
+    // console.log('itemToPayQuantity', itemToPayQuantity);
+    // console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+    // console.log('itemToPayChargeInt', itemToPayChargeInt);
     let itemToPayCost = itemToPayChargeInt / itemToPayQuantityInt;
+
+    // console.log('itemToPayCost', itemToPayCost);
     if (itemToPayQuantityInt > 0) {
       const itemToPayName = itemToPay.id.replace(" delete", "");
+      // console.log('itemToPayName', itemToPayName);
 
+      // Find index of item in the state partialPaymentItems
       let indexPartialPaymentItem = this.state.partialPaymentItems.findIndex(item => item.name === itemToPayName);
-
+      // console.log('indexPartialPaymentItem', indexPartialPaymentItem);
+      // Find index of item in the bill
       let propItemIndex = this.props.table.bill.items.findIndex(item => item.name === itemToPayName);
+      // console.log('propItemIndex', propItemIndex);
 
+      // Increase quantity of item in the state of bill and recalculate new charge
       this.props.table.bill.items[propItemIndex].quantity += 1;
       this.props.table.bill.items[propItemIndex].charge = this.props.table.bill.items[propItemIndex].quantity * itemToPayCost;
+      // console.log('this.props.table.bill.items[propItemIndex].quantity', this.props.table.bill.items[propItemIndex].quantity);
+      // console.log('this.props.table.bill.items[propItemIndex].charge', this.props.table.bill.items[propItemIndex].charge);
 
+      // Set new State of partial Data
       let itemsCopy = this.state.partialPaymentItems;
       itemsCopy[indexPartialPaymentItem].quantity -= 1;
       itemsCopy[indexPartialPaymentItem].charge = itemsCopy[indexPartialPaymentItem].cost * itemsCopy[indexPartialPaymentItem].quantity;
+      // console.log('itemsCopy', itemsCopy);
+      // console.log('itemsCopy[indexPartialPaymentItem]', itemsCopy[indexPartialPaymentItem]);
 
       let partialTotal = itemsCopy.reduce((a, b) => a + b.charge, 0);
-      this.setState({partialTotal: partialTotal});
-      this.setState({partialPaymentItems: [...itemsCopy]},);
 
-      itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt + 1);
+      this.setState({partialTotal: partialTotal}, () => {
+        // console.log('this.state.partialTotal', this.state.partialTotal);
+      });
+      this.setState({partialPaymentItems: [...itemsCopy]}, () => {
+        // console.log('this.state.partialPaymentItems', this.state.partialPaymentItems)
+      });
+
+      // console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+      itemToPayQuantity.setAttribute('data-quantity', itemToPayQuantityInt - 1);
       itemToPayQuantityInt = parseInt(itemToPayQuantity.getAttribute('data-quantity'), 16);
       itemToPayQuantity.innerText = itemToPayQuantityInt;
+
+      // console.log('itemToPayQuantityInt', itemToPayQuantityInt);
+      // console.log('itemToPayQuantity', itemToPayQuantity);
     }
   };
 
-  submitPartialPayment = async () => {
+  submitPartialPayment = async (event) => {
+    event.preventDefault();
     let newPartialTable = {...this.props.table};
     newPartialTable.name = newPartialTable.name + " partial";
 
     let orderList = [...this.state.partialPaymentItems];
     newPartialTable.pendingOrder = [...orderList];
-
+    setTimeout(3000);
     newPartialTable.bill.total -= this.state.partialTotal;
     newPartialTable.amountTendered = this.state.partialTotal;
     newPartialTable.card = this.state.card;
     newPartialTable.paymentType = this.state.paymentMethod;
     newPartialTable.paid = false;
 
-    let seatGuestsPartialPayment = await this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name);
-    let orderSubmit = await this.props.orderSubmit(newPartialTable);
+    let seatGuestsPartialPayment = await setTimeout(this.props.seatGuestsPartialPayment(this.props.table.server, this.props.table.guestNumber, newPartialTable.name),3000);
+    let orderSubmit = await setTimeout(this.props.orderSubmit(newPartialTable),3000);
+
   };
 
   render() {
 
-    //conditional rendering based on the pulldown menu
+    // conditional rendering based on the pull-down menu
     let paymentMethodRender = null;
     switch (this.state.paymentMethod) {
 
@@ -225,20 +240,24 @@ class Checkout extends Component {
               value={this.state.amountTendered}
               placeholder="Cash Tendered"
               onChange={this.handleAmountChange}/>
-            <Button
-              bsSize="large"
-              bsStyle="info"
-              onClick={this.submitPayment}>Submit</Button>
+            <div className="text-center">
+              <button
+                className="btn-clearfix btn-submit"
+                onClick={this.submitPayment}>Submit
+              </button>
+            </div>
           </Hoc>
         );
         break;
 
       case("Payment Method"):
         paymentMethodRender = (
-          <Button
-            bsSize="large"
-            bsStyle="info"
-            disabled>Submit</Button>
+          <div className="text-center">
+            <button
+              className="btn-clearfix btn-submit"
+              disabled>Submit
+            </button>
+          </div>
         );
         break;
 
@@ -246,85 +265,68 @@ class Checkout extends Component {
         // this.tablePropsToState();
         paymentMethodRender = (
           <Hoc>
-            <Grid fluid>
-              <Table striped bordered condensed hover className="mt-5">
-                <thead>
-                <tr>
-                  <th>
-                    Item
-                  </th>
-                  <th>
-                    Quantity
-                  </th>
-                  <th>
-                    Choose
-                  </th>
-                </tr>
-                </thead>
-                <tbody>
-                {/* Loops through bill.items and displays the item name, quantity and delete button */}
-                {this.props.table.bill.items.map((item) => {
-                  return (
-                    <tr key={item._id}>
-                      <td>
-                        {item.name}
-                      </td>
-                      <td data-quantity={item.quantity} data-charge={item.charge}>
-                        {item.quantity}
-                      </td>
-                      <td>
-                        <Button bsStyle="info" id={item.name + " choose"}
-                                onClick={(event) => this.getItemToPayPartial(event)}>+</Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-                </tbody>
-              </Table>
-            </Grid>
-            <Grid fluid>
-              <Table striped bordered condensed hover>
-                <thead>
-                <tr>
-                  <th>
-                    Partial Payment Bill
-                  </th>
-                  <th>
-                    Quantity
-                  </th>
-                  <th>
-                    Delete
-                  </th>
-                </tr>
-                </thead>
-                <tbody>
-                {/* Loops through partialPaymentItems and displays the item name, quantity and delete button */}
-                {this.state.partialPaymentItems.map((item) => {
-                  return (
-                    <tr key={item._id}>
-                      <td>
-                        {item.name}
-                      </td>
-                      <td data-quantity={item.quantity} data-charge={item.charge}>
-                        {item.quantity}
-                      </td>
-                      <td>
-                        <Button bsStyle="danger" id={item.name + " delete"}
-                                onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>X</Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-                </tbody>
-              </Table>
-            </Grid>
-            <Panel className="totalPanel text-center">
-              <h3>Partial Total: {this.state.partialTotal} &euro;</h3>
-            </Panel>
-            <Button
-              bsSize="large"
-              bsStyle="info"
-              onClick={this.submitPartialPayment}>Submit</Button>
+            <div className="text-center">
+              Total Bill
+            </div>
+            <table className="mb-3">
+              <tbody>
+              {/* Loops through bill.items and displays the item name, quantity and delete button */}
+              {this.props.table.bill.items.map((item) => {
+                return (
+                  <tr key={item._id}>
+                    <td>
+                      {item.name}
+                    </td>
+                    <td data-quantity={item.quantity} data-charge={item.charge}>
+                      {item.quantity}
+                    </td>
+                    <td>
+                      <button className="btn-clearfix btn-submit btn icon-plus-symbol mb-0" id={item.name + " choose"}
+                              onClick={(event) => this.getItemToPayPartial(event)}/>
+                    </td>
+                  </tr>
+                );
+              })}
+              </tbody>
+            </table>
+            <div
+              className="text-center">
+              Partial Payment Bill
+              {/*{this.state.partialPaymentItems[0] !== undefined ? 'STATE ' + this.state.partialPaymentItems[0].quantity : 'STATE NULL'}*/}
+
+              {/*PROPS: {this.props.table.bill.items[0].quantity}*/}
+            </div>
+            <table className="mb-3">
+              <tbody>
+              {/* Loops through partialPaymentItems and displays the item name, quantity and delete button */}
+              {this.state.partialPaymentItems.map((item) => {
+                return (
+                  <tr key={item._id}>
+                    <td>
+                      {item.name}
+                    </td>
+                    <td data-quantity={item.quantity} data-charge={item.charge}>
+                      {item.quantity}
+                    </td>
+                    <td>
+                      <button className="btn-clearfix btn-delete btn-red mb-0" id={item.name + " delete"}
+                              onClick={(event) => this.removeItemFromPartialPaymentBill(event)}>-
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+              </tbody>
+            </table>
+            <div className="tile text-center">
+              <div className="tile-content">Partial Total: {this.state.partialTotal} &euro;</div>
+            </div>
+
+            <div className="text-center">
+              <button className="btn-clearfix btn-submit"
+                      onClick={this.submitPartialPayment}>Submit
+              </button>
+            </div>
           </Hoc>
         );
         break;
@@ -368,62 +370,74 @@ class Checkout extends Component {
                 onChange={this.handleCvcChange}/>
             </div>
             <div className="text-center">
-              <Button
-                bsSize="large"
-                bsStyle="info"
-                onClick={this.submitPayment}>
+              <button className="btn-clearfix btn-submit"
+                      onClick={this.submitPayment}>
                 Submit
-              </Button>
+              </button>
             </div>
           </Hoc>
         )
     }
     return (
-      <Well>
-        <ListGroup>
-          <ListGroupItem> Server: {this.props.table.server} </ListGroupItem>
-          <ListGroupItem> ID: {this.props.table.bill.id} </ListGroupItem>
-          <ListGroupItem> Total: {this.props.table.bill.total} </ListGroupItem>
-        </ListGroup>
+      <div>
+        <Grid fluid>
+          <Row>
+            <Col xs={12} sm={6} smOffset={3}>
+              <div className="tile">
+                <div className="tile-content text-center">
+                  Total: {this.props.table.bill.total} &euro;
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
         <form>
           <FormGroup>
-            <DropdownButton
-              id="checkoutDropDown"
-              title={this.state.paymentMethod}>
-              {/*<MenuItem
-                                    value="VISA" 
+            <Grid fluid>
+              <Row>
+                <Col xs={12} sm={6} smOffset={3}
+                     className="text-center mb-3">
+                  <DropdownButton
+                    id="checkoutDropDown"
+                    className="btn-clearfix btn-gray m-0"
+                    title={this.state.paymentMethod}>
+                    {/*<MenuItem
+                                    value="VISA"
                                     onSelect={() => this.payment("VISA")}>VISA
                                     </MenuItem>
 
-                                    <MenuItem 
-                                    value="MasterCard" 
+                                    <MenuItem
+                                    value="MasterCard"
                                     onSelect={() => this.payment("MasterCard")}>MasterCard
                                     </MenuItem>
 
-                                    <MenuItem 
-                                    value="AMEX" 
+                                    <MenuItem
+                                    value="AMEX"
                                     onSelect={() => this.payment("AMEX")}>AMEX
                                     </MenuItem>
 
-                                    <MenuItem 
-                                    value="Diners Club" 
+                                    <MenuItem
+                                    value="Diners Club"
                                     onSelect={() => this.payment("Diners Club")}>Diners Club
                                     </MenuItem>*/}
-              <MenuItem
-                value="Cash"
-                onSelect={() => this.payment("Cash")}>Cash
-              </MenuItem>
-              <MenuItem
-                value="Partial Payment"
-                onSelect={() => this.payment("Partial Payment")}>Partial Payment
-              </MenuItem>
-            </DropdownButton>
-
-            {paymentMethodRender}
-
+                    <MenuItem
+                      value="Cash"
+                      onSelect={() => this.payment("Cash")}>Cash
+                    </MenuItem>
+                    <MenuItem
+                      value="Partial Payment"
+                      onSelect={() => this.payment("Partial Payment")}>Partial Payment
+                    </MenuItem>
+                  </DropdownButton>
+                </Col>
+                <Col xs={12} className="text-center">
+                  {paymentMethodRender}
+                </Col>
+              </Row>
+            </Grid>
           </FormGroup>
         </form>
-      </Well>
+      </div>
     )
   }
 }

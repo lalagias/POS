@@ -2,131 +2,54 @@
 
 // Uses react-bootstrap for CSS styling
 import React from 'react'
-import {Row, Col} from 'react-bootstrap';
-
-const align = {
-    textAlign: "left"
-};
+import {Grid, Row, Col} from 'react-bootstrap';
 
 // Loops through the receipt items to display them individually and put them in Row Col form
 const createReceipt = (items, toggle) => {
-    console.log('items', items);
-    console.log('toggle', toggle);
-    return(
-        items.map(item => {
-            console.log('toggle', toggle);
-            return(
-                // {toggle ?
-                // (
-                <Row key={item._id}>
-
-                    <Col xs={5} style={align}>
-                        {item.name}
-                    </Col>
-
-                    <Col xs={3}>
-                        {item.quantity}
-                    </Col>
-
-                    <Col xs={3} style={align} >
-                        ${parseFloat(item.charge).toFixed(2)}
-                    </Col>
-
-                </Row>
-                // ) : (
-                //     <Row key={item._id}>
-                //
-                //         <Col xs={5} style={align}>
-                //             {item.name}
-                //         </Col>
-                //
-                //         <Col xs={3}>
-                //             {item.quantity}
-                //         </Col>
-                //
-                //         <Col xs={3} style={align} >
-                //             ${parseFloat(item.charge).toFixed(2)}
-                //         </Col>
-                //
-                //     </Row>
-                // )
-            )
-        })
-    )
+  return (
+    items.map(item => {
+      return (
+        <div className="tile">
+          <div className="tile-content">
+            <Grid fluid>
+              <Row key={item._id}>
+                <Col xs={5}>
+                  {item.name}
+                </Col>
+                <Col xs={3}>
+                  {item.quantity}
+                </Col>
+                <Col xs={3}>
+                  &euro; {parseFloat(item.charge).toFixed(2)}
+                </Col>
+              </Row>
+            </Grid>
+          </div>
+        </div>
+      )
+    })
+  )
 };
-
 
 // Renders headers and costs.
 const print = props => {
-    console.log('print props', props);
-    return (
+  return (
 
-        <div style={{height :'40vh', overflow: 'auto'}} >
+    <Grid fluid>
 
-                {!props.removeItemToggle ?
-                    (
-                        <Row>
-                            <Col
-                                xs={5}>
-                                <h3>Item</h3>
-                            </Col>
+      {createReceipt(props.table.bill.items, props.removeItemToggle)}
 
-                            <Col
-                            xs={3}>
-                                <h3>#</h3>
-                            </Col>
-
-                            <Col
-                            xs={3}>
-                            <h3>Cost</h3>
-                            </Col>
-                        </Row>
-                    ) : (
-                        <Row>
-                            <Col
-                            xs={3}>
-                            <h3>Item</h3>
-                            </Col>
-
-                            <Col
-                            xs={3}>
-                            <h3>Remove</h3>
-                            </Col>
-
-                            <Col
-                            xs={3}>
-                            <h3>#</h3>
-                            </Col>
-
-                            <Col
-                            xs={3}>
-                            <h3>Cost</h3>
-                            </Col>
-                        </Row>
-                    )
-                }
-            {createReceipt(props.table.bill.items, props.removeItemToggle)}
-
-            <Row>
-                <Col mdOffset={4}  md={5} style={align}>
-                    <h4>Total: €{parseFloat(props.table.bill.total).toFixed(2)}</h4>
-                </Col>
-            </Row>
-            {/*<Row>
-                <Col mdOffset={4} md={5} style={align}>
-                    <h4>Tax: €{(parseFloat(props.table.bill.total) * 0.07).toFixed(2)}</h4>
-                </Col>
-            </Row>
-            <Row>
-                <Col mdOffset={4} md={5} style={align}>
-                    <h4>Total: €{(parseFloat(props.table.bill.total) * 1.07).toFixed(2)}</h4>
-                </Col>
-                
-            </Row>*/}
-
-
-        </div>
-    )
+      <Row>
+        <Col smOffset={3} sm={6} xs={12}>
+          <div className="tile">
+            <div className="tile-content text-center">
+              Total: €{parseFloat(props.table.bill.total).toFixed(2)}
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </Grid>
+  )
 };
 
 export default print;

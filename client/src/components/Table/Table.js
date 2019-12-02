@@ -7,7 +7,7 @@ import './Table.css';
 const table = props => {
 
         return(
-            <Grid fluid className="mt-5">
+            <Grid fluid>
                 <Row>
                     {props.tables.map( (table)=>{
                     return (
