@@ -304,6 +304,7 @@ class App extends Component {
     if (this.state.user) {
       this.getRegister();
       this.getShift();
+      console.log('getOpenedShifts');
       this.getOpenedShifts();
     }
   };
@@ -414,7 +415,7 @@ class App extends Component {
             register.total = results.data[results.data.length - 1].total;
 
             this.setState({register: {...register}}, () => {
-              console.log('getRegister',this.state.register)
+              console.log('getRegister', this.state.register)
             })
           }
         }
@@ -459,6 +460,7 @@ class App extends Component {
   };
 
   getOpenedShifts = () => {
+    console.log('getOpenedShifts');
     API.getShifts()
       .then((results) => {
         console.log(results);
@@ -474,6 +476,7 @@ class App extends Component {
             register.total = data.reduce((a, b) => a + b.cost, 0);
             console.log(register);
             this.setState({register: register}, () => {
+              console.log(register);
               this.updateRegister(register);
             });
           }
@@ -526,6 +529,7 @@ class App extends Component {
       }, () => {
         this.getRegister();
         this.getShift();
+        this.getOpenedShifts();
         this.props.alert.show('Successfully Logged In!', {type: "success"});
       })
     }

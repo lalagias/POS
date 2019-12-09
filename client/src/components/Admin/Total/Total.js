@@ -66,7 +66,7 @@ class Total extends Component {
               Total Register
             </div>
             <div className="card-value-total text-center">
-              {this.props.register.total}&euro;
+              {this.props.register.total} &euro;
             </div>
             <div className="text-center">
               <button
