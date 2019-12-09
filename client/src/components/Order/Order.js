@@ -27,6 +27,7 @@ class Order extends Component {
 
     //Looks to see if the item already exists in orderList if found increase its quantity count by 1 if not found push the information into the list.
     itemIndex = orderList.findIndex(index => index.name === newItem.name);
+
     itemIndex !== -1 ? orderList[itemIndex].quantity = parseInt(orderList[itemIndex].quantity, 10) + 1 : orderList.push(newItem);
     console.log('this.props.table.pendingOrder FROM ADD-TO-ORDER', orderList);
     //function passed in from app.js and adds the item to app.js' pendingOrder state
@@ -44,7 +45,7 @@ class Order extends Component {
     itemIndex = orderList.findIndex(index => index.name === itemToRemove);
 
     // if quantity of item is greater than 1 subtract 1 from the quantity else remove the item completely
-    orderList[itemIndex].quantity > 1 ? orderList[itemIndex].quantity = parseInt(orderList[itemIndex].quantity, 10) - 1 : orderList.splice(orderList[itemIndex], 1);
+    orderList[itemIndex].quantity > 1 ? orderList[itemIndex].quantity = parseInt(orderList[itemIndex].quantity, 10) - 1 : orderList.splice(itemIndex, 1);
 
     // call function in app.js to update app.js state
     this.props.updatePendingOrder(orderList);

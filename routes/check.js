@@ -106,7 +106,7 @@ router.put('/:id', (req, res, next) => {
                         }
                     }
                     catch (e) {
-                        console.log('execpetion', e);
+                        console.log('exception', e);
                         res.send('Error! check printer');
                     }
                  }

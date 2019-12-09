@@ -544,7 +544,7 @@ class App extends Component {
   updatePendingOrder = pendingOrder => {
     this.setState({
       [this.state.tables[this.state.activeTableIndex].pendingOrder]: pendingOrder
-    }, () => console.log('state after update pending order', this.state.tables[this.state.activeTableIndex].pendingOrder));
+    });
   };
 
   // Saves pending orders into ordered list
