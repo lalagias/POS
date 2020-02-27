@@ -16,7 +16,7 @@
     "debug": "~2.6.9",
     "escpos": "^2.4.11",
     "express": "^4.16.4",
-    "mongoose": "^4.13.7",
+    "mongoose": "^5.9.2",
     "morgan": "^1.9.1",
     "node-thermal-printer": "^4.1.0",
     "nodemon": "^1.19.0",
